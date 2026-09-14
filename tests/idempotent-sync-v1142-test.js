@@ -108,6 +108,6 @@ function writeJson(filePath,value){fs.writeFileSync(filePath,JSON.stringify(valu
 
     console.log('idempotent incremental sync v1.14.2: OK');
   }finally{
-    fs.rmSync(temporaryRoot,{recursive:true,force:true});
+    fs.rmSync(temporaryRoot,{recursive:true,force:true,maxRetries:10,retryDelay:100});
   }
 })().catch(error=>{console.error(error);process.exitCode=1;});

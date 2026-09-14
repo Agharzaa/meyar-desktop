@@ -91,7 +91,7 @@ async function run() {
   await call('users:setActive', { id: staffId, active: false });
   await assert.rejects(() => call('auth:login', { companyId, username: 'aysel.mammadova', password: 'staffpass123' }), /yanlışdır/);
 
-  fs.rmSync(tempRoot, { recursive: true, force: true });
+  fs.rmSync(tempRoot, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
   console.log('user management regression: OK');
 }
 

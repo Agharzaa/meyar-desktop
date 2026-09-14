@@ -68,5 +68,5 @@ assert.equal(material.closing_value,600);
 const summary=api.turnoverBalanceSummary({from:'2026-09-01',to:'2026-09-30'});
 assert.equal(summary.turnover_debit,summary.turnover_credit);
 
-fs.rmSync(tempRoot,{recursive:true,force:true});
+fs.rmSync(tempRoot,{recursive:true,force:true,maxRetries:10,retryDelay:100});
 console.log('system v1.8.0 regression: OK');

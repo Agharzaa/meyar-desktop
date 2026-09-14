@@ -111,5 +111,5 @@ try{
 
   console.log('dbc opening balance attribution: OK');
 } finally {
-  fs.rmSync(tempRoot,{recursive:true,force:true});
+  fs.rmSync(tempRoot,{recursive:true,force:true,maxRetries:10,retryDelay:100});
 }

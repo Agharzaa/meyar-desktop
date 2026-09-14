@@ -85,5 +85,5 @@ try{
 
   console.log('accounting core v1.12.0: OK');
 } finally {
-  fs.rmSync(tempRoot,{recursive:true,force:true});
+  fs.rmSync(tempRoot,{recursive:true,force:true,maxRetries:10,retryDelay:100});
 }

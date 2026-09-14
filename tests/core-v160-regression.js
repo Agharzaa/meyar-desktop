@@ -174,7 +174,7 @@ const migratedSecondVoen = invoice('Gedən', 'LEG-1', '6666666666');
 assert.ok(migratedSecondVoen.id, 'Miqrasiyadan sonra fərqli VÖEN eyni nömrəni istifadə edə bilməlidir');
 
 api.closeDatabasesForExit();
-fs.rmSync(tempRoot, { recursive: true, force: true });
+fs.rmSync(tempRoot, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
 console.log('core v1.7.0 regression: OK');
 }
 

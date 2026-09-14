@@ -153,5 +153,5 @@ try{
   console.log('monthly VAT reconciliation v1.15.0: OK');
 }finally{
   try{api.closeDatabase();}catch(_){/* already closed */}
-  fs.rmSync(temporaryRoot,{recursive:true,force:true});
+  fs.rmSync(temporaryRoot,{recursive:true,force:true,maxRetries:10,retryDelay:100});
 }

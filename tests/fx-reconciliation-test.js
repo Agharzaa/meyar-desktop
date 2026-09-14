@@ -71,5 +71,5 @@ assert.equal(fxLossLine.debit, 100, 'FX loss must equal amount*(paymentRate-invo
 const bankLine = lines.find(l => l.account_code === '223.01');
 assert.equal(bankLine.credit, 1800, 'Bank line must reflect the actual cash paid at the payment rate (1.80)');
 
-fs.rmSync(tempRoot, { recursive: true, force: true });
+fs.rmSync(tempRoot, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
 console.log('FX reconciliation regression: OK');

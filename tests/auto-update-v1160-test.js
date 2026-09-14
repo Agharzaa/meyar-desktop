@@ -51,5 +51,5 @@ try {
   assert.match(workflow, /npm test/);
   console.log('safe Windows installer and auto-update v1.16.0: OK');
 } finally {
-  fs.rmSync(root, { recursive: true, force: true });
+  fs.rmSync(root, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
 }

@@ -167,5 +167,5 @@ try {
 
   console.log('accounting professional v1.13.0: OK');
 } finally {
-  fs.rmSync(temporaryRoot,{recursive:true,force:true});
+  fs.rmSync(temporaryRoot,{recursive:true,force:true,maxRetries:10,retryDelay:100});
 }
