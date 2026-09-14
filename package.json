@@ -39,7 +39,8 @@
       {
         "provider": "github",
         "owner": "Agharzaa",
-        "repo": "meyar-desktop"
+        "repo": "meyar-desktop",
+        "releaseType": "release"
       }
     ],
     "directories": {
