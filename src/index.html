@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self'">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Meyar ERP — Uçot sistemi v1.16.0</title>
+<style>
+:root{--bg:#d8dde3;--surface:#fff;--surface2:#f1f5f9;--slate:#1e293b;--slate2:#334155;--gold:#c29b27;--gold2:#9e7d1d;--line:#cbd5e1;--line2:#e2e8f0;--muted:#64748b;--green:#15803d;--greenbg:#dcfce7;--orange:#c2410c;--orangebg:#ffedd5;--red:#b91c1c;--redbg:#fee2e2;--blue:#0369a1;--bluebg:#e0f2fe;--taxi:#fefce8;--shadow:0 2px 7px rgba(15,23,42,.09);--shadowLg:0 20px 60px rgba(15,23,42,.25);--sans:Inter,sans-serif;--mono:'JetBrains Mono',monospace;--serif:'Playfair Display',serif}
+*{box-sizing:border-box}html,body,#app{height:100%;margin:0}body{font-family:var(--sans);font-size:14px;color:#0f172a;background:var(--bg);overflow:hidden}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{height:100%;display:flex;flex-direction:column}.titlebar{height:34px;background:linear-gradient(#f8fafc,#dbe1e8);border-bottom:1px solid #94a3b8;display:flex;align-items:center;justify-content:space-between;padding:0 11px}.title-left,.title-right{display:flex;align-items:center;gap:8px}.dot{width:10px;height:10px;border-radius:50%;border:1px solid rgba(0,0,0,.16)}.amber{background:#f59e0b}.green{background:#22c55e}.red{background:#ef4444}.title{font-weight:800;color:#334155}.company{font-size:11px;color:#64748b;border-left:1px solid #cbd5e1;padding-left:10px}.ver{font:600 10px var(--mono);color:#94a3b8}.live{font-size:10px;color:var(--green)}.shell{flex:1;display:flex;min-height:0}.sidebar{width:250px;flex:0 0 250px;background:var(--slate);color:#e2e8f0;display:flex;flex-direction:column}.brand{height:66px;display:flex;align-items:center;gap:11px;padding:10px 15px;border-bottom:1px solid #334155}.brandlogo{width:40px;height:40px;border-radius:6px;background:linear-gradient(135deg,#f1d67b,#9e7d1d 70%);display:grid;place-items:center;color:#1e293b;font:700 18px var(--serif)}.brandname{font:700 19px var(--serif);letter-spacing:1px}.brandsub{font:700 8px var(--mono);letter-spacing:1.5px;color:#94a3b8}.switch{margin:12px 10px 5px;padding:9px;border:1px solid #475569;background:#243247;border-radius:5px;display:flex;align-items:center;gap:8px}.avatar{width:28px;height:28px;border-radius:4px;background:var(--gold);color:#1e293b;display:grid;place-items:center;font-size:9px;font-weight:800}.switchtext{flex:1;min-width:0}.switchtext strong{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.switchtext small{color:#94a3b8;font-size:9px}.nav{overflow:auto;flex:1;padding:7px 8px}.section{font-size:9px;font-weight:800;color:#64748b;letter-spacing:1.2px;padding:14px 9px 6px}.navitem{width:100%;display:flex;align-items:center;gap:10px;background:transparent;border:0;color:#cbd5e1;text-align:left;padding:9px 10px;border-radius:4px;margin:1px 0;font-size:11px;font-weight:600}.navitem i{width:17px;text-align:center;color:#94a3b8}.navitem:hover{background:#26364b;color:#fff}.navitem.active{background:rgba(194,155,39,.13);color:#fff;border-left:3px solid var(--gold);padding-left:7px}.navitem.active i{color:var(--gold)}.sidefoot{padding:10px;border-top:1px solid #334155}.sync{display:flex;justify-content:space-between;font-size:9px;color:#94a3b8;margin-bottom:8px}.sync i{color:#22c55e}.help{width:100%;background:transparent;color:#94a3b8;border:1px solid #475569;border-radius:4px;padding:7px;font-size:10px}.main{flex:1;display:flex;flex-direction:column;min-width:0}.top{background:#fff;border-bottom:1px solid var(--line)}.toprow{height:58px;display:grid;grid-template-columns:minmax(190px,1fr) minmax(300px,560px) minmax(280px,1fr);align-items:center;gap:20px;padding:0 18px}.breadcrumb{font-size:10px;color:#94a3b8}.breadcrumb strong{color:#334155}.search{height:34px;display:flex;align-items:center;background:#f8fafc;border:1px solid #94a3b8;border-radius:5px;padding:0 8px;color:#64748b}.search:focus-within{border-color:var(--gold);box-shadow:0 0 0 2px rgba(194,155,39,.12)}.search i{font-size:12px;margin:0 7px}.search input{flex:1;border:0;outline:0;background:transparent;font-size:11px}.search kbd{font:600 8px var(--mono);border:1px solid #cbd5e1;background:#fff;padding:3px 5px;border-radius:3px}.profile{display:flex;align-items:center;justify-content:flex-end;gap:8px}.profile .pavatar{width:31px;height:31px;border-radius:50%;background:#1e293b;color:#f8d86a;display:grid;place-items:center;font-size:9px;font-weight:800}.profile strong{display:block;font-size:10px}.profile small{font-size:9px;color:#64748b}.toolbar{min-height:44px;background:#fff7d6;border-bottom:1px solid #d8c77b;display:flex;align-items:center;justify-content:space-between;padding:7px 18px}.actions{display:flex;gap:7px;align-items:center}.btn{height:31px;border:1px solid #94a3b8;border-radius:4px;background:#fff;color:#334155;padding:0 11px;font-size:10px;font-weight:700;display:inline-flex;align-items:center;gap:7px}.btn:hover{background:#f8fafc;border-color:#64748b}.btn.primary{background:var(--gold);border-color:var(--gold2);color:#fff}.btn.primary:hover{background:var(--gold2)}.workspace{flex:1;overflow:auto;padding:18px}.pagehead{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:14px}.eyebrow{display:block;font:700 8px var(--mono);letter-spacing:1.5px;color:var(--gold2);margin-bottom:4px}.pagehead h1{font:700 24px var(--serif);margin:0;color:#1e293b}.pagehead p{font-size:10px;color:#64748b;margin:3px 0 0}.panel{background:#fff;border:1px solid var(--line);border-radius:5px;box-shadow:var(--shadow);overflow:hidden}.subtabs{display:flex;align-items:center;gap:2px;background:#eef2f6;border:1px solid var(--line);border-radius:4px;padding:3px;margin-bottom:10px;overflow:auto}.subtabs button{height:30px;border:0;border-radius:3px;background:transparent;color:#64748b;padding:0 12px;font-size:10px;font-weight:700;white-space:nowrap}.subtabs button:hover{background:#fff;color:#1e293b}.subtabs button.active{background:#fff;color:#1e293b;box-shadow:0 1px 2px rgba(15,23,42,.12);border-bottom:2px solid var(--gold)}.filters{display:grid;grid-template-columns:minmax(250px,1fr) 160px 160px 160px auto auto;gap:7px;margin-bottom:10px}.field{display:flex;flex-direction:column;gap:3px;font-size:8px;font-weight:700;color:#475569}.field input,.field select{height:31px;border:1px solid #94a3b8;border-radius:4px;background:#fff;padding:0 8px;font-size:10px;outline:0}.summary{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:10px}.sum{background:#fff;border:1px solid var(--line);border-radius:4px;padding:9px 11px}.sum strong{display:block;font:700 15px var(--mono);color:#1e293b}.sum span{font-size:8px;color:#94a3b8}.tablehead{padding:11px 13px;border-bottom:1px solid var(--line2);display:flex;align-items:center;justify-content:space-between}.tablehead h3{font-size:12px;margin:0}.tablehead small{display:block;color:#94a3b8;font-size:9px;margin-top:2px}.tablewrap{overflow:auto}.registry-table{min-width:1180px}.registry-table .col-select{width:34px}.registry-table .col-date{width:92px}.registry-table .col-no{width:142px}.registry-table .col-cp{width:230px}.registry-table .col-voen{width:108px}.registry-table .col-type{width:70px}.registry-table .col-money{width:92px}.registry-table .col-account{width:86px}.registry-table .col-status{width:100px}.registry-table .col-actions{width:72px}.registry-table td,.registry-table th{overflow:hidden;text-overflow:ellipsis}.registry-cp{max-width:230px}.cell-main{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.data-health{min-height:22px;padding:5px 10px;background:#f8fafc;border-bottom:1px solid var(--line2);font-size:8px;color:#64748b}.registry-table tbody tr{height:31px}.load-error{padding:28px!important;text-align:center!important;color:var(--red)!important;font-weight:700!important}table{width:100%;min-width:1180px;border-collapse:collapse;table-layout:fixed;font-size:10px}th{background:#e9eef3;color:#475569;text-align:left;font-size:8px;text-transform:uppercase;letter-spacing:.4px;padding:8px 9px;border:1px solid var(--line2);white-space:nowrap}td{padding:8px 9px;border:1px solid var(--line2);vertical-align:middle;white-space:nowrap}tbody tr:nth-child(even) td{background:#f8fafc}tbody tr:hover td{background:var(--taxi)}.mono{font-family:var(--mono);font-size:9px}.amount{text-align:right!important;font-family:var(--mono);font-weight:600}.badge{display:inline-flex;align-items:center;padding:3px 6px;border-radius:3px;font-size:8px;font-weight:800;border:1px solid}.badge.green{color:var(--green);background:var(--greenbg);border-color:#bbf7d0}.badge.blue{color:var(--blue);background:var(--bluebg);border-color:#bae6fd}.badge.orange{color:var(--orange);background:var(--orangebg);border-color:#fed7aa}.badge.red{color:var(--red);background:var(--redbg);border-color:#fecaca}.rowbtn{height:26px;border:1px solid var(--line);background:#fff;border-radius:3px;padding:0 7px;font-size:8px;color:#475569}.rowbtn:hover{border-color:var(--gold);color:var(--gold2)}.table-sub{display:block;color:#94a3b8;font:8px var(--mono);margin-top:2px}.empty{padding:45px;text-align:center;color:#64748b}.empty i{font-size:30px;color:var(--gold2);display:block;margin-bottom:10px}.empty strong{font:700 17px var(--serif);display:block;color:#1e293b;margin-bottom:4px}.modal{position:fixed;inset:0;z-index:1000}.backdrop{position:absolute;inset:0;background:rgba(15,23,42,.56);backdrop-filter:blur(2px)}.modalcard{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(1120px,calc(100% - 32px));max-height:calc(100% - 32px);overflow:auto;background:#fff;border-radius:7px;border:1px solid #94a3b8;box-shadow:var(--shadowLg)}.modalhead{padding:17px 19px;background:#1e293b;color:#fff;border-bottom:3px solid var(--gold);display:flex;justify-content:space-between}.modalhead h2{font:700 21px var(--serif);margin:0}.modalhead p{font-size:9px;color:#94a3b8;margin-top:3px}.close{border:0;background:transparent;color:#cbd5e1;font-size:17px}.modalbody{padding:18px;background:#f8fafc}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}.grid .span2{grid-column:span 2}.grid .span4{grid-column:1/-1}.grid label{font-size:9px;font-weight:700;color:#475569}.grid input,.grid select,.grid textarea{width:100%;margin-top:5px;border:1px solid #94a3b8;border-radius:4px;background:#fff;padding:0 8px;outline:0;font-size:10px;min-height:34px}.grid textarea{padding:8px;min-height:62px;resize:vertical}.grid input:focus,.grid select:focus,.grid textarea:focus{border-color:var(--gold);box-shadow:0 0 0 2px rgba(194,155,39,.1)}.lines{margin-top:14px;border:1px solid var(--line);background:#fff}.lineshead{padding:9px 11px;border-bottom:1px solid var(--line2);display:flex;align-items:center;justify-content:space-between}.lineshead strong{font-size:10px}.linegrid{display:grid;grid-template-columns:90px 72px minmax(210px,2fr) 72px 70px 92px 82px 78px 92px 34px;gap:5px;padding:6px 7px;background:#eef2f6;border-bottom:1px solid var(--line)}.linegrid input,.linegrid select{height:30px;border:1px solid #b8c4cf;border-radius:3px;padding:0 6px;font-size:9px}.linegrid .head{font-size:7px;font-weight:800;color:#64748b;display:flex;align-items:center}.line{border-bottom:1px solid var(--line2);background:#fff}.line:last-child{border-bottom:0}.totals{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:12px}.totalbox{background:#fff;border:1px solid var(--line);padding:10px;border-radius:4px}.totalbox span{display:block;color:#64748b;font-size:8px;margin-bottom:4px}.totalbox strong{font:700 13px var(--mono)}.totalbox.highlight{background:var(--taxi)}.modalfoot{padding:12px 17px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}.muted{font-size:8px;color:#64748b}.toastroot{position:fixed;right:18px;bottom:18px;z-index:2000;display:flex;flex-direction:column;gap:7px}.toast{min-width:280px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:4px;box-shadow:var(--shadowLg);padding:10px 12px;display:flex;gap:8px;align-items:center;font-size:10px;font-weight:600}.toast.success{border-left-color:var(--green)}.toast.error{border-left-color:var(--red)}.toast.warn{border-left-color:var(--orange)}.toast i{color:var(--blue)}.toast.success i{color:var(--green)}.toast.error i{color:var(--red)}.toast.warn i{color:var(--orange)}
+.dbc-modalcard{width:min(1240px,calc(100% - 28px));max-height:calc(100% - 24px)}
+.dbc-toolbar{display:flex;align-items:flex-end;gap:8px;padding:8px;background:#eef2f6;border:1px solid var(--line);border-radius:4px;margin-bottom:8px}
+.dbc-toolbar .field{min-width:150px}.dbc-toolbar .field.account{min-width:230px}.dbc-toolbar .field input,.dbc-toolbar .field select{height:30px}
+.dbc-summary{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin-bottom:8px}.dbc-summary .sum{padding:7px 9px}.dbc-summary .sum strong{font-size:12px}.dbc-table{min-width:980px}.dbc-table th{text-transform:none;font-size:8px}.dbc-table td{padding:6px 8px}.dbc-table .group{background:#334e68;color:#fff;text-align:center}.dbc-table .debit{background:#f2f7fb}.dbc-table .credit{background:#fff6ef}.dbc-table .balance{background:#f3faf4;font-weight:800}.dbc-status{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 9px;background:#f8fafc;border-top:1px solid var(--line);font-size:8px;color:var(--muted)}
+.dbc-ok{color:var(--green);font-weight:800}.dbc-bad{color:var(--red);font-weight:800}
+.hidden{display:none!important}.detailgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.detailstat{background:#fff;border:1px solid var(--line);border-radius:4px;padding:9px}.detailstat span{display:block;font-size:8px;color:#64748b}.detailstat strong{display:block;font:700 13px var(--mono);margin-top:4px}.detailsection{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:4px;overflow:hidden}.detailsection h4{margin:0;padding:9px 11px;background:#eef2f6;border-bottom:1px solid var(--line);font-size:10px}.detailsection .body{padding:10px}.auditrow{display:grid;grid-template-columns:145px 170px 1fr;gap:10px;font-size:9px;padding:7px 0;border-bottom:1px solid var(--line2)}.auditrow:last-child{border-bottom:0}.posting{background:#f8fafc;border:1px solid var(--line);padding:9px;border-radius:4px;font-size:9px}.posting div{display:flex;justify-content:space-between;padding:3px 0}.posting b{font-family:var(--mono)}.profilehint{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.profilehint>div{background:#fff;border:1px solid var(--line);border-radius:4px;padding:7px}.profilehint span{display:block;color:#64748b;font-size:8px}.profilehint strong{display:block;margin-top:3px;font:700 9px var(--mono)}.cataloghint{font-size:8px;color:#64748b;margin-top:5px}.linegrid .line-total{display:flex;align-items:center;justify-content:flex-end}.locknote{padding:7px 9px;background:#fff8e1;border:1px solid #ead58a;border-radius:4px;color:#715a13;font-size:8px;margin-top:8px}
+
+.registry-table{width:100%!important;min-width:0!important;table-layout:fixed!important}
+.registry-table th,.registry-table td{overflow:hidden;text-overflow:ellipsis}
+.registry-table .select-head,.registry-table .select-cell{width:30px;text-align:center;padding:4px 2px!important}
+.registry-table .select-cell input,.registry-table .select-head input{width:13px;height:13px;margin:0;vertical-align:middle}
+.registry-table .col-date{width:86px}.registry-table .col-no{width:105px}.registry-table .col-cp{width:205px}.registry-table .col-voen{width:105px}.registry-table .col-type{width:65px}.registry-table .col-money{width:87px}.registry-table .col-account{width:112px}.registry-table .col-status{width:90px}.registry-table .col-actions{width:64px}
+.registry-table .registry-date,.registry-table .registry-no,.registry-table .registry-voen{white-space:nowrap;font-size:8.5px}
+.registry-table .registry-cp{white-space:nowrap;max-width:205px}.registry-table .registry-cp .cell-main{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
+.registry-table .action-cell{display:table-cell;text-align:center;width:64px}.registry-table .action-cell .rowbtn{display:inline-flex;align-items:center;justify-content:center;margin:0 1px}.registry-table .dangerrow{color:var(--red)}
+.registry-table .col-select{width:2.2%}.registry-table .col-date{width:6.3%}.registry-table .col-no{width:7.7%}.registry-table .col-cp{width:17%}.registry-table .col-voen{width:7%}.registry-table .col-type{width:5.5%}.registry-table .col-money{width:6.8%}.registry-table .col-account{width:8.2%}.registry-table .col-status{width:7%}.registry-table .col-actions{width:4.7%}.registry-table .account-pill{max-width:100%;overflow:hidden;text-overflow:ellipsis}.registry-table .status-cell{overflow:hidden;text-overflow:ellipsis}.table-tools{display:flex;align-items:center;gap:8px}.bulk-delete{height:27px;padding:0 8px;font-size:9px}.hidden{display:none!important}
+@media(max-width:1200px){.toprow{grid-template-columns:1fr 1.3fr auto}.filters{grid-template-columns:1fr 140px 140px 140px auto auto}.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:800px){.sidebar{width:64px;flex-basis:64px}.brand>div:last-child,.switch,.section,.navitem span,.sidefoot{display:none}.brand{justify-content:center}.navitem{justify-content:center}.toprow{grid-template-columns:1fr auto}.breadcrumb{display:none}.profile>div:not(.pavatar){display:none}.filters{grid-template-columns:1fr 1fr}.summary{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.grid .span2,.grid .span4{grid-column:auto}.linegrid{min-width:890px}.totals{grid-template-columns:1fr 1fr}}
+
+.statusflow{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:0 0 12px}.statusstep{border:1px solid #cbd5e1;background:#fff;padding:7px 10px;border-radius:4px;font-size:9px;font-weight:800;color:#64748b}.statusstep.active{border-color:#c29b27;background:#fff8d9;color:#7c5f0f}.statusarrow{color:#94a3b8;font-size:10px}.timeline{display:flex;flex-direction:column;gap:7px}.timelineitem{display:grid;grid-template-columns:150px 1fr auto;gap:10px;align-items:center;padding:8px 9px;border:1px solid #e2e8f0;background:#fff;border-radius:4px}.timelineitem small{font-size:8px;color:#64748b}.timelineitem strong{font-size:9px;color:#1e293b}.timelineitem span{font-size:8px;color:#64748b}.archive-note{padding:8px 10px;border:1px solid #fed7aa;background:#fff7ed;border-radius:4px;color:#9a3412;font-size:9px;margin-bottom:10px}.reconcile-card{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.reconcile-card>div{background:#fff;border:1px solid #cbd5e1;border-radius:4px;padding:8px}.reconcile-card span{display:block;font-size:8px;color:#64748b}.reconcile-card strong{display:block;font:800 12px var(--mono);margin-top:4px;color:#1e293b}
+@media(max-width:850px){.timelineitem{grid-template-columns:1fr}.reconcile-card{grid-template-columns:1fr 1fr}}
+.sourcegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:12px}.sourcecard{border:1px solid var(--line);border-radius:5px;background:#fff;display:flex;align-items:center;gap:10px;padding:11px 12px;text-align:left;color:#334155;box-shadow:var(--shadow)}.sourcecard:hover{border-color:#94a3b8;background:#f8fafc}.sourcecard.primarysource{border-color:#d8c77b;background:#fffaf0}.sourcecard.livecard{background:#f7fbff;border-color:#b9d3e7}.sourceicon{width:34px;height:34px;border-radius:5px;display:grid;place-items:center;background:#eef2f6;color:var(--gold2);flex:0 0 34px}.livecard .sourceicon{color:var(--blue);background:var(--bluebg)}.sourcecard span:not(.sourceicon){flex:1}.sourcecard b{display:block;font-size:10px}.sourcecard small{display:block;margin-top:3px;font-size:8px;color:#64748b;line-height:1.45}.sourcecard>i:last-child{font-size:9px;color:#94a3b8}@media(max-width:950px){.sourcegrid{grid-template-columns:1fr}}
+/* v0.7 compact accountant grid */
+.compact-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-bottom:8px}
+.compact-summary .sum{padding:7px 10px}.compact-summary .sum strong{font-size:14px}.compact-summary .sum span{font-size:8px}
+.registry-head{padding:9px 12px}.registry-head h3{font-size:12px}.registry-head small{font-size:8px}
+.registry-table{font-size:9px!important}.registry-table th{padding:6px 7px!important;font-size:7.5px!important}.registry-table td{padding:6px 7px!important;height:30px!important}
+.registry-table .cell-main{font-weight:700;color:#1e293b}.registry-table .cell-sub{display:block;margin-top:1px;font-size:7.5px;color:#64748b}.registry-table .date-no{line-height:1.25}
+.registry-table .compact-money{font:600 9px var(--mono);text-align:right;white-space:nowrap}.registry-table .account-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 5px;border-radius:3px;border:1px solid #d5dde5;background:#f8fafc;color:#334155;font:700 8px var(--mono);white-space:nowrap}
+.registry-table .account-pill.goods{background:#eef6ff;color:#075985;border-color:#cfe0f2}.registry-table .account-pill.service{background:#fff5ed;color:#9a3412;border-color:#f0d3bb}.registry-table .status-cell{white-space:nowrap}.registry-table .action-cell{width:auto;text-align:center}.registry-table .rowbtn{height:24px;padding:0 6px}
+.lines{margin-top:10px;border:1px solid var(--line);background:#fff}.lineshead{padding:8px 10px;border-bottom:1px solid var(--line2);display:flex;justify-content:space-between;align-items:center}.lineshead strong{font-size:10px}
+.linegrid{display:grid;grid-template-columns:82px 76px minmax(220px,1fr) 66px 64px 92px 66px 66px 84px 32px;gap:4px;align-items:center}.lines .linegrid{padding:4px 6px}.lines .head{font-size:7.5px;text-transform:uppercase;color:#64748b;font-weight:800;background:#eef2f6;padding:6px 5px}.lines .linegrid input,.lines .linegrid select{height:29px;min-height:29px;margin:0;padding:0 6px;font-size:9px;border:1px solid #aab7c4;border-radius:3px;background:#fff}.line-account{display:inline-flex;align-items:center;justify-content:center;min-height:25px;padding:0 5px;border:1px solid #cbd5e1;border-radius:3px;background:#f8fafc;font:700 8px var(--mono);white-space:nowrap}.line-account.goods{background:#eef6ff;color:#075985;border-color:#cfe0f2}.line-account.service{background:#fff5ed;color:#9a3412;border-color:#f0d3bb}
+.posting-matrix{border:1px solid var(--line);background:#fff;margin-top:8px}.posting-matrix-head,.posting-row{display:grid;grid-template-columns:1fr 105px 100px;gap:8px;align-items:center}.posting-matrix-head{padding:6px 9px;background:#eef2f6;font-size:7.5px;color:#64748b;font-weight:800;text-transform:uppercase}.posting-row{padding:6px 9px;border-top:1px solid var(--line2);font-size:9px}.posting-row strong{font:700 9px var(--mono)}.posting-row .debit{color:#075985;font-weight:800}.posting-row .credit{color:#9a3412;font-weight:800}
+@media(max-width:950px){.compact-summary{grid-template-columns:1fr 1fr}.linegrid{grid-template-columns:72px 70px minmax(180px,1fr) 62px 60px 86px 62px 62px 78px 30px}}
+
+
+/* v0.8 compact accounting layout */
+.tablewrap table{min-width:980px;font-size:9px}.tablewrap th{padding:6px 7px;font-size:7px}.tablewrap td{padding:6px 7px}.tablewrap th:nth-child(1),.tablewrap td:nth-child(1){width:82px}.tablewrap th:nth-child(2),.tablewrap td:nth-child(2){width:110px}.tablewrap th:nth-child(3),.tablewrap td:nth-child(3){width:210px}.tablewrap th:nth-child(4),.tablewrap td:nth-child(4){width:108px}.tablewrap th:nth-child(5),.tablewrap td:nth-child(5){width:72px}.tablewrap th:nth-child(10),.tablewrap td:nth-child(10){width:74px}
+.compact-fields{display:grid;grid-template-columns:120px 150px 150px 115px 1fr 130px 95px;gap:8px;align-items:end}.compact-fields .wide{grid-column:span 2}.compact-fields label{min-width:0}.compact-fields input,.compact-fields select{height:32px}.linegrid.v08{grid-template-columns:90px 76px minmax(210px,1fr) 85px 70px 100px 80px 75px 92px 32px!important;gap:4px!important}.linegrid.v08 .head{font-size:7px;padding:5px 4px}.linegrid.v08 input,.linegrid.v08 select{height:30px;font-size:9px;padding:0 5px}.linegrid.v08 .line-account{font-size:8px;padding:7px 4px}.line-total-v08{font-family:var(--mono);font-weight:700;text-align:right;padding:7px 4px}.dangerbtn{border-color:#fecaca!important;color:var(--red)!important;background:#fff5f5!important}.dangerbtn:hover{background:var(--redbg)!important}.modalcard.invoice-v08{width:min(1180px,calc(100% - 24px))}.form-section-v08{background:#fff;border:1px solid var(--line2);border-radius:4px;margin-bottom:9px;padding:10px}.section-title-v08{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.section-title-v08 strong{font-size:10px;color:#334155}.hint-v08{font-size:8px;color:#94a3b8}.totals.v08{grid-template-columns:repeat(4,1fr);gap:7px}.detail-actions-v08{display:flex;gap:5px;flex-wrap:wrap}
+@media(max-width:1000px){.compact-fields{grid-template-columns:repeat(4,minmax(0,1fr))}.compact-fields .wide{grid-column:span 2}}
+@media(max-width:700px){.compact-fields{grid-template-columns:1fr 1fr}.compact-fields .wide{grid-column:1/-1}}
+
+.compact-fields-v10{grid-template-columns:110px 120px 155px 125px 125px 90px minmax(240px,1fr) 125px 85px 130px 130px!important}.compact-fields-v10 .wide2{grid-column:span 1}.note-label-v10{display:block;margin-top:8px;font-size:9px;font-weight:700;color:#475569}.note-label-v10 textarea{width:100%;margin-top:5px;min-height:54px;border:1px solid #94a3b8;border-radius:4px;padding:7px}.linegrid.v10{grid-template-columns:75px 68px minmax(180px,1fr) 62px 60px 85px 62px 62px 125px 90px 30px!important;gap:4px!important;min-width:980px}.linegrid.v10 .head{font-size:7px;padding:5px 4px}.linegrid.v10 input,.linegrid.v10 select{height:29px;font-size:9px;padding:0 5px}.linegrid.v10 .li-account-input{font-family:var(--mono);font-weight:700}.grid-v10{grid-template-columns:repeat(4,minmax(0,1fr))}.grid-v10 input{min-height:32px}.registry-table .col-account{width:90px}.registry-table .col-cp{width:190px}.registry-table th,.registry-table td{padding:5px 6px!important}.sourcegrid{grid-template-columns:repeat(3,minmax(0,1fr))}.sourcecard{min-height:62px}.navitem[data-direction-window]{cursor:pointer}.navitem[data-direction-window]:nth-of-type(2){margin-top:2px}.direction-window-title{font-size:11px;font-weight:800;color:#334155}.account-pill{max-width:115px;overflow:hidden;text-overflow:ellipsis}@media(max-width:1150px){.compact-fields-v10{grid-template-columns:repeat(4,minmax(0,1fr))!important}.grid-v10{grid-template-columns:repeat(2,minmax(0,1fr))}.linegrid.v10{min-width:950px}}
+
+.bank-grid{display:grid;grid-template-columns:1.2fr 2fr;gap:10px;margin-bottom:10px}.bank-card{background:#fff;border:1px solid var(--line);border-radius:5px;box-shadow:var(--shadow);overflow:hidden}.bank-card-head{padding:11px 13px;border-bottom:1px solid var(--line2);display:flex;justify-content:space-between;align-items:center}.bank-card-head h3{margin:0;font-size:12px}.bank-card-head small{display:block;color:#94a3b8;font-size:9px;margin-top:2px}.bank-body{padding:12px}.bank-status{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.bank-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border:1px solid var(--line);border-radius:4px;background:#f8fafc;font-size:9px;font-weight:700;color:#475569}.bank-chip.ok{color:var(--green);background:var(--greenbg);border-color:#bbf7d0}.bank-chip.wait{color:#9a6700;background:#fff7d6;border-color:#ead58a}.bank-chip i{font-size:9px}.bank-account-row{border:1px solid var(--line2);border-radius:4px;padding:9px;margin-bottom:7px;cursor:pointer;background:#fff}.bank-account-row:hover,.bank-account-row.active{background:#f8fafc;border-color:var(--gold)}.bank-account-row strong{font-size:10px}.bank-account-row small{display:block;color:#64748b;font-size:8px;margin-top:3px}.bank-account-meta{display:flex;justify-content:space-between;margin-top:6px;color:#94a3b8;font:8px var(--mono)}.bank-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}.bank-summary .sum{padding:8px}.bank-summary .sum strong{font-size:14px}.bank-toolbar{display:flex;gap:7px;align-items:flex-end;flex-wrap:wrap;margin-bottom:10px}.bank-table{min-width:1100px}.bank-table td,.bank-table th{font-size:9px}.bank-dir-in{color:var(--green);font-weight:800}.bank-dir-out{color:var(--red);font-weight:800}.bank-ref{font-family:var(--mono);font-size:8px}.bank-integration{background:#f8fafc;border:1px solid var(--line2);border-radius:4px;padding:10px;margin-top:9px;font-size:9px;line-height:1.55}.bank-integration b{color:#1e293b}.bank-note{background:#fff8e1;border:1px solid #ead58a;border-radius:4px;padding:9px;font-size:9px;color:#715a13;margin-bottom:10px}.bank-form{display:grid;grid-template-columns:1fr 1fr;gap:8px}.bank-form .field.full{grid-column:1/-1}.bank-empty{padding:35px;text-align:center;color:#64748b;font-size:10px}.bank-empty i{display:block;font-size:25px;color:var(--gold2);margin-bottom:8px}
+.tax-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:12px}.tax-card{background:#fff;border:1px solid var(--line);border-radius:5px;box-shadow:var(--shadow);overflow:hidden}.tax-card-head{padding:12px 14px;border-bottom:1px solid var(--line2);display:flex;justify-content:space-between;align-items:center}.tax-card-head h3{font-size:12px;margin:0}.tax-card-head small{display:block;color:#94a3b8;font-size:9px;margin-top:2px}.tax-body{padding:14px}.tax-status{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.tax-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:4px;border:1px solid #cbd5e1;background:#f8fafc;color:#475569;font-size:8px;font-weight:800}.tax-chip.ok{color:var(--green);background:var(--greenbg);border-color:#bbf7d0}.tax-chip.warn{color:var(--orange);background:var(--orangebg);border-color:#fed7aa}.tax-actions{display:flex;gap:7px;flex-wrap:wrap}.tax-note{padding:10px 12px;background:#fff7d6;border:1px solid #d8c77b;border-radius:4px;color:#475569;font-size:9px;line-height:1.55;margin-bottom:12px}.tax-form{display:grid;grid-template-columns:1fr 1fr;gap:9px}.tax-form .full{grid-column:1/-1}.tax-form input,.tax-form select{height:32px;width:100%;border:1px solid #94a3b8;border-radius:4px;padding:0 8px;font-size:10px}.tax-packages{margin-top:12px}.tax-package-row{display:grid;grid-template-columns:110px 130px 1fr 130px 90px;gap:8px;align-items:center;padding:8px 10px;border-bottom:1px solid var(--line2);font-size:9px}.tax-package-row:last-child{border-bottom:0}.tax-package-row .file{font-family:var(--mono);overflow:hidden;text-overflow:ellipsis}.tax-empty{padding:35px;text-align:center;color:#64748b;font-size:10px}.tax-portal{min-height:250px;display:grid;place-items:center;background:linear-gradient(180deg,#eef2f6,#f8fafc);border:1px dashed #94a3b8;border-radius:5px}.tax-portal strong{font:700 20px var(--serif);color:#1e293b;display:block;text-align:center}.tax-portal p{font-size:9px;color:#64748b;text-align:center;max-width:460px;line-height:1.6}.tax-selected{margin-top:9px;padding:9px;border:1px solid var(--line2);background:#f8fafc;border-radius:4px;font-size:9px}.tax-table{min-width:760px}.tax-help-list{margin:0;padding-left:18px;color:#475569;font-size:9px;line-height:1.8}
+</style>
+
+<style id="v15-fixes">
+/* v1.5 UI hardening: direction pages are rendered inside the same ERP shell. */
+.navitem[data-direction-window]{position:relative}
+.navitem[data-direction-window].active::after{content:"";position:absolute;right:8px;width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.toolbar .direction-switch{display:flex;gap:4px;align-items:center;margin-right:4px}
+.direction-switch .btn{min-width:92px;justify-content:center}
+.direction-switch .btn.active{background:#334155;border-color:#334155;color:#fff}
+.workspace{scrollbar-gutter:stable}
+.tablewrap{scrollbar-width:thin}
+.tablewrap table{min-width:0}
+.registry-table{min-width:1120px}
+@media(max-width:900px){.sidebar{width:210px;flex-basis:210px}.toprow{grid-template-columns:1fr;gap:8px;height:auto;padding:10px 14px}.profile{justify-content:flex-start}.filters{grid-template-columns:1fr 1fr}.summary{grid-template-columns:1fr 1fr}.sourcegrid{grid-template-columns:1fr}.toolbar{align-items:flex-start;gap:8px;overflow:auto}.actions{flex-wrap:wrap}.direction-switch{order:-1}}
+</style>
+
+<style id="v12-fixes">
+.data-health{height:25px;display:flex;align-items:center;padding:0 10px;margin-bottom:6px;background:#eef2f6;border:1px solid #cbd5e1;border-radius:3px;color:#64748b;font:600 9px var(--mono)}
+.registry-table{table-layout:fixed;min-width:1120px}
+.registry-table th,.registry-table td{padding:6px 7px}
+.registry-table th:nth-child(1){width:34px}.registry-table th:nth-child(2){width:92px}.registry-table th:nth-child(3){width:122px}.registry-table th:nth-child(4){width:255px}.registry-table th:nth-child(5){width:115px}.registry-table th:nth-child(6){width:68px}.registry-table th:nth-child(7),.registry-table th:nth-child(8),.registry-table th:nth-child(9),.registry-table th:nth-child(10),.registry-table th:nth-child(11){width:105px}.registry-table th:nth-child(12){width:82px}.registry-table th:nth-child(13){width:88px}.registry-table th:nth-child(14){width:78px}
+.registry-cp{overflow:hidden;text-overflow:ellipsis}.registry-no{white-space:nowrap}.registry-date{white-space:nowrap}.compact-money{font-variant-numeric:tabular-nums;text-align:right;font-family:var(--mono);font-size:9px}
+.form-section-v08,.form-section-v10{margin-bottom:9px}
+.invoice-v10 .modalbody{padding:12px;background:#f4f7fa}.invoice-v10 .grid{gap:8px}.invoice-v10 .grid input,.invoice-v10 .grid select,.invoice-v10 .grid textarea{min-height:32px}
+.linegrid.v10{grid-template-columns:78px 72px minmax(190px,1.7fr) 74px 72px 92px 68px 68px 105px 112px 32px!important;gap:5px!important;align-items:center}
+.linegrid.v10 input,.linegrid.v10 select{height:31px!important;margin:0!important;min-height:31px!important;padding:0 6px!important}
+.line-total-v08{height:31px;display:flex;align-items:center;justify-content:flex-end;border:1px solid #cbd5e1;background:#fff;border-radius:3px;padding:0 6px;font:600 9px var(--mono)}
+@media(max-width:1250px){.registry-table{min-width:1080px}.linegrid.v10{grid-template-columns:70px 68px minmax(150px,1.5fr) 68px 66px 84px 60px 60px 92px 105px 30px!important}}
+</style>
+
+<style id="auth-v1">
+#authScreen{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef2f6,#dfe5eb);font-family:Inter,system-ui,sans-serif}
+.auth-card{width:min(470px,calc(100vw - 36px));background:#fff;border:1px solid #cbd5e1;border-radius:10px;box-shadow:0 24px 70px rgba(15,23,42,.18);padding:26px}
+.auth-brand{display:flex;align-items:center;gap:12px;margin-bottom:22px}.auth-logo{width:42px;height:42px;border-radius:8px;background:#172033;color:#f1d67b;display:grid;place-items:center;font-weight:900;letter-spacing:.5px}.auth-brand strong{display:block;font-size:17px;color:#172033}.auth-brand small{color:#64748b;font-size:10px}.auth-card h1{font-size:21px;margin:0 0 6px;color:#172033}.auth-card .hint{font-size:11px;color:#64748b;margin:0 0 18px;line-height:1.5}.auth-form{display:grid;gap:11px}.auth-form label{display:grid;gap:5px;font-size:10px;font-weight:700;color:#334155}.auth-form input,.auth-form select{height:38px;border:1px solid #cbd5e1;border-radius:5px;padding:0 10px;font-size:12px;outline:none}.auth-form input:focus,.auth-form select:focus{border-color:#64748b;box-shadow:0 0 0 2px rgba(100,116,139,.12)}.auth-btn{height:40px;border:0;border-radius:5px;background:#172033;color:#fff;font-weight:800;cursor:pointer;margin-top:5px}.auth-btn:hover{filter:brightness(1.08)}.auth-error{display:none;padding:9px 10px;border-radius:5px;background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;font-size:10px;line-height:1.4}.auth-meta{margin-top:15px;padding-top:12px;border-top:1px solid #e2e8f0;color:#94a3b8;font-size:9px}.auth-step{display:none}.auth-step.active{display:block}
+#app{display:none}.session-company{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.auth-link-btn{width:100%;margin-top:9px;height:34px;border:1px solid #cbd5e1;background:#f8fafc;color:#334155;border-radius:5px;font-size:10px;font-weight:800;cursor:pointer}.auth-link-btn:hover{border-color:#64748b;background:#eef2f6}.auth-back{width:100%;margin-top:8px;height:32px;border:0;background:transparent;color:#64748b;font-size:10px;font-weight:700;cursor:pointer}.company-select-wrap{display:flex;gap:6px}.company-select-wrap select{flex:1}
+
+.accounting-card{width:min(1180px,calc(100% - 28px))}.accounting-toolbar{display:flex;align-items:flex-end;gap:8px;padding:10px;background:#eef2f6;border:1px solid var(--line);border-radius:4px;margin-bottom:9px}.accounting-toolbar .field{min-width:180px}.accounting-toolbar .field input{height:31px}.accounting-note{padding:8px 10px;background:#fff8e1;border:1px solid #ead58a;border-radius:4px;color:#715a13;font-size:9px;line-height:1.45;margin-bottom:9px}.opening-table{min-width:720px}.opening-table td,.opening-table th{padding:6px 8px}.opening-table input{width:100%;height:29px;border:1px solid #b8c4cf;border-radius:3px;padding:0 7px;font:9px var(--mono);text-align:right;outline:0}.opening-table input:focus{border-color:var(--gold);box-shadow:0 0 0 2px rgba(194,155,39,.1)}.opening-table .account-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.opening-total{display:flex;justify-content:flex-end;gap:20px;padding:9px;background:#f8fafc;border-top:1px solid var(--line);font:700 10px var(--mono)}.activation-state{display:inline-flex;align-items:center;gap:6px;padding:4px 7px;border-radius:3px;font-size:8px;font-weight:800}.activation-state.on{background:var(--greenbg);color:var(--green);border:1px solid #bbf7d0}.activation-state.off{background:var(--orangebg);color:var(--orange);border:1px solid #fed7aa}
+.dbc-account-row{cursor:pointer}.dbc-account-row:hover,.cp-row:hover{filter:brightness(.98);background:rgba(241,214,123,.08)}.cp-row{cursor:pointer}
+</style>
+
+<style id="professional-ui-v160">
+:root{--sans:"Segoe UI",Arial,sans-serif;--mono:"Cascadia Mono","Consolas",monospace;--serif:Georgia,"Times New Roman",serif;--gold:#d4ad32;--gold2:#80630d;--focus:#2563eb;--radius:7px}
+body{font-size:14px;line-height:1.4}.sidebar{width:244px;flex-basis:244px}.navitem{font-size:12px;min-height:38px;border-radius:6px}.section{font-size:10px}.switchtext strong,.profile strong{font-size:12px}.switchtext small,.profile small,.company,.live{font-size:10px}
+.btn{height:35px;font-size:12px;border-radius:6px;padding:0 12px}.btn.primary{color:#172033}.field{font-size:11px;gap:5px}.field input,.field select{height:36px;font-size:12px;border-radius:6px}.pagehead p,.sourcecard small,.tablehead small,.muted,.data-health{font-size:11px}.eyebrow{font-size:10px}.subtabs button{height:35px;font-size:12px}.sum span,.detailstat span,.totalbox span{font-size:10px}.sum strong{font-size:16px}
+table{font-size:11px}th{font-size:10px;padding:8px}td{padding:8px}.registry-table .registry-date,.registry-table .registry-no,.registry-table .registry-voen,.compact-money,.mono{font-size:10.5px}.badge{font-size:10px;padding:4px 7px}.rowbtn{height:29px;min-width:29px;font-size:11px}.table-sub{font-size:9px}.data-health{min-height:31px!important;height:auto!important;padding:6px 10px!important}
+.modalcard{border-radius:10px}.modalhead p{font-size:11px}.modalbody{font-size:12px}.modalfoot .muted{font-size:10px}.grid label,.compact-fields label,.note-label-v10{font-size:11px}.grid input,.grid select,.grid textarea,.compact-fields input,.compact-fields select,.compact-fields textarea{font-size:12px!important}.linegrid.v10 input,.linegrid.v10 select{font-size:11px!important}.linegrid.v10 .head{font-size:9px!important}.line-total-v08{font-size:10px}.toast{font-size:12px;min-width:320px}.auth-card .hint{font-size:12px}.auth-form label{font-size:11px}.auth-meta{font-size:10px}.accounting-note,.bank-note,.tax-note,.bank-integration,.tax-selected{font-size:11px!important;line-height:1.55}.dbc-table th,.dbc-status{font-size:10px}.dbc-table td{font-size:11px}.auditrow{font-size:10px}.statusstep,.timelineitem strong,.timelineitem span,.timelineitem small{font-size:10px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid color-mix(in srgb,var(--focus) 35%,transparent);outline-offset:2px}.disabled,[aria-disabled="true"]{opacity:.55;cursor:not-allowed}.dangerbtn{color:var(--red);border-color:#f1a9a9}.dangerbtn:hover{background:var(--redbg);border-color:var(--red)}
+.fa-solid,.fa-regular{font-family:"Segoe UI Symbol","Segoe UI",sans-serif!important;font-style:normal;font-weight:700;display:inline-block;line-height:1}.fa-solid::before,.fa-regular::before{content:"•"}.fa-magnifying-glass::before{content:"⌕"}.fa-circle-check::before,.fa-check::before{content:"✓"}.fa-circle-xmark::before,.fa-xmark::before{content:"×"}.fa-triangle-exclamation::before{content:"⚠"}.fa-circle-info::before,.fa-circle-question::before{content:"ⓘ"}.fa-chevron-right::before,.fa-forward::before{content:"›"}.fa-chevron-down::before{content:"⌄"}.fa-arrow-left::before{content:"←"}.fa-arrow-down::before,.fa-download::before,.fa-file-arrow-down::before{content:"↓"}.fa-arrow-up::before,.fa-file-arrow-up::before,.fa-file-export::before{content:"↑"}.fa-plus::before{content:"+"}.fa-trash::before{content:"⌫"}.fa-pen-to-square::before{content:"✎"}.fa-folder-open::before{content:"▣"}.fa-floppy-disk::before{content:"▣"}.fa-lock::before{content:"●"}.fa-unlock::before{content:"○"}.fa-database::before{content:"◫"}.fa-table-list::before,.fa-list::before{content:"☷"}.fa-right-left::before{content:"⇄"}.fa-rotate::before,.fa-rotate-left::before{content:"↻"}.fa-right-from-bracket::before,.fa-arrow-up-right-from-square::before{content:"↗"}.fa-building-columns::before,.fa-landmark::before{content:"▥"}.fa-gauge-high::before{content:"◴"}.fa-keyboard::before{content:"⌨"}.fa-book::before{content:"▤"}.fa-wallet::before{content:"▰"}.fa-shield-halved::before{content:"◇"}.fa-globe::before{content:"◎"}.fa-circle::before{content:"●"}
+.dashboard-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}.dashboard-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px;box-shadow:var(--shadow)}.dashboard-card span{display:block;color:var(--muted);font-size:11px}.dashboard-card strong{display:block;font:700 22px var(--mono);margin-top:5px}.dashboard-columns{display:grid;grid-template-columns:minmax(0,2fr) minmax(280px,1fr);gap:12px}.dashboard-list{display:grid;gap:8px}.dashboard-list>div{display:flex;justify-content:space-between;gap:14px;padding:10px;border:1px solid var(--line2);border-radius:6px;background:#fff}.dashboard-list small{display:block;color:var(--muted);margin-top:2px}.balance-side{display:inline-flex;margin-left:5px}.balance-side.debit{color:var(--blue)}.balance-side.credit{color:var(--orange)}
+.sourcecard b,.section-title-v08 strong,.bank-card-head h3,.tax-card-head h3{font-size:12px}.hint-v08,.sourcecard>i:last-child{font-size:10px}.bank-card-head small,.tax-card-head small,.bank-account-row small,.bank-account-meta,.bank-ref,.tax-chip,.tax-help-list,.tax-portal p{font-size:10px}.bank-account-row strong{font-size:12px}.bank-account-row{position:relative;padding-right:42px;border-radius:7px}.bank-account-edit{position:absolute;right:8px;top:8px}.bank-table td,.bank-table th,.tax-table td,.tax-table th,.dashboard-table td,.dashboard-table th{font-size:11px}.tax-form input,.tax-form select{height:36px;font-size:12px}.tax-chip,.bank-chip{font-size:10px}.posting-matrix-head{font-size:10px}.posting-row,.posting-row strong{font-size:11px}.compact-summary .sum strong{font-size:14px;overflow-wrap:anywhere}.auth-link-btn,.help{font-size:11px}
+.tablewrap .bank-table{min-width:1100px!important}.tablewrap .tax-table{min-width:760px!important}.tablewrap .dashboard-table{min-width:820px!important}.tablewrap .dbc-table{min-width:980px!important}.tablewrap .opening-table{min-width:760px!important}.tablewrap :is(.bank-table,.tax-table,.dashboard-table,.dbc-table,.opening-table) th,.tablewrap :is(.bank-table,.tax-table,.dashboard-table,.dbc-table,.opening-table) td{width:auto}
+@media(max-width:1200px){.dashboard-grid{grid-template-columns:1fr 1fr}.dashboard-columns{grid-template-columns:1fr}.toolbar>.muted{display:none}.filters{grid-template-columns:minmax(220px,1fr) 145px 145px 145px auto auto}}
+@media(max-width:900px){.sidebar{width:72px!important;flex-basis:72px!important}.brand>div:last-child,.switch,.section,.navitem span,.sidefoot,.sidebar>.auth-link-btn{display:none!important}.brand,.navitem{justify-content:center}.navitem{padding:9px!important}.workspace{padding:12px}.toprow{grid-template-columns:1fr auto!important}.profile{justify-content:flex-end!important}.filters{grid-template-columns:1fr 1fr}.dashboard-grid{grid-template-columns:1fr}.dashboard-columns{grid-template-columns:1fr}}
+</style>
+
+<link rel="stylesheet" href="./styles-v180.css">
+<link rel="stylesheet" href="./styles-v181.css">
+<link rel="stylesheet" href="./styles-v182.css">
+<link rel="stylesheet" href="./styles-v113.css">
+<link rel="stylesheet" href="./styles-v1150.css">
+<link rel="stylesheet" href="./styles-v1160.css">
+
+</head>
+<body>
+<div id="authScreen">
+  <div class="auth-card">
+    <div class="auth-brand"><div class="auth-logo">ME</div><div><strong>MEYAR ERP</strong><small>Təhlükəsiz lokal uçot sistemi</small></div></div>
+    <div id="setupStep" class="auth-step">
+      <h1>Şirkət bazasını yaradın</h1><p class="hint">İlk açılışda şirkətin ayrıca məlumat bazası yaradılır. Bu versiyada parol tələb olunmur.</p>
+      <form id="setupForm" class="auth-form">
+        <label>Şirkətin tam adı<input id="setupCompany" required placeholder="Məsələn: Agalarov Kapital MMC"></label>
+        <label>VÖEN<input id="setupVoen" required inputmode="numeric" maxlength="10" placeholder="10 rəqəm"></label>
+        <label>İnzibatçı istifadəçi adı<input id="setupUsername" value="agarza.admin" readonly autocomplete="username"></label>
+        <label>İnzibatçı<input id="setupFullName" value="Ağarza Ağalarov" readonly></label>
+        <button class="auth-btn" type="submit">BAZANI YARAT VƏ DAXİL OL</button>
+      </form>
+    </div>
+    <div id="loginStep" class="auth-step">
+      <h1>Şirkət bazasını seçin</h1><p class="hint">Bu versiyada şifrə deaktivdir. Şirkəti seçərək birbaşa sistemə daxil olun.</p>
+      <form id="loginForm" class="auth-form">
+        <label>Şirkət bazası<select id="loginCompany" required></select></label>
+        <button class="auth-btn" type="submit">SİSTEMƏ DAXİL OL</button>
+      </form>
+      <div class="auth-meta" style="margin-top:10px"><i class="fa-solid fa-building"></i> Hər şirkətin uçot məlumatları ayrıca bazada saxlanılır.</div>
+    </div>
+    <div id="createCompanyStep" class="auth-step">
+      <h1>Yeni şirkət bazası</h1><p class="hint">Yeni şirkət tamamilə ayrıca SQLite bazası və ayrıca administrator istifadəçisi ilə yaradılacaq. Digər şirkətlərin datasına qarışmayacaq.</p>
+      <form id="createCompanyForm" class="auth-form">
+        <label>Şirkətin tam adı<input id="newCompanyName" required placeholder="Məsələn: ABC MMC"></label>
+        <label>VÖEN<input id="newCompanyVoen" required inputmode="numeric" maxlength="10" placeholder="10 rəqəm"></label>
+        <label>İnzibatçı istifadəçi adı<input id="newCompanyUsername" value="agarza.admin" readonly autocomplete="username"></label>
+        <label>İnzibatçı<input id="newCompanyFullName" value="Ağarza Ağalarov" readonly></label>
+        <button class="auth-btn" type="submit">ŞİRKƏT BAZASINI YARAT</button>
+      </form>
+      <button id="backToLoginBtn" class="auth-back" type="button">← Girişə qayıt</button>
+    </div>
+    <div id="authError" class="auth-error"></div>
+    <div class="auth-meta"><i class="fa-solid fa-database"></i> Hər şirkətin bazası ayrıca SQLite faylında saxlanılır · WAL rejimi · Sessiya hər açılışda yenidən təsdiqlənir.</div>
+  </div>
+</div>
+<div id="app" class="app">
+  <div class="shell">
+    <aside class="sidebar"><div class="brand"><div class="brandlogo">ME</div><div><div class="brandname">MEYAR</div><div class="brandsub">ERP PLATFORM</div></div></div><button id="adminCreateCompanyBtn" class="auth-link-btn" type="button" style="margin:8px 12px;width:calc(100% - 24px)"><i class="fa-solid fa-building-circle-plus"></i> Yeni şirkət bazası</button><div class="switch" id="companySwitch" title="Şirkət bazasını dəyişmək üçün giriş ekranına qayıt"><span class="avatar" id="sessionAvatar">ME</span><div class="switchtext"><strong id="sessionCompanySide">Şirkət bazası</strong><small id="sessionUserSide">İstifadəçi</small></div><i class="fa-solid fa-chevron-down"></i></div>
+      <nav class="nav"><div class="section">ƏSAS</div><button class="navitem" id="navDashboard" data-module="dashboard"><i class="fa-solid fa-gauge-high"></i><span>Əsas səhifə</span></button><div class="section">UÇOT</div><button class="navitem active" data-direction-window="Gələn"><i class="fa-solid fa-file-arrow-down"></i><span>Gələn qaimələr</span></button><button class="navitem" data-direction-window="Gedən"><i class="fa-solid fa-file-arrow-up"></i><span>Gedən qaimələr</span></button><button class="navitem" id="navBank"><i class="fa-solid fa-building-columns"></i><span>Bank</span></button><button class="navitem" id="navDvx"><i class="fa-solid fa-landmark"></i><span>Dövlət Vergi Xidməti</span></button><button class="navitem" id="navVat"><i class="fa-solid fa-scale-balanced"></i><span>Aylıq ƏDV</span></button><button class="navitem disabled" aria-disabled="true"><i class="fa-solid fa-wallet"></i><span>Kassa</span></button><button class="navitem disabled" aria-disabled="true"><i class="fa-solid fa-boxes-stacked"></i><span>Anbar 201 / 205</span></button><button class="navitem disabled" aria-disabled="true"><i class="fa-solid fa-address-book"></i><span>Kontragentlər</span></button><div class="section">HESABATLAR</div><button class="navitem" id="navAccounting"><i class="fa-solid fa-table-list"></i><span>Dövriyyə-balans</span></button><div class="section">NÖVBƏTİ MODULLAR</div><div style="padding:9px;color:#94a3b8;font-size:10px;line-height:1.5">Kassa modulu növbəti mərhələ üçün planlaşdırılıb.</div></nav>
+      <div class="sidefoot"><button id="updateStatus" class="update-status hidden" type="button" title="Proqram yeniləməsi"><i class="fa-solid fa-rotate"></i><span>Yeniləmə</span></button><div class="sync"><span><i class="fa-solid fa-circle-check"></i> Sistem hazırdır</span><small id="clock"></small></div><button class="help" id="helpBtn"><i class="fa-regular fa-circle-question"></i> Kömək və dəstək</button></div></aside>
+    <main class="main">
+      <div class="toolbar hidden" id="invoiceToolbar" hidden aria-hidden="true"></div>
+      <section class="workspace hidden" id="dashboardWorkspace"><div class="pagehead"><div><span class="eyebrow">İDARƏETMƏ PANELİ</span><h1>Ümumi vəziyyət</h1><p>Qaimələr, açıq qalıqlar, bank və uçot üzrə operativ xülasə.</p></div><button class="btn" id="dashboardRefresh"><i class="fa-solid fa-rotate"></i> Yenilə</button></div><div class="dashboard-grid"><div class="dashboard-card"><span>Aktiv qaimələr</span><strong id="dashInvoices">0</strong></div><div class="dashboard-card"><span>Gələn / Gedən</span><strong id="dashDirections">0 / 0</strong></div><div class="dashboard-card"><span>Açıq debitor (AZN)</span><strong id="dashReceivable">0,00 ₼</strong></div><div class="dashboard-card"><span>Açıq kreditor (AZN)</span><strong id="dashPayable">0,00 ₼</strong></div></div><div class="dashboard-columns"><div class="panel"><div class="tablehead"><div><h3>Bank üzrə son 5 çıxan ödəniş</h3><small>Kontragent və məbləğ</small></div></div><div class="tablewrap"><table class="dashboard-table dashboard-bank-table"><thead><tr><th>Kontragent</th><th>Məbləğ</th></tr></thead><tbody id="dashboardBankBody"></tbody></table></div></div><div class="panel"><div class="tablehead"><div><h3>Bildirişlər</h3><small>Uçot və inteqrasiya nəzarəti</small></div></div><div class="dashboard-list" id="dashboardSystemList" style="padding:12px"></div></div></div></section>
+      <section class="workspace" id="invoiceWorkspace"><div class="pagehead"><div><span class="eyebrow">E-QAİMƏ REYESTRİ</span><h1 id="pageTitle">Gələn qaimələr</h1><p id="pageDesc">Alış sənədləri, ödəniş və uçot vəziyyəti bir ekranda.</p></div><div class="workspace-status"><span class="status-dot"></span>Lokal baza · Audit aktivdir</div></div>
+        <div class="filters"><label class="field">Axtarış<input id="filterSearch" placeholder="Qaimə №, VÖEN, kontragent, məbləğ..."/></label><label class="field">Reyestr<select id="filterRegistry"><option value="current">Aktiv qaimələr</option><option value="archive">Arxiv</option></select></label><label class="field">Ödəniş<select id="filterPayment"><option value="all">Bütün vəziyyətlər</option><option>Ödənilməyib</option><option>Qismən ödənilib</option><option>Ödənilib</option></select></label><label class="field">Başlanğıc<input type="date" id="filterFrom"/></label><label class="field">Son<input type="date" id="filterTo"/></label><button class="btn filter-icon-button" id="filterReviewOnly" title="Yalnız uçot təsnifatı yoxlanmalı sənədləri göstər" aria-label="Nəzərdən keçirilməli sənədlər"><i class="fa-solid fa-triangle-exclamation"></i></button><div class="invoice-filter-actions"><button class="btn" id="invoiceRefresh" title="Mənbədən yalnız yeni qaimələri gətir"><i class="fa-solid fa-rotate"></i> Yenilə</button><button class="btn primary" id="manualInvoice"><i class="fa-solid fa-plus"></i> Əlavə et</button><button class="btn" id="exportInvoices" title="Filtrlənmiş siyahını CSV formatında ixrac et"><i class="fa-solid fa-file-export"></i> İxrac</button><button class="btn filter-icon-button" id="resetFilters" title="Filtrləri sıfırla" aria-label="Filtrləri sıfırla"><i class="fa-solid fa-rotate-left"></i></button></div></div>
+        <div class="compact-summary"><div class="sum"><strong id="sumCount">0</strong><span>qaimə</span></div><div class="sum"><strong id="sumTotal">0,00 ₼</strong><span>yekun məbləğ</span></div><div class="sum"><strong id="sumVat">0,00 ₼</strong><span>ƏDV</span></div><div class="sum"><strong id="sumOpen">0,00 ₼</strong><span>açıq qalıq</span></div></div>
+        <div class="panel registry-panel"><div class="tablehead"><div><h3>E-Qaimə reyestri</h3><small>Əsas rekvizitlər, məbləğ, ödəniş və uçot vəziyyəti</small></div><div class="table-tools"><span class="muted" id="rowCount"></span><div class="invoice-pager" aria-label="Qaimə siyahısının səhifələri"><button class="rowbtn" id="invoicePagePrev" title="Əvvəlki səhifə" aria-label="Əvvəlki səhifə"><i class="fa-solid fa-chevron-left"></i></button><span id="invoicePageInfo">1 / 1</span><button class="rowbtn" id="invoicePageNext" title="Növbəti səhifə" aria-label="Növbəti səhifə"><i class="fa-solid fa-chevron-right"></i></button></div><button class="btn dangerbtn bulk-delete hidden" id="deleteSelected"><i class="fa-solid fa-trash"></i> Seçilənləri sil <b id="selectedCount">0</b></button></div></div><div class="data-health" id="dataHealth">Məlumat bazası yoxlanılır...</div><div class="tablewrap"><table class="registry-table"><colgroup><col class="col-select"><col class="col-date"><col class="col-no"><col class="col-cp"><col class="col-type"><col class="col-money"><col class="col-payment"><col class="col-account"><col class="col-status"><col class="col-actions"></colgroup><thead><tr><th class="select-head"><input type="checkbox" id="selectAll" title="Hamısını seç"></th><th>Tarix</th><th>Qaimə №</th><th>Kontragent</th><th>İstiqamət</th><th>Məbləğ</th><th>Ödəniş / qalıq</th><th>Uçot</th><th>Mal / xidmət</th><th aria-label="Əməliyyatlar"></th></tr></thead><tbody id="invoiceBody"></tbody></table><div id="empty" class="empty hidden"><i class="fa-solid fa-file-invoice-dollar"></i><strong>Qaimə tapılmadı</strong><span>Filtrləri dəyişin və ya yeni e‑qaimə yaradın.</span></div></div></div>
+      </section>
+      <section class="workspace hidden" id="bankWorkspace">
+        <div class="pagehead"><div><span class="eyebrow">BANK / OPENBANKING</span><h1>Bank</h1><p>Bank hesabları, çıxarış, avtomatik uyğunlaşdırma və gələcək PASHA Bank API bağlantısı.</p></div><div class="muted"><i class="fa-solid fa-lock" style="font-size:8px;color:#c29b27"></i> API bağlantısı təsdiqdən sonra aktivləşəcək</div></div>
+        <div class="bank-note"><b>PASHA Bank OpenBanking hazır arxitekturası:</b> sistemdə API adapteri üçün ayrıca qat hazırlanıb. Hazırda real bank serverinə sorğu göndərilmir. Bank tərəfindən giriş təsdiqləndikdən və sertifikat/credential verildikdən sonra yalnız inteqrasiya parametrləri aktivləşdirilərək canlı rejimə keçiriləcək. Rəsmi sənədlərdə Prod, Dev və Sandbox mühitləri ayrıca göstərilir. <span style="font-family:var(--mono)">Provider: PASHA Bank OpenBanking · API v1</span></div>
+        <div class="bank-grid">
+          <div class="bank-card"><div class="bank-card-head"><div><h3>Bank hesabları</h3><small>Hər hesab ayrıca mühasibat hesabına bağlanır.</small></div><button class="btn primary" id="bankAddAccount"><i class="fa-solid fa-plus"></i> Hesab əlavə et</button></div><div class="bank-body" id="bankAccountsList"><div class="bank-empty"><i class="fa-solid fa-building-columns"></i>Bank hesabı əlavə edilməyib.</div></div></div>
+          <div class="bank-card"><div class="bank-card-head"><div><h3>İnteqrasiya vəziyyəti</h3><small>Real API bağlantısı təsdiqdən sonra açılacaq.</small></div><span class="bank-chip wait"><i class="fa-solid fa-lock"></i> Təsdiq gözləyir</span></div><div class="bank-body"><div class="bank-status"><span class="bank-chip"><i class="fa-solid fa-plug"></i> Provider: PASHA Bank OpenBanking</span><span class="bank-chip"><i class="fa-solid fa-code-branch"></i> API: v1</span><span class="bank-chip"><i class="fa-solid fa-flask"></i> Sandbox hazır</span></div><div class="bank-integration"><b>Hazır olan qatlar</b><br>• Bank hesabının saxlanması<br>• Bank çıxarışının lokal qəbulu<br>• Xarici əməliyyat ID ilə duplicate qorunması<br>• Qaimə üzrə avtomatik uyğunlaşdırma təklifləri<br>• Ödəniş allocation-u<br>• 211 / 531 analitik uçotuna bağlanma<br>• Bank hesabının 223 hesabına bağlanması<br>• Təsdiqdən sonra API adapterinin aktivləşdirilməsi</div></div></div>
+        </div>
+        <div class="bank-summary"><div class="sum"><strong id="bankTxCount">0</strong><span>bank əməliyyatı</span></div><div class="sum"><strong id="bankReconciled">0</strong><span>uyğunlaşdırılıb</span></div><div class="sum"><strong id="bankOpenCount">0</strong><span>gözləyən</span></div><div class="sum"><strong id="bankSelectedAccount">—</strong><span>seçilmiş hesab</span></div></div>
+        <div class="bank-toolbar"><label class="field" style="min-width:210px;flex:1">Axtarış<input id="bankSearch" placeholder="Kontragent, VÖEN, təyinat, referans..."/></label><label class="field" style="width:190px">Hesab<select id="bankAccountFilter"><option value="">Bütün hesablar</option></select></label><label class="field" style="width:180px">Vəziyyət<select id="bankStatusFilter"><option value="all">Hamısı</option><option>Uyğunlaşdırılmayıb</option><option>Uyğunlaşdırılıb</option></select></label><button class="btn" id="bankRefresh"><i class="fa-solid fa-rotate"></i> Yenilə</button><button class="btn" id="bankImport"><i class="fa-solid fa-file-arrow-up"></i> Çıxarış idxal et</button></div>
+        <div class="bank-card bank-registry-card"><div class="bank-card-head"><div><h3>Bank çıxarışı</h3><small>Uyğunlaşdırılmayan əməliyyatın sətrindən qaimə təkliflərini açın.</small></div><div class="table-tools"><span class="muted" id="bankRowCount"></span><div class="invoice-pager" aria-label="Bank çıxarışının səhifələri"><button class="rowbtn" id="bankPagePrev" title="Əvvəlki səhifə" aria-label="Əvvəlki səhifə"><i class="fa-solid fa-chevron-left"></i></button><span id="bankPageInfo">1 / 1</span><button class="rowbtn" id="bankPageNext" title="Növbəti səhifə" aria-label="Növbəti səhifə"><i class="fa-solid fa-chevron-right"></i></button></div></div></div><div class="tablewrap"><table class="bank-table"><thead><tr><th>Tarix</th><th>İstiqamət</th><th>Kontragent</th><th>VÖEN</th><th>Təyinat / Referans</th><th>Məbləğ</th><th>Val.</th><th>Vəziyyət</th><th></th></tr></thead><tbody id="bankTxBody"></tbody></table></div></div>
+      </section>
+      <section class="workspace hidden" id="taxWorkspace">
+        <div class="pagehead"><div><span class="eyebrow">DVX / E-QAİMƏ İNTEQRASİYASI</span><h1>Dövlət Vergi Xidməti</h1><p>Elektron qaimələri Meyar ERP-dən hazırlamaq, DVX portalına keçmək, qaimələri canlı gətirmək və paketləri auditlə saxlamaq.</p></div><div class="muted"><i class="fa-solid fa-shield-halved" style="font-size:8px;color:#15803d"></i> Gücləndirilmiş elektron imza tələb olunur</div></div>
+        <div class="tax-note"><b>İşlək məntiq:</b> Meyar qaiməni öz bazasında yaradır və mühasibat uçotuna bağlayır. DVX-yə göndərmə mərhələsində rəsmi portal və gücləndirilmiş elektron imza istifadə olunur. DVX-nin rəsmi məlumatına görə e-Qaimə həm onlayn portal üzərindən, həm də XML əsaslı oflayn paketlə hazırlanıb imzalanaraq göndərilə bilər. <span class="mono">Provider: Azərbaycan Respublikası Dövlət Vergi Xidməti</span></div>
+        <div class="tax-grid">
+          <div class="tax-card"><div class="tax-card-head"><div><h3>DVX bağlantısı</h3><small>Portal, canlı sinxronizasiya və paket hazırlama</small></div><span id="dvxStatusChip" class="tax-chip ok"><i class="fa-solid fa-circle-check"></i> Hazır</span></div><div class="tax-body"><div class="tax-status"><span class="tax-chip"><i class="fa-solid fa-globe"></i> new.e-taxes.gov.az</span><span class="tax-chip"><i class="fa-solid fa-code-branch"></i> Portal rejimi</span><span class="tax-chip"><i class="fa-solid fa-file-code"></i> XML/Paket</span><span class="tax-chip"><i class="fa-solid fa-right-left"></i> Canlı import</span></div><div class="tax-actions"><button class="btn primary" id="dvxOpenPortal"><i class="fa-solid fa-arrow-up-right-from-square"></i> DVX portalını aç</button><button class="btn" id="dvxLiveIncoming"><i class="fa-solid fa-download"></i> Gələn portalını aç</button><button class="btn" id="dvxLiveOutgoing"><i class="fa-solid fa-download"></i> Gedən portalını aç</button><button class="btn" id="dvxRefresh"><i class="fa-solid fa-rotate"></i> Yenilə</button></div><div class="tax-selected" id="dvxInfo">Portal sessiyası ayrıca qorunur; giriş və imzalama DVX/Asan İmza/SİMA tərəfindən həyata keçirilir.</div></div></div>
+          <div class="tax-card"><div class="tax-card-head"><div><h3>Qaimə → XML/ZIP arxiv paketi</h3><small>Gedən qaimənin audit və ötürmə üçün ixracı</small></div></div><div class="tax-body"><div class="tax-form"><label class="field full">Gedən qaimə<select id="dvxInvoiceSelect"><option value="">Qaimə seçin...</option></select></label></div><div class="tax-actions" style="margin-top:10px"><button class="btn primary" id="dvxPrepare"><i class="fa-solid fa-file-zipper"></i> Arxiv paketi hazırla</button><button class="btn" id="dvxOpenFolder"><i class="fa-solid fa-folder-open"></i> Paket qovluğu</button></div><div class="tax-selected" id="dvxPackageInfo">Sistem audit üçün UTF-8 XML və SHA-256 manifestli ZIP yaradır. Bu daxili paket elektron imzalı rəsmi DVX göndəriş faylını əvəz etmir; göndəriş portalda tamamlanır.</div></div></div>
+        </div>
+        <div class="tax-card" style="margin-top:12px"><div class="tax-card-head"><div><h3>Hazırlanmış DVX paketləri</h3><small>Şirkət bazasında audit izi ilə saxlanılır.</small></div><span class="muted" id="dvxPackageCount">0 paket</span></div><div class="tablewrap"><table class="tax-table"><thead><tr><th>Tarix</th><th>Qaimə</th><th>Kontragent</th><th>VÖEN</th><th>Fayl</th><th>Status</th></tr></thead><tbody id="dvxPackageBody"></tbody></table></div></div>
+        <div class="tax-card" style="margin-top:12px"><div class="tax-card-head"><div><h3>İş axını</h3><small>DVX ilə təhlükəsiz işləmə ardıcıllığı</small></div></div><div class="tax-body"><ol class="tax-help-list"><li>Meyar ERP-də <b>Gedən qaimə</b> yaradılır və lazım gəldikdə Dövriyyə-Balansda uçota alınır.</li><li>Qaimə seçilərək <b>DVX paketi hazırla</b> edilir və lokal fayl yaranır.</li><li>Rəsmi DVX portalında gücləndirilmiş elektron imza ilə giriş edilir.</li><li>Portalın “Paket göndər” mexanizmi ilə imzalanmış fayl göndərilir; DVX unikal seriya/nömrə verərək qarşı tərəfə göndərir.</li><li>Sonra <b>Gələnləri/Gedənləri canlı gətir</b> funksiyası ilə reyestr Meyar ERP-yə sinxronlaşdırılır və duplicate qorunur.</li></ol></div></div>
+      </section>
+      <section class="workspace hidden" id="vatWorkspace">
+        <div class="vat-commandbar">
+          <div class="vat-heading"><span class="eyebrow">VERGİ UÇOTU / AYLIQ REGİSTR</span><h1>ƏDV əvəzləşməsi</h1><p>Alış, ƏDV depoziti, satış və bank ödənişləri üzrə izah edilə bilən aylıq hesab.</p></div>
+          <div class="vat-actions">
+            <label class="field">Dövr<input id="vatPeriodInput" type="month"></label>
+            <button class="btn" id="vatRefresh"><i class="fa-solid fa-rotate"></i> Yenilə</button>
+            <button class="btn" id="vatAdjustmentAdd"><i class="fa-solid fa-plus"></i> Düzəliş</button>
+            <button class="btn" id="vatExport"><i class="fa-solid fa-file-export"></i> CSV</button>
+            <button class="btn primary" id="vatClose"><i class="fa-solid fa-lock"></i> Ayı bağla</button>
+            <button class="btn hidden" id="vatReopen"><i class="fa-solid fa-lock-open"></i> Yenidən aç</button>
+          </div>
+        </div>
+        <div class="vat-summary" aria-label="ƏDV xülasəsi">
+          <div class="vat-summary-card"><span>Əvvəlki qalıq</span><strong id="vatOpening">0,00 ₼</strong></div>
+          <div class="vat-summary-card input"><span>Cari ay giriş ƏDV</span><strong id="vatInput">0,00 ₼</strong></div>
+          <div class="vat-summary-card output"><span>Cari ay çıxış ƏDV</span><strong id="vatOutput">0,00 ₼</strong></div>
+          <div class="vat-summary-card offset"><span>Əvəzləşdirilən</span><strong id="vatOffset">0,00 ₼</strong></div>
+          <div class="vat-summary-card payable"><span>Büdcəyə ödəniləcək</span><strong id="vatPayable">0,00 ₼</strong></div>
+          <div class="vat-summary-card carry"><span>Növbəti aya qalıq</span><strong id="vatCarry">0,00 ₼</strong></div>
+        </div>
+        <div class="vat-register panel">
+          <div class="vat-register-top">
+            <div class="vat-tabs" id="vatTabs" role="tablist">
+              <button class="active" data-vat-tab="input">Alış ƏDV-si <b id="vatInputCount">0</b></button>
+              <button data-vat-tab="output">Satış ƏDV-si <b id="vatOutputCount">0</b></button>
+              <button data-vat-tab="adjustments">Düzəlişlər <b id="vatAdjustmentCount">0</b></button>
+              <button data-vat-tab="issues">Nəzarət <b id="vatIssueCount">0</b></button>
+            </div>
+            <div class="vat-header-right"><div class="vat-pager"><button class="rowbtn" id="vatPagePrev" aria-label="Əvvəlki səhifə"><i class="fa-solid fa-chevron-left"></i></button><span id="vatPageInfo">1 / 1</span><button class="rowbtn" id="vatPageNext" aria-label="Növbəti səhifə"><i class="fa-solid fa-chevron-right"></i></button></div><div class="vat-period-state" id="vatPeriodState"><span></span>Dövr açıqdır</div></div>
+          </div>
+          <div class="vat-health" id="vatHealth">ƏDV registri yüklənir...</div>
+          <div class="tablewrap vat-tablewrap"><table class="vat-table"><colgroup id="vatColumns"></colgroup><thead id="vatHead"></thead><tbody id="vatBody"></tbody></table></div>
+        </div>
+      </section>
+</main>
+  </div>
+</div>
+<div id="modalRoot"></div><div id="toastRoot" class="toastroot"></div>
+<script src="./dbc-v182.js"></script>
+<script src="./vat-v1150.js"></script>
+<script>
+(() => {
+'use strict';
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const api=window.meyarDesktop;
+const APP_VERSION='1.16.0';
+const fmtCurrency=(n,currency='AZN')=>new Intl.NumberFormat('az-AZ',{style:'currency',currency:String(currency||'AZN'),minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(n)||0);
+const fmt=n=>fmtCurrency(n,'AZN');
+const groupedTotal=(data,key)=>{const totals=new Map();for(const row of data){const currency=String(row?.currency||'AZN');totals.set(currency,(totals.get(currency)||0)+Number(row?.[key]||0));}return [...totals].map(([currency,value])=>fmtCurrency(value,currency)).join(' · ')||fmt(0)};
+const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;};
+const launchParams=new URLSearchParams(location.search);
+let launchDirection=launchParams.get('invoiceDirection')==='Gedən'?'Gedən':'Gələn';
+let activeType='current',rows=[],invoicePage=1,invoicePageSize=250,invoiceTotalRows=0;
+let counterpartyCache=[];
+let catalogCache=[];
+let accountCache=[];
+let profileCache=[];
+let referenceCache={accounts:[],subcontos:[],counterparties:[],contracts:[],banks:[],warehouses:[],catalog:[],rules:[]};
+let activeReferenceTab='counterparties';
+let currentUser=null;
+let vatUi=null;
+let bankActiveDirection='Daxilolma';
+const referenceNav=document.createElement('button');referenceNav.className='navitem';referenceNav.id='navReference';referenceNav.innerHTML='<i class="fa-solid fa-address-book"></i><span>Məlumat kitabçaları</span>';
+$('#navAccounting')?.before(referenceNav);
+const dashboardLabel=$('#navDashboard span');if(dashboardLabel)dashboardLabel.textContent='Əsas səhifə';
+$('.main').insertAdjacentHTML('beforeend',`<section class="workspace hidden" id="referenceWorkspace"><div class="pagehead"><div><span class="eyebrow">MƏLUMAT KİTABÇALARI</span><h1>Uçot məlumatları</h1><p>Kontragent, müqavilə, bank, hesab, subkonto, anbar, mal/xidmət və avtomatik uçot qaydaları.</p></div><button class="btn primary" id="referenceAdd"><i class="fa-solid fa-plus"></i> Əlavə et</button></div><div class="reference-tabs" id="referenceTabs"><button class="reference-tab active" data-reference="counterparties">Kontragentlər</button><button class="reference-tab" data-reference="contracts">Müqavilələr</button><button class="reference-tab" data-reference="banks">Banklar</button><button class="reference-tab" data-reference="accounts">Hesablar</button><button class="reference-tab" data-reference="subcontos">Subkontolar</button><button class="reference-tab" data-reference="warehouses">Anbarlar</button><button class="reference-tab" data-reference="catalog">Mal və xidmətlər</button><button class="reference-tab" data-reference="rules">Uçot qaydaları</button></div><div class="panel registry-panel"><div class="tablehead"><div><h3 id="referenceTitle">Kontragentlər</h3><small id="referenceHint">Debitor və kreditor kartları</small></div><div class="reference-actions"><label class="field"><input id="referenceSearch" type="search" placeholder="Siyahıda axtar..."></label><span class="muted" id="referenceCount"></span></div></div><div class="tablewrap"><table class="reference-table data-table"><colgroup id="referenceColumns"></colgroup><thead id="referenceHead"></thead><tbody id="referenceBody"></tbody></table></div></div></section><div class="work-tabs" id="workTabs"><button class="work-tab active" data-work-module="dashboard"><span>Əsas səhifə</span></button></div>`);
+const bankToolbar=$('.bank-toolbar');if(bankToolbar){bankToolbar.insertAdjacentHTML('afterbegin','<div class="bank-direction-switch" aria-label="Ödəniş istiqaməti"><button class="btn active" data-bank-direction="Daxilolma"><i class="fa-solid fa-arrow-down"></i> Daxil olan</button><button class="btn" data-bank-direction="Ödəniş"><i class="fa-solid fa-arrow-up"></i> Çıxan</button></div>');const addBankAccount=$('#bankAddAccount');if(addBankAccount)bankToolbar.append(addBankAccount)}
+let loadRequestId=0,filterTimer=null,lastModalFocus=null;
+$('#toastRoot').setAttribute('aria-live','polite');
+function toast(msg,type='info'){const el=document.createElement('div');el.className='toast '+(type==='success'?'success':type==='error'?'error':type==='warn'?'warn':'');el.setAttribute('role',type==='error'?'alert':'status');el.innerHTML=`<i class="fa-solid ${type==='success'?'fa-circle-check':type==='error'?'fa-circle-xmark':type==='warn'?'fa-triangle-exclamation':'fa-circle-info'}"></i><span>${esc(msg)}</span>`;$('#toastRoot').append(el);setTimeout(()=>{el.style.opacity='0';el.style.transform='translateY(6px)';el.style.transition='.2s';setTimeout(()=>el.remove(),220)},3600)}
+function badge(status){const m={Təsdiqlənib:'green',Göndərilib:'blue',Gözləyir:'orange',Qaralama:'orange',Ödənilib:'green','Qismən ödənilib':'blue','Ödənilməyib':'red','Uçota alınıb':'green',Hazırlanmayıb:'orange','ƏDV ilə bağlanıb':'green','ƏDV qismən bağlanıb':'orange'};return `<span class="badge ${m[status]||'blue'}">${esc(status)}</span>`}
+let reviewOnlyFilter=false;
+function currentInvoiceQuery(){
+  activeType=$('#filterRegistry')?.value==='archive'?'archive':'current';
+  return {type:launchDirection,archived:activeType==='archive',search:($('#filterSearch')?.value||'').trim(),status:'all',payment:$('#filterPayment')?.value||'all',from:$('#filterFrom')?.value||'',to:$('#filterTo')?.value||'',reviewOnly:reviewOnlyFilter};
+}
+function firstInvoicePageAndLoad(){invoicePage=1;return load()}
+async function load(){
+  const requestId=++loadRequestId;
+  try{
+    $('#dataHealth').textContent='Məlumatlar yüklənir…';
+    const query=currentInvoiceQuery();
+    const [result,total]=await Promise.all([api.invoice.list({...query,limit:invoicePageSize,offset:(invoicePage-1)*invoicePageSize}),api.invoice.count(query)]);
+    if(requestId!==loadRequestId)return;
+    invoiceTotalRows=Number(total||0);
+    const lastPage=Math.max(1,Math.ceil(invoiceTotalRows/invoicePageSize));
+    if(invoicePage>lastPage){invoicePage=lastPage;return load()}
+    rows=Array.isArray(result)?result:[];
+    render();
+    try{
+      const stats=await api.invoice.stats();
+      const health=$('#dataHealth');
+      health.classList.toggle('review',Number(stats.directionReview||0)>0);
+      health.textContent=Number(stats.directionReview||0)>0
+        ? `${stats.all} aktiv sənəd · Gələn ${stats.incoming} · Gedən ${stats.outgoing} · ${stats.directionReview} köhnə idxalın istiqamət sübutu yoxdur — sinxronizasiya mövcud sənədi dəyişmir; auditlə ayrıca yoxlayın.`
+        : `${stats.all} aktiv sənəd · Gələn ${stats.incoming} · Gedən ${stats.outgoing} · Arxiv ${stats.archived}`;
+      health.title=health.textContent;
+    }catch(e){
+      $('#dataHealth').textContent=`SQLite · ${rows.length} ${launchDirection.toLowerCase()} qaimə yükləndi`;
+    }
+  }catch(e){
+    if(requestId!==loadRequestId)return;
+    rows=[];
+    $('#invoiceBody').innerHTML=`<tr><td colspan="10" class="load-error">Qaimələr yüklənmədi: ${esc(e?.message||e)}</td></tr>`;
+    $('#invoiceBody').style.display='';
+    $('#empty').classList.add('hidden');
+    $('#dataHealth').textContent='Məlumat bazası xətası';
+    toast(e?.message||'Qaimələr yüklənmədi.','error');
+  }
+}
+function render(){
+  if(!Array.isArray(rows)) rows=[];
+  const lastPage=Math.max(1,Math.ceil(invoiceTotalRows/invoicePageSize));
+  const firstRow=invoiceTotalRows?(invoicePage-1)*invoicePageSize+1:0,lastRow=invoiceTotalRows?Math.min(invoiceTotalRows,firstRow+rows.length-1):0;
+  $('#sumCount').textContent=invoiceTotalRows;$('#sumTotal').textContent=groupedTotal(rows,'total_amount');$('#sumVat').textContent=groupedTotal(rows,'vat_amount');$('#sumOpen').textContent=groupedTotal(rows,'outstanding_amount');$('#rowCount').textContent=invoiceTotalRows?`${firstRow}–${lastRow} / ${invoiceTotalRows}`:'0 nəticə';
+  $('#invoicePageInfo').textContent=`${invoicePage} / ${lastPage}`;$('#invoicePagePrev').disabled=invoicePage<=1;$('#invoicePageNext').disabled=invoicePage>=lastPage;
+  const body=$('#invoiceBody');
+  body.innerHTML=rows.map(r=>{
+    const cp=String(r?.counterparty_name||'—');
+    const acct=String(r?.counterparty_account_code||'Təyin edilməyib');
+    const paid=Number(r?.paid_amount||0), total=Number(r?.total_amount||0), open=Number(r?.outstanding_amount??Math.max(0,total-paid));
+    const classification=Number(r?.goods_base_amount||0)>0&&Number(r?.service_base_amount||0)>0?'Mal + xidmət':Number(r?.goods_base_amount||0)>0?'Mal':'Xidmət';
+    return `<tr data-id="${esc(r?.id)}" tabindex="0" aria-label="${esc(r?.invoice_no)} — ${esc(cp)}"><td class="select-cell"><input type="checkbox" class="row-select" data-select-id="${esc(r?.id)}" aria-label="${esc(r?.invoice_no)} qaiməsini seç"></td><td class="registry-date" title="${esc(r?.invoice_date)}">${esc(r?.invoice_date||'—')}</td><td class="registry-no" title="${esc(r?.invoice_no||'—')}">${esc(r?.invoice_no||'—')}</td><td class="registry-cp" title="${esc(cp)} · ${esc(r?.voen||'')}"><span class="cell-main">${esc(cp)}</span><span class="cell-meta">VÖEN ${esc(r?.voen||'—')}</span></td><td>${r?.direction==='Gələn'?badge('Gələn'):badge('Gedən')}</td><td><span class="money-main">${fmtCurrency(r?.total_amount,r?.currency)}</span><span class="money-meta">Əsas ${fmtCurrency(r?.base_amount,r?.currency)} · ƏDV ${fmtCurrency(r?.vat_amount,r?.currency)}</span></td><td><span class="payment-main ${open>.005?'open':''}">${fmtCurrency(open,r?.currency)} qalıq</span><span class="money-meta">${fmtCurrency(paid,r?.currency)} ödənilib</span></td><td><span class="account-pill" title="${esc(acct)}">${esc(acct)}</span></td><td class="status-cell" title="${esc(classification)}">${r?.accounting_review_required?`<span class="badge orange" title="${esc(r.accounting_review_reason||'Təsnifatı yoxlayın')}">${esc(classification)} · yoxla</span>`:badge(classification)}</td><td class="action-cell"><button class="rowbtn" data-detail="${esc(r?.id)}" title="Aç" aria-label="${esc(r?.invoice_no)} qaiməsini aç"><i class="fa-solid fa-folder-open"></i></button>${activeType!=='archive'?`<button class="rowbtn dangerrow" data-delete="${esc(r?.id)}" title="Sil" aria-label="${esc(r?.invoice_no)} qaiməsini sil"><i class="fa-solid fa-trash"></i></button>`:''}</td></tr>`
+  }).join('');
+  updateSelectionUI();
+  const has=rows.length>0;
+  $('#empty').classList.toggle('hidden',has);
+  body.style.display='';
+}
+function getPaymentState(r){if(Number(r?.paid_amount||0)>=Number(r?.total_amount||0)-.005)return 'Ödənilib';if(Number(r?.paid_amount||0)>0.005)return 'Qismən ödənilib';return 'Ödənilməyib'}
+async function updateCounts(){document.title=`Meyar ERP — ${launchDirection} E-Qaimələr v${APP_VERSION}`}
+function reset(){activeType='current';invoicePage=1;$('#filterRegistry').value='current';$('#filterSearch').value='';$('#filterPayment').value='all';$('#filterFrom').value='';$('#filterTo').value='';reviewOnlyFilter=false;$('#filterReviewOnly').classList.remove('active','primary');load()}
+function subkontoOptionsForAccount(accountCode,selectedId=null){
+  const account=String(accountCode||'').trim();
+  const matching=referenceCache.subcontos.filter(subkonto=>subkonto.account_code===account);
+  const placeholder=account?(matching.length?'Subkonto seç':'Bu hesabda subkonto yoxdur'):'Əvvəl hesab seç';
+  return `<option value="">${placeholder}</option>`+matching.map(subkonto=>`<option value="${subkonto.id}" ${Number(selectedId)===Number(subkonto.id)?'selected':''}>${esc(subkonto.name)} · ${esc(subkonto.code)}</option>`).join('');
+}
+function defaultLineAccount(direction,itemType){
+  if(direction==='Gələn')return itemType==='Mal'?'205.01':'721.01';
+  return itemType==='Mal'?'601.01':'601.02';
+}
+function accountOptions(selectedCode,roles=[]){
+  const selected=String(selectedCode||'').trim();
+  const accounts=(referenceCache.accounts.length?referenceCache.accounts:accountCache)
+    .filter(account=>Number(account.is_postable)!==0&&(!roles.length||roles.includes(String(account.role||''))));
+  return accounts.map(account=>`<option value="${esc(account.code)}" ${account.code===selected?'selected':''}>${esc(account.code)} — ${esc(account.name)}</option>`).join('');
+}
+function itemTemplate(i,item={},direction=launchDirection){
+  const kind=item.item_type||'Xidmət';
+  const qty=Number(item.qty||1),price=Number(item.unit_price||0),disc=Number(item.discount_rate||0),vr=Number(item.vat_rate??18);
+  const base=Math.max(0,qty*price*(1-disc/100)),total=base+base*vr/100;
+  const account=String(item.posting_account_code||defaultLineAccount(direction,kind));
+  const subOptions=subkontoOptionsForAccount(account,item.subkonto_id);
+  const defaultWarehouse=referenceCache.warehouses.find(warehouse=>Number(warehouse.is_default)===1)||referenceCache.warehouses[0];
+  const selectedWarehouseId=item.warehouse_id||(kind==='Mal'?defaultWarehouse?.id:null);
+  const warehouseOptions='<option value="">Anbar seç</option>'+referenceCache.warehouses.map(warehouse=>`<option value="${warehouse.id}" ${Number(selectedWarehouseId)===Number(warehouse.id)?'selected':''}>${esc(warehouse.name)} · ${warehouse.valuation_method==='FIFO'?'FIFO':'Orta maya'}</option>`).join('');
+  return `<div class="line" data-line="${i}" data-catalog-id="${item.catalog_item_id||''}"><div class="linegrid v10"><input class="li-code" list="catalogList" value="${esc(item.item_code||'')}" placeholder="Kod"><select class="li-kind"><option ${kind==='Mal'?'selected':''}>Mal</option><option ${kind==='Xidmət'?'selected':''}>Xidmət</option></select><input class="li-desc" value="${esc(item.description||'')}" placeholder="Mal / xidmət"><input class="li-qty" type="number" step="0.0001" min="0" value="${qty}"><input class="li-unit" value="${esc(item.unit||'ədəd')}"><input class="li-price" type="number" step="0.01" min="0" value="${price}"><input class="li-disc" type="number" step="0.01" min="0" max="100" value="${disc}"><input class="li-vat" type="number" step="0.01" min="0" max="100" value="${vr}"><select class="li-account-input" title="Uçot hesabını seçin">${accountOptions(account)}</select><select class="li-subkonto">${subOptions}</select><select class="li-warehouse" ${kind==='Xidmət'?'disabled':''}>${warehouseOptions}</select><div class="line-total-v08 line-total">${fmt(total)}</div><button class="rowbtn del-line" title="Sətiri sil"><i class="fa-solid fa-trash"></i></button></div></div>`;
+}
+
+function openInvoice(id=null,direction='Gələn'){
+  const existing=window.__invoiceCache?.[id]||null; showInvoiceModal(existing,direction)
+}
+async function showInvoiceModal(existing=null,direction=launchDirection){
+  if(!referenceCache.accounts.length) referenceCache=await api.reference.list();
+  if(!counterpartyCache.length) counterpartyCache=await api.invoice.counterparties();
+  if(!accountCache.length) accountCache=await api.invoice.accounts();
+  if(!catalogCache.length) catalogCache=await api.invoice.catalog();
+  const dir=existing?.direction||direction;
+  const items=existing?.items?.length?existing.items:[{}];
+  const root=$('#modalRoot');
+  const series=existing?.invoice_series||'';
+  const initialCounterpartyId=Number(existing?.counterparty_id||0);
+  const contractOptions='<option value="">Müqavilə seçilməyib</option>'+referenceCache.contracts.filter(c=>!initialCounterpartyId||Number(c.counterparty_id)===initialCounterpartyId).map(c=>`<option value="${esc(c.id)}" ${Number(existing?.contract_id)===Number(c.id)?'selected':''}>${esc(c.contract_no||('Müqavilə #'+c.id))} · ${esc(c.counterparty_name||'')}</option>`).join('');
+  const counterpartyRole=dir==='Gələn'?'PAYABLE':'RECEIVABLE';
+  const vatRole=dir==='Gələn'?'INPUT_VAT':'OUTPUT_VAT';
+  const selectedCounterpartyAccount=existing?.counterparty_account_code||(dir==='Gələn'?'531.01':'211.01');
+  const selectedVatAccount=existing?.vat_posting_account_code||(dir==='Gələn'?'241.01':'521.01');
+  let number=existing?.invoice_no||'';
+  if(series && number.toUpperCase().startsWith(series.toUpperCase())) number=number.slice(series.length).trim();
+  root.innerHTML=`<div class="modal"><div class="backdrop" data-close></div><div class="modalcard invoice-v10"><div class="modalhead"><div><span class="eyebrow" style="color:#f1d67b">E-QAİMƏ / ${existing?'REDAKTƏ':'YENİ SƏNƏD'} / ${dir.toUpperCase()}</span><h2>${existing?'Qaimə kartı':'Yeni qaimə'}</h2><p>${existing?esc(existing.invoice_no)+' · '+esc(existing.counterparty_name):'DVX rekvizitləri + sətirlər + əl ilə uçot hesabları'}</p></div><button class="close" data-close><i class="fa-solid fa-xmark"></i></button></div><div class="modalbody">
+    <div class="form-section-v08"><div class="section-title-v08"><strong><i class="fa-solid fa-file-invoice"></i> Əsas rekvizitlər</strong><span class="hint-v08">Qaimə seriyası və nömrəsi tam saxlanılır</span></div><div class="compact-fields compact-fields-v10"><label>Qaimə seriyası<input id="f_series" value="${esc(series)}" placeholder="MT"></label><label>Qaimə nömrəsi<input id="f_number" value="${esc(number)}" placeholder="24242"></label><label>Tam qaimə №<input id="f_no" readonly value="${esc(existing?.invoice_no||'')}"></label><label>Tarix<input id="f_date" type="date" value="${existing?.invoice_date||today()}"></label><label>Son tarix<input id="f_due" type="date" value="${existing?.due_date||''}"></label><label>Növ<input id="f_dir" readonly value="${dir}"></label><label class="wide2">Kontragent<input id="f_cp_name" list="cpList" placeholder="Kontragent adı" value="${esc(existing?.counterparty_name||'')}"><datalist id="cpList">${counterpartyCache.map(c=>`<option value="${esc(c.name)}">${esc(c.voen)}</option>`).join('')}</datalist></label><label>VÖEN<input id="f_voen" inputmode="numeric" maxlength="10" value="${esc(existing?.voen||'')}"></label><label>Valyuta<select id="f_currency"><option ${existing?.currency==='AZN'||!existing?'selected':''}>AZN</option><option ${existing?.currency==='USD'?'selected':''}>USD</option><option ${existing?.currency==='EUR'?'selected':''}>EUR</option></select></label><label>Müqavilə<select id="f_contract">${contractOptions}</select></label><label>Uçot statusı<input value="Avtomatik uçota alınır" disabled></label><label>Kontragent hesabı<select id="f_cp_account">${accountOptions(selectedCounterpartyAccount,[counterpartyRole])}</select></label><label>ƏDV uçot hesabı<select id="f_vat_account">${accountOptions(selectedVatAccount,[vatRole])}</select></label></div><label class="note-label-v10">Əsas qeyd<textarea id="f_note">${esc(existing?.main_note||existing?.note||'')}</textarea></label><label class="note-label-v10">Əlavə qeyd<textarea id="f_additional_note">${esc(existing?.additional_note||'')}</textarea></label></div>
+    <div class="form-section-v08 invoice-lines-section"><div class="section-title-v08"><strong><i class="fa-solid fa-list"></i> Qaimə sətirləri</strong><button class="btn" id="addLine"><i class="fa-solid fa-plus"></i> Sətir əlavə et</button></div><datalist id="catalogList">${catalogCache.map(c=>`<option value="${esc(c.code)}">${esc(c.name)} — ${esc(c.item_type)}</option>`).join('')}</datalist><datalist id="accountList">${accountCache.filter(account=>Number(account.is_postable)!==0).map(a=>`<option value="${esc(a.code)}">${esc(a.name)}</option>`).join('')}</datalist><div class="line-table-scroll"><div class="linegrid v10"><div class="head">Kod</div><div class="head">Növ</div><div class="head">Mal / xidmət</div><div class="head">Miqdar</div><div class="head">Vahid</div><div class="head">Qiymət</div><div class="head">Endirim %</div><div class="head">ƏDV %</div><div class="head">Uçot hesabı</div><div class="head">Subkonto</div><div class="head">Anbar / üsul</div><div class="head">Yekun</div><div></div></div><div id="lineRows">${items.map((x,i)=>itemTemplate(i,x,dir)).join('')}</div></div></div>
+    <div class="totals"><div class="totalbox"><span>Əsas məbləğ</span><strong id="t_base">0,00 ₼</strong></div><div class="totalbox"><span>ƏDV</span><strong id="t_vat">0,00 ₼</strong></div><div class="totalbox highlight"><span>Yekun</span><strong id="t_total">0,00 ₼</strong></div><div class="totalbox"><span>Kontragent hesabı</span><strong id="cpAccountPreview">—</strong></div></div>
+    <div class="detailsection"><h4>Əlavə DVX rekvizitləri</h4><div class="body"><div class="grid grid-v10"><label>Qaimə/Akt növü<input id="f_type_name" value="${esc(existing?.invoice_type_name||'')}"></label><label>Aksiz məbləği<input id="f_excise" type="number" min="0" step="0.01" value="${Number(existing?.excise_amount||0)}"></label><label>ƏDV-yə cəlb edilən<input id="f_taxable" type="number" min="0" step="0.01" value="${Number(existing?.vat_taxable_amount||0)}"></label><label>ƏDV-yə cəlb edilməyən<input id="f_non_taxable" type="number" min="0" step="0.01" value="${Number(existing?.vat_non_taxable_amount||0)}"></label><label>ƏDV-dən azad<input id="f_exempt" type="number" min="0" step="0.01" value="${Number(existing?.vat_exempt_amount||0)}"></label><label>ƏDV 0%<input id="f_zero" type="number" min="0" step="0.01" value="${Number(existing?.vat_zero_amount||0)}"></label><label>Yol vergisi<input id="f_road" type="number" min="0" step="0.01" value="${Number(existing?.road_tax_amount||0)}"></label><label>Səbəb<input id="f_reason" value="${esc(existing?.reason_text||'')}"></label><label>Avans seriyası<input id="f_adv_series" value="${esc(existing?.advance_series||'')}"></label><label>Avans nömrəsi<input id="f_adv_no" value="${esc(existing?.advance_number||'')}"></label><label>Avans məbləği<input id="f_adv_amt" type="number" min="0" step="0.01" value="${Number(existing?.advance_amount||0)}"></label></div></div></div>
+  </div><div class="modalfoot"><span class="muted">${existing?`ID ${existing.id} · Mənbə: ${existing.source}`:'Yeni sənəd · Manual'} · yadda saxlanarkən avtomatik uçota alınır</span><div class="actions"><button class="btn" data-close>İmtina</button>${existing?`<button class="btn" id="archiveInvoice"><i class="fa-solid fa-box-archive"></i> Arxivlə</button>`:''}<button class="btn primary" id="saveInvoice"><i class="fa-solid fa-check"></i> Yadda saxla və uçota al</button></div></div></div></div>`;
+  const currencyField=$('#f_currency')?.closest('label');if(currencyField)currencyField.insertAdjacentHTML('afterend',`<label>AZN məzənnəsi<input id="f_exchange_rate" type="number" min="0.000001" step="0.000001" value="${Number(existing?.exchange_rate||1)}"></label>`);
+  $$('[data-close]',root).forEach(x=>x.addEventListener('click',closeModal));
+  const dirLabel=$('#f_dir');
+  function recombineNo(){const s=String($('#f_series').value||'').trim(),n=String($('#f_number').value||'').trim();$('#f_no').value=[s,n].filter(Boolean).join(' ');}
+  ['#f_series','#f_number'].forEach(id=>$(id).addEventListener('input',recombineNo));recombineNo();
+  const refreshContractOptions=()=>{const cp=counterpartyCache.find(x=>x.name===$('#f_cp_name').value.trim());const select=$('#f_contract');if(!select)return;const selected=select.value;select.innerHTML='<option value="">Müqavilə seçilməyib</option>'+referenceCache.contracts.filter(c=>!cp||Number(c.counterparty_id)===Number(cp.id)).map(c=>`<option value="${esc(c.id)}">${esc(c.contract_no||('Müqavilə #'+c.id))} · ${esc(c.counterparty_name||'')}</option>`).join('');if([...select.options].some(o=>o.value===selected))select.value=selected;};
+  $('#f_cp_name').addEventListener('change',()=>{const c=counterpartyCache.find(x=>x.name===$('#f_cp_name').value.trim());if(c){$('#f_voen').value=c.voen;$('#f_cp_account').value=dir==='Gələn'?(c.payable_account_code||c.account_code||'531.01'):(c.receivable_account_code||c.account_code||'211.01');}refreshContractOptions();syncPosting()});
+  $('#addLine').addEventListener('click',()=>{$('#lineRows').insertAdjacentHTML('beforeend',itemTemplate($$('#lineRows .line').length,{},dir));bindLine($('#lineRows .line:last-child'));recalc()});
+  $$('#lineRows .line').forEach(bindLine);
+  function bindLine(line){
+    const typeSelect=line.querySelector('.li-kind'),accountInput=line.querySelector('.li-account-input'),subkontoSelect=line.querySelector('.li-subkonto'),warehouseSelect=line.querySelector('.li-warehouse');
+    const synchronizeAnalytics=({resetAccount=false}={})=>{
+      const itemType=typeSelect.value;
+      if(resetAccount)accountInput.value=defaultLineAccount(dir,itemType);
+      if(itemType==='Mal'){
+        warehouseSelect.disabled=false;
+        if(!warehouseSelect.value){const defaultWarehouse=referenceCache.warehouses.find(warehouse=>Number(warehouse.is_default)===1)||referenceCache.warehouses[0];if(defaultWarehouse)warehouseSelect.value=String(defaultWarehouse.id);}
+        if(dir==='Gələn'){
+          const selectedWarehouse=referenceCache.warehouses.find(warehouse=>Number(warehouse.id)===Number(warehouseSelect.value));
+          if(selectedWarehouse?.inventory_account_code)accountInput.value=selectedWarehouse.inventory_account_code;
+        }
+      }else{warehouseSelect.value='';warehouseSelect.disabled=true;}
+      const previousSubkonto=Number(subkontoSelect.value)||null;
+      subkontoSelect.innerHTML=subkontoOptionsForAccount(accountInput.value,previousSubkonto);
+    };
+    line.querySelectorAll('input,select').forEach(input=>input.addEventListener('input',recalc));
+    line.querySelectorAll('select').forEach(input=>input.addEventListener('change',recalc));
+    typeSelect.addEventListener('change',()=>{synchronizeAnalytics({resetAccount:true});recalc()});
+    accountInput.addEventListener('change',()=>{synchronizeAnalytics();recalc()});
+    warehouseSelect.addEventListener('change',()=>{synchronizeAnalytics();recalc()});
+    line.querySelector('.li-code')?.addEventListener('change',()=>{const code=line.querySelector('.li-code').value.trim();const catalogItem=catalogCache.find(item=>item.code===code);if(catalogItem){line.dataset.catalogId=String(catalogItem.id||'');typeSelect.value=catalogItem.item_type;line.querySelector('.li-desc').value=catalogItem.name;line.querySelector('.li-unit').value=catalogItem.unit||'ədəd';accountInput.value=dir==='Gələn'?(catalogItem.purchase_account_code||defaultLineAccount(dir,catalogItem.item_type)):(catalogItem.sales_account_code||defaultLineAccount(dir,catalogItem.item_type));synchronizeAnalytics();}recalc()});
+    line.querySelector('.del-line').addEventListener('click',()=>{if($$('#lineRows .line').length===1)return toast('Ən azı bir qaimə sətri olmalıdır.','warn');line.remove();recalc()});
+    synchronizeAnalytics();
+  }
+  function recalc(){let base=0,vat=0;const currency=$('#f_currency').value||'AZN';$$('#lineRows .line').forEach(line=>{const qty=Number($('.li-qty',line).value)||0,price=Number($('.li-price',line).value)||0,disc=Number($('.li-disc',line).value)||0,vr=Number($('.li-vat',line).value)||0;const b=Math.max(0,qty*price*(1-disc/100)),v=b*vr/100,t=b+v;base+=b;vat+=v;$('.line-total',line).textContent=fmtCurrency(t,currency);});$('#t_base').textContent=fmtCurrency(base,currency);$('#t_vat').textContent=fmtCurrency(vat,currency);$('#t_total').textContent=fmtCurrency(base+vat,currency);$('#cpAccountPreview').textContent=$('#f_cp_account').value||'—';}
+  function syncPosting(){recalc()}
+  function payload(){const items=[];$$('#lineRows .line').forEach(line=>{items.push({catalog_item_id:Number(line.dataset.catalogId)||null,item_code:line.querySelector('.li-code').value.trim(),item_type:line.querySelector('.li-kind').value,description:line.querySelector('.li-desc').value.trim(),qty:Number(line.querySelector('.li-qty').value)||0,unit:line.querySelector('.li-unit').value.trim(),unit_price:Number(line.querySelector('.li-price').value)||0,discount_rate:Number(line.querySelector('.li-disc').value)||0,vat_rate:Number(line.querySelector('.li-vat').value)||0,posting_account_code:line.querySelector('.li-account-input').value.trim(),subkonto_id:Number(line.querySelector('.li-subkonto').value)||null,warehouse_id:Number(line.querySelector('.li-warehouse').value)||null});});return {id:existing?.id,invoice_no:$('#f_no').value.trim(),invoice_series:$('#f_series').value.trim(),invoice_date:$('#f_date').value,due_date:$('#f_due').value,direction:dir,counterparty_name:$('#f_cp_name').value.trim(),voen:$('#f_voen').value.trim(),currency:$('#f_currency').value,status:'Təsdiqlənib',note:$('#f_note').value.trim(),main_note:$('#f_note').value.trim(),additional_note:$('#f_additional_note').value.trim(),posting_profile_id:null,counterparty_account_code:$('#f_cp_account').value.trim(),contract_id:Number($('#f_contract')?.value)||null,vat_posting_account_code:$('#f_vat_account').value.trim(),invoice_type_name:$('#f_type_name').value.trim(),excise_amount:Number($('#f_excise').value)||0,vat_taxable_amount:Number($('#f_taxable').value)||0,vat_non_taxable_amount:Number($('#f_non_taxable').value)||0,vat_exempt_amount:Number($('#f_exempt').value)||0,vat_zero_amount:Number($('#f_zero').value)||0,road_tax_amount:Number($('#f_road').value)||0,reason_text:$('#f_reason').value.trim(),advance_series:$('#f_adv_series').value.trim(),advance_number:$('#f_adv_no').value.trim(),advance_amount:Number($('#f_adv_amt').value)||0,items};}
+  async function save(){try{const p=payload();p.exchange_rate=Number($('#f_exchange_rate')?.value||1);const saved=await api.invoice.save(p);closeModal();await updateCounts();await load();toast(`Qaimə ${saved.invoice_no} avtomatik uçota alındı.`,'success')}catch(e){toast(e.message||'Qaimə saxlanılmadı.','error')}}
+  $('#saveInvoice').addEventListener('click',()=>save());
+  $('#f_currency').addEventListener('change',()=>{const rate=$('#f_exchange_rate');if(rate&&$('#f_currency').value==='AZN')rate.value='1';recalc()});
+  $('#archiveInvoice')?.addEventListener('click',async()=>{try{await api.invoice.archive(existing.id);closeModal();await updateCounts();await load();toast('Qaimə arxivləndi.','success')}catch(e){toast(e.message||'Arxivləmə alınmadı.','error')}});
+  recalc();
+}
+function closeModal(){const root=$('#modalRoot');if(!root.firstChild)return;root.innerHTML='';const target=lastModalFocus;lastModalFocus=null;if(target&&document.contains(target))target.focus()}
+function getVatUi(){
+  if(!vatUi)vatUi=window.createMeyarVatUi({api,$,$$,esc,fmtCurrency,toast,closeModal});
+  return vatUi;
+}
+async function openVatModule(){showModule('vat');await getVatUi().load();}
+new MutationObserver(()=>{const root=$('#modalRoot'),card=$('.modalcard',root);if(!card)return;if(!lastModalFocus)lastModalFocus=document.activeElement;card.setAttribute('role','dialog');card.setAttribute('aria-modal','true');const title=$('h2',card);if(title){if(!title.id)title.id=`modal-title-${Date.now()}`;card.setAttribute('aria-labelledby',title.id)}const close=$('.close',card);if(close){close.setAttribute('aria-label','Pəncərəni bağla');setTimeout(()=>close.focus(),0)}}).observe($('#modalRoot'),{childList:true});
+async function detail(id){
+  const r=await api.invoice.get(id,activeType==='archive');
+  if(!r){toast('Qaimə tapılmadı.','error');return}
+  window.__invoiceCache={[id]:r};
+  const root=$('#modalRoot');
+  const money=n=>fmtCurrency(n,r.currency||'AZN');
+  const history=(r.status_history||[]).length?r.status_history.map(x=>`<div class="timelineitem"><small>${esc(x.changed_at)}</small><strong>${esc(x.from_status||'—')} → ${esc(x.to_status)}</strong><span>${esc(x.changed_by)}${x.reason?' · '+esc(x.reason):''}</span></div>`).join(''):'<span class="muted">Status tarixçəsi yoxdur.</span>';
+  const posting=r.journal?.length?r.journal.map(j=>`<div class="auditrow"><span>${esc(j.account_code)}</span><span>D ${fmt(j.debit)} / K ${fmt(j.credit)}</span><b>${esc(j.analytic_key||'')}</b></div>`).join(''):'<span class="muted">Hələ müxabirləşmə yaradılmayıb.</span>';
+  const paymentBlock=`<div class="reconcile-card"><div><span>Ödənilib</span><strong>${money(r.paid_amount)}</strong></div><div><span>Açıq qalıq</span><strong>${money(r.outstanding_amount)}</strong></div><div><span>Allocation sayı</span><strong>${r.payments.length}</strong></div><div><span>Üzləşdirmə</span><strong>${r.paid_amount>=r.total_amount-.005?'TAM':'GÖZLƏYİR'}</strong></div></div>${r.payments.length?'<div style="margin-top:9px">'+r.payments.map(p=>`<div class="auditrow"><span>${esc(p.payment_date)}</span><span>${esc(p.document_no||'—')}</span><b>${money(p.allocated_amount)}</b></div>`).join('')+'</div>':'<div class="muted" style="margin-top:8px">Bu qaimə üçün hələ bank/kassa ödəniş allocation-u yoxdur.</div>'}`;
+  root.innerHTML=`<div class="modal"><div class="backdrop" data-close></div><div class="modalcard invoice-detail-v113"><div class="modalhead"><div><span class="eyebrow" style="color:#f1d67b">E-QAİMƏ / ${r.deleted_at?'ARXİV':'DETAL'}</span><h2>${esc(r.invoice_no)}</h2><p>${esc(r.counterparty_name)} · ${esc(r.voen)} · ${esc(r.direction)}</p></div><button class="close" data-close><i class="fa-solid fa-xmark"></i></button></div><div class="modalbody">
+    ${r.deleted_at?'<div class="archive-note"><i class="fa-solid fa-box-archive"></i> Bu sənəd arxivdədir. Aktiv reyestrdən çıxarılıb və yalnız baxış/bərpa üçün açılır.</div>':''}
+    <div class="detailgrid"><div class="detailstat"><span>Yekun</span><strong>${money(r.total_amount)}</strong></div><div class="detailstat"><span>Ödənilib</span><strong>${money(r.paid_amount)}</strong></div><div class="detailstat"><span>Qalıq</span><strong>${money(r.outstanding_amount)}</strong></div><div class="detailstat"><span>Uçot</span><strong>${esc(r.posting_status)}</strong></div></div>
+    <div class="detailsection"><h4>Sənəd məlumatları</h4><div class="body"><div class="grid"><label>Tarix<input disabled value="${esc(r.invoice_date)}"></label><label>Son tarix<input disabled value="${esc(r.due_date||'—')}"></label><label>VÖEN<input disabled value="${esc(r.voen)}"></label><label>Valyuta<input disabled value="${esc(r.currency)}"></label></div></div></div>
+    <div class="detailsection"><h4>Qaimə sətirləri</h4><div class="body"><div class="tablewrap"><table class="invoice-detail-lines"><thead><tr><th>Kod</th><th>Növ</th><th>Təsvir</th><th>Miqdar / vahid</th><th>Qiymət</th><th>ƏDV</th><th>Uçot hesabı</th><th>Subkonto / anbar</th><th>Yekun</th></tr></thead><tbody>${r.items.map(x=>`<tr><td class="mono">${esc(x.item_code||'—')}</td><td>${esc(x.item_type)}</td><td title="${esc(x.description)}"><span class="cell-clip">${esc(x.description)}</span></td><td class="amount">${x.qty} ${esc(x.unit)}</td><td class="amount">${money(x.unit_price)}</td><td class="amount">${money(x.vat_amount)}</td><td><span class="account-pill">${esc(x.posting_account_code||'—')}</span></td><td title="${esc(x.subkonto_name||x.warehouse_name||'—')}"><span class="cell-clip">${esc(x.subkonto_name||x.warehouse_name||'—')}</span><span class="table-sub">${esc(x.subkonto_code||(x.valuation_method?`${x.valuation_method}`:''))}</span></td><td class="amount"><b>${money(x.total_amount)}</b></td></tr>`).join('')}</tbody></table></div></div></div>
+    <div class="detailsection"><h4>Ödəniş və üzləşdirmə</h4><div class="body">${paymentBlock}</div></div>
+    <div class="detailsection"><h4>Müxabirləşmə</h4><div class="body">${posting}</div></div>
+    <div class="detailsection"><h4>Status tarixçəsi</h4><div class="body timeline">${history}</div></div>
+    <div class="detailsection"><h4>Audit izi</h4><div class="body" id="auditBody"><span class="muted">Audit məlumatı yüklənir...</span></div></div>
+  </div><div class="modalfoot"><span class="muted">ID ${r.id} · ${r.deleted_at?'Arxiv sənədi':'Aktiv və avtomatik uçota alınmış sənəd'}</span><div class="actions"><button class="btn" data-close>Bağla</button>${r.deleted_at?`<button class="btn primary" id="restoreInvoice"><i class="fa-solid fa-rotate-left"></i> Arxivdən bərpa et</button>`:`<button class="btn" id="editInvoice"><i class="fa-solid fa-pen-to-square"></i> Redaktə</button><button class="btn dangerbtn" id="deleteInvoice"><i class="fa-solid fa-box-archive"></i> Arxivlə</button>`}</div></div></div></div>`;
+  $$('[data-close]',root).forEach(x=>x.addEventListener('click',closeModal));
+  api.invoice.audit(r.id).then(a=>{const el=$('#auditBody',root);if(el)el.innerHTML=a.length?a.map(x=>`<div class="auditrow"><span>${esc(x.created_at)}</span><span>${esc(x.user_name)}</span><b>${esc(x.action)}</b></div>`).join(''):'<span class="muted">Audit qeydi yoxdur.</span>'}).catch(()=>{});
+  $('#editInvoice')?.addEventListener('click',()=>showInvoiceModal(r,r.direction));
+  $('#deleteInvoice')?.addEventListener('click',async()=>{if(!confirm(`Qaimə ${r.invoice_no} storno edilərək arxivlənsin?`))return;try{await api.invoice.archive(r.id);closeModal();await updateCounts();await load();toast('Qaimə storno izi saxlanılaraq arxivləndi.','success')}catch(e){toast(e.message||'Qaimə arxivlənmədi.','error')}});
+  $('#restoreInvoice')?.addEventListener('click',async()=>{try{await api.invoice.restore(r.id);closeModal();activeType='current';$('#filterRegistry').value='current';invoicePage=1;await updateCounts();await load();toast('Qaimə arxivdən bərpa edildi.','success')}catch(e){toast(e.message||'Bərpa alınmadı.','error')}});
+}
+
+async function openAccountingSetupModal(force=false){
+  const root=$('#modalRoot');
+  const setup=await api.accounting.setup();
+  const settings=setup.settings||{};
+  if(settings.accounting_enabled && !force){ return openDBCV182(); }
+  const accounts=setup.accounts||[];
+  const dateVal=settings.opening_date||today();
+  root.innerHTML=`<div class="modal"><div class="backdrop" data-close></div><div class="modalcard accounting-card"><div class="modalhead"><div><span class="eyebrow" style="color:#f1d67b">UÇOT SİSTEMİ / BAŞLANĞIC</span><h2>Dövriyyə-Balans uçotunu aktivləşdir</h2><p>Şirkətin açılış qalıqlarını daxil edin. Bundan sonra təsdiqlənən qaimələr mühasibat jurnalına düşəcək.</p></div><button class="close" data-close><i class="fa-solid fa-xmark"></i></button></div><div class="modalbody"><div class="accounting-toolbar"><label class="field"><span>Uçotun başlanğıc tarixi</span><input id="accOpeningDate" type="date" value="${esc(dateVal)}"></label><div style="flex:1"><span class="activation-state off"><i class="fa-solid fa-lock"></i> Uçot hələ aktiv deyil</span></div></div><div class="accounting-note"><b>Qayda:</b> Debet və Kredit ayrı daxil edilir; eyni hesabda ikisi birlikdə ola bilməz. Açılış qalıqlarının ümumi Debeti ümumi Kreditə bərabər olmalıdır. Qalıq daxil etmək məcburi deyil — sıfır qalıqla da uçotu aktivləşdirə bilərsiniz.</div><div class="panel"><div class="tablehead"><div><h3>Açılış qalıqları</h3><small>Hesablar planındakı hesablar üzrə ilkin saldo</small></div><div class="muted">${accounts.length} hesab</div></div><div class="tablewrap"><table class="opening-table"><thead><tr><th style="width:120px">Hesab</th><th>Hesabın adı</th><th style="width:190px">Debet</th><th style="width:190px">Kredit</th><th style="width:180px">Qeyd</th></tr></thead><tbody id="openingBody">${accounts.map(a=>{const d=Number(a.debit||0),c=Number(a.credit||0);return `<tr><td><b>${esc(a.code)}</b></td><td class="account-name">${esc(a.name)}</td><td><input class="opening-debit" data-code="${esc(a.code)}" type="number" min="0" step="0.01" value="${d?d.toFixed(2):''}" placeholder="0,00"></td><td><input class="opening-credit" data-code="${esc(a.code)}" type="number" min="0" step="0.01" value="${c?c.toFixed(2):''}" placeholder="0,00"></td><td><input class="opening-note" data-code="${esc(a.code)}" type="text" value="${esc(a.note||'')}" placeholder="Qeyd"></td></tr>`}).join('')}</tbody></table><div class="opening-total"><span>Debet: <b id="openingTotalD">0,00</b> ₼</span><span>Kredit: <b id="openingTotalK">0,00</b> ₼</span><span id="openingDiff" class="dbc-ok">Fərq: 0,00 ₼</span></div></div></div></div><div class="modalfoot"><span class="muted">Aktivləşdirmədən sonra uçota alma düymələri işlək olacaq.</span><div class="actions"><button class="btn" data-close>Bağla</button><button class="btn primary" id="activateAccounting"><i class="fa-solid fa-unlock"></i> Uçotu aktivləşdir</button></div></div></div></div>`;
+  $$('[data-close]',root).forEach(x=>x.addEventListener('click',closeModal));
+  const recalc=()=>{let d=0,c=0;$$('.opening-debit',root).forEach(x=>d+=Number(x.value)||0);$$('.opening-credit',root).forEach(x=>c+=Number(x.value)||0);d=Math.round(d*100)/100;c=Math.round(c*100)/100;$('#openingTotalD').textContent=new Intl.NumberFormat('az-AZ',{minimumFractionDigits:2,maximumFractionDigits:2}).format(d);$('#openingTotalK').textContent=new Intl.NumberFormat('az-AZ',{minimumFractionDigits:2,maximumFractionDigits:2}).format(c);const diff=Math.round((d-c)*100)/100;const el=$('#openingDiff');el.textContent=`Fərq: ${new Intl.NumberFormat('az-AZ',{minimumFractionDigits:2,maximumFractionDigits:2}).format(diff)} ₼`;el.className=Math.abs(diff)<0.005?'dbc-ok':'dbc-bad';};
+  $$('.opening-debit,.opening-credit',root).forEach(x=>x.addEventListener('input',recalc)); recalc();
+  $('#activateAccounting').addEventListener('click',async()=>{try{const balances=accounts.map(a=>({code:a.code,debit:Number(root.querySelector(`.opening-debit[data-code="${CSS.escape(a.code)}"]`)?.value)||0,credit:Number(root.querySelector(`.opening-credit[data-code="${CSS.escape(a.code)}"]`)?.value)||0,note:root.querySelector(`.opening-note[data-code="${CSS.escape(a.code)}"]`)?.value||''}));await api.accounting.activate({openingDate:$('#accOpeningDate').value,balances});closeModal();toast('Dövriyyə-Balans uçotu aktivləşdirildi.','success');await loadAfterAuth();}catch(e){toast(e.message||'Uçot aktivləşdirilə bilmədi.','error')}});
+}
+
+function dbcV182Context(){
+  return {root:$('#modalRoot'),api,accounts:accountCache,escape:esc,query:$,queryAll:$$,closeModal,toast};
+}
+async function openDBCV182(){
+  return window.MeyarDBC.openReport(dbcV182Context(),{from:`${today().slice(0,4)}-01-01`,to:today()});
+}
+
+function openInvoiceSourceMenu(){
+  const root=$('#modalRoot');
+  root.innerHTML=`<div class="modal"><div class="backdrop" data-close></div><div class="modalcard source-menu-card"><div class="modalhead"><div><span class="eyebrow" style="color:#d6f4e3">E-QAİMƏ / YENİ SƏNƏD</span><h2>Qaiməni necə əlavə edirsiniz?</h2><p>Bir mənbə seçin. Seçilən qaimə avtomatik təsnif ediləcək və uçota alınacaq.</p></div><button class="close" data-close><i class="fa-solid fa-xmark"></i></button></div><div class="modalbody"><div class="source-choice-grid"><button class="source-choice" data-source-choice="manual"><i class="fa-solid fa-keyboard"></i><span><b>Əl ilə daxil et</b><small>Qaimə rekvizitlərini və sətirləri özünüz yazın.</small></span><i class="fa-solid fa-chevron-right"></i></button><button class="source-choice" data-source-choice="file"><i class="fa-solid fa-file-excel"></i><span><b>Excel / CSV-dən yüklə</b><small>DVX çıxarışını istiqamət yoxlaması ilə idxal edin.</small></span><i class="fa-solid fa-chevron-right"></i></button><button class="source-choice" data-source-choice="live"><i class="fa-solid fa-tower-broadcast"></i><span><b>DVX-dan canlı yüklə</b><small>Portal pəncərəsini açın və seçilmiş qaimələri gətirin.</small></span><i class="fa-solid fa-chevron-right"></i></button></div></div><div class="modalfoot"><span class="muted">Təsdiqlənən sənəd Journal və DBC-yə avtomatik düşür.</span><button class="btn" data-close>İmtina</button></div></div></div>`;
+  $$('[data-close]',root).forEach(x=>x.addEventListener('click',closeModal));
+  $$('.source-choice',root).forEach(button=>button.addEventListener('click',async()=>{const choice=button.dataset.sourceChoice;closeModal();try{if(choice==='manual')await showInvoiceModal(null,launchDirection);if(choice==='file')await importInvoiceFile();if(choice==='live')await openLiveInvoice()}catch(e){toast(e.message||'Qaimə əlavə etmə pəncərəsi açıla bilmədi.','error')}}));
+}
+$('#manualInvoice').addEventListener('click',openInvoiceSourceMenu);
+$('#sourceManual')?.addEventListener('click',async()=>{try{await showInvoiceModal(null,launchDirection)}catch(e){toast(e.message||'Yeni qaimə pəncərəsi açıla bilmədi.','error')}});
+async function importInvoiceFile(){
+  try{
+    const r=await api.invoice.importFile(launchDirection);
+    if(r?.cancelled)return;
+    if(['Gələn','Gedən'].includes(r.detectedDirection) && r.detectedDirection!==launchDirection){
+      launchDirection=r.detectedDirection;activeType='current';$('#filterRegistry').value='current';invoicePage=1;updateDirectionUI();
+    }
+    await updateCounts();await load();
+    toast(`${r.detectedDirection||launchDirection} idxal: ${r.created} yeni · ${r.skippedExisting??r.duplicates??0} bazada mövcud · ${r.failed} xəta.`,r.failed?'warn':'success');
+  }catch(e){toast(e.message||'Çıxarış idxalı alınmadı.','error')}
+}
+$('#importInvoice')?.addEventListener('click',importInvoiceFile);
+$('#sourceImport')?.addEventListener('click',importInvoiceFile);
+async function refreshInvoiceRegister(){
+  const refreshButton=$('#invoiceRefresh');
+  const originalContent=refreshButton?.innerHTML||'';
+  if(refreshButton){refreshButton.disabled=true;refreshButton.innerHTML='<i class="fa-solid fa-rotate"></i> Yoxlanılır';}
+  try{
+    const result=await api.invoice.sync(launchDirection);
+    invoicePage=1;
+    await updateCounts();
+    await load();
+    if(!result?.sourceAvailable){
+      toast(result?.message||'Canlı DVX pəncərəsi və ya əvvəlki idxal mənbəyi yoxdur. Lokal reyestr yeniləndi.','info');
+      return;
+    }
+    toast(`${launchDirection}: ${result.created||0} yeni qaimə əlavə edildi · ${result.skippedExisting??result.duplicates??0} mövcud sənədə toxunulmadı · ${result.failed||0} xəta.`,result.failed?'warn':'success');
+  }catch(error){
+    await load();
+    toast(error.message||'Qaimə sinxronizasiyası tamamlanmadı.','error');
+  }finally{
+    if(refreshButton){refreshButton.disabled=false;refreshButton.innerHTML=originalContent;}
+  }
+}
+$('#invoiceRefresh')?.addEventListener('click',refreshInvoiceRegister);
+async function openLiveInvoice(){try{await api.invoice.liveOpen(launchDirection);toast(`${launchDirection} üçün DVX canlı pəncərəsi açıldı. Portala daxil olduqdan sonra “Meyar ERP-ə gətir” düyməsini istifadə edin.`,'success')}catch(e){toast(e.message||'DVX pəncərəsi açıla bilmədi.','error')}}
+$('#liveInvoice')?.addEventListener('click',openLiveInvoice);
+$('#sourceLive')?.addEventListener('click',openLiveInvoice);
+function setDirection(direction){
+  const next=direction==='Gedən'?'Gedən':'Gələn';
+  launchDirection=next;
+  activeType='current';
+  invoicePage=1;
+  $('#filterRegistry').value='current';
+  updateDirectionUI();
+  showModule('invoice');
+  updateCounts().then(load);
+}
+function updateDirectionUI(){
+  document.title=`Meyar ERP — ${launchDirection} E-Qaimələr v${APP_VERSION}`;
+  $('#pageTitle').textContent=`${launchDirection} qaimələr`;
+  $('#pageDesc').textContent=launchDirection==='Gələn'?'Alış sənədləri, ödəniş və uçot vəziyyəti bir ekranda.':'Satış sənədləri, debitor qalıqları və uçot vəziyyəti bir ekranda.';
+  $$('[data-direction-switch]').forEach(b=>b.classList.toggle('active',b.dataset.directionSwitch===launchDirection));
+  $$('[data-direction-window]').forEach(b=>b.classList.toggle('active',b.dataset.directionWindow===launchDirection));
+}
+$$('[data-direction-switch]').forEach(b=>b.addEventListener('click',()=>setDirection(b.dataset.directionSwitch)));
+$$('[data-direction-window]').forEach(b=>b.addEventListener('click',()=>setDirection(b.dataset.directionWindow)));
+
+$('#exportInvoices').addEventListener('click',async()=>{try{const result=await api.invoice.exportFiltered(currentInvoiceQuery());if(!result.cancelled)toast(`${result.count} filtrlənmiş e-qaimə CSV formatında ixrac edildi.`,'success')}catch(e){toast(e.message,'error')}});
+$('#openData')?.addEventListener('click',()=>api.openDataFolder().catch(e=>toast(e.message,'error')));
+
+async function loadDashboard(){
+  try{
+    const [stats,financial,bank,accounting,bankRows,integrity]=await Promise.all([api.invoice.stats(),api.invoice.financialSummary(),api.bank.status(),api.accounting.status(),api.bank.transactions({limit:5,direction:'Ödəniş'}),api.accounting.health()]);
+    $('#dashInvoices').textContent=stats.all||0;$('#dashDirections').textContent=`${stats.incoming||0} / ${stats.outgoing||0}`;$('#dashReceivable').textContent=fmt(financial.receivableAzn);$('#dashPayable').textContent=fmt(financial.payableAzn);
+    const recentBank=bankRows.slice(0,5);
+    $('#dashboardBankBody').innerHTML=recentBank.length?recentBank.map(r=>`<tr><td title="${esc(r.counterparty_name||'—')}"><b class="cell-clip">${esc(r.counterparty_name||'—')}</b></td><td class="amount">${fmtCurrency(r.amount,r.currency)}</td></tr>`).join(''):'<tr><td colspan="2" class="empty">Çıxan bank ödənişi yoxdur.</td></tr>';
+    const integrityProblems=Number(integrity.missingInvoicePostings||0)+Number(integrity.unbalancedJournals||0)+Number(integrity.missingStockMovements||0)+Number(integrity.orphanStockMovements||0)+Number(integrity.mismatchedInventoryScopes||0);
+    $('#dashboardSystemList').innerHTML=`<div><span><b>Uçot bütövlüyü</b><small>${integrity.healthy?'Qaimə, jurnal və anbar hərəkətləri tam uyğun gəlir':`${integrityProblems} uçot uyğunsuzluğu aşkarlanıb`}</small></span>${badge(integrity.healthy?'Təsdiqlənib':'Gözləyir')}</div><div><span><b>Dövriyyə-Balans</b><small>Avtomatik uçot aktivdir · başlanğıc ${esc(accounting.opening_date||'təyin edilməyib')}</small></span>${badge('Təsdiqlənib')}</div><div><span><b>Bank</b><small>${bank.accounts?.length||0} hesab · ${bank.txCount||0} əməliyyat · ${Math.max(0,(bank.txCount||0)-(bank.reconciled||0))} açıq</small></span>${badge((bank.txCount||0)===(bank.reconciled||0)?'Təsdiqlənib':'Gözləyir')}</div><div><span><b>Təsnifat nəzarəti</b><small>${integrity.pendingInvoiceReview||0} qaimə 721.99 üzrə yoxlama tələb edir</small></span>${badge((integrity.pendingInvoiceReview||0)?'Gözləyir':'Təsdiqlənib')}</div>`;
+  }catch(e){toast(e.message||'İdarəetmə paneli yüklənmədi.','error')}
+}
+
+function workKeyFor(module){
+  if(module==='invoice')return launchDirection==='Gedən'?'invoice-outgoing':'invoice-incoming';
+  if(module==='bank')return bankActiveDirection==='Ödəniş'?'bank-outgoing':'bank-incoming';
+  return module;
+}
+function ensureWorkTab(module,label){
+  const key=workKeyFor(module);
+  let tab=$(`.work-tab[data-work-module="${key}"]`);
+  if(!tab){
+    const close=key==='dashboard'?'':`<span class="work-tab-close" data-close-work="${esc(key)}" title="Pəncərəni bağla" aria-label="Pəncərəni bağla"><i class="fa-solid fa-xmark"></i></span>`;
+    $('#workTabs').insertAdjacentHTML('beforeend',`<button class="work-tab" data-work-module="${esc(key)}"><span class="work-tab-label">${esc(label)}</span>${close}</button>`);
+    tab=$(`.work-tab[data-work-module="${key}"]`);
+  }
+  $$('.work-tab').forEach(item=>item.classList.toggle('active',item===tab));
+}
+function referenceOptions(items,valueKey='id',label=item=>item.name){return items.map(item=>`<option value="${esc(item[valueKey])}">${esc(label(item))}</option>`).join('')}
+function renderReference(){
+  const query=String($('#referenceSearch')?.value||'').toLocaleLowerCase('az'),all=referenceCache[activeReferenceTab]||[],rows=all.filter(item=>JSON.stringify(item).toLocaleLowerCase('az').includes(query));
+  const config={
+    counterparties:{title:'Kontragentlər',hint:'Debitor, kreditor və müqavilə əlaqələri',widths:[31,12,14,15,15,13],head:'<tr><th>Kontragent</th><th>VÖEN</th><th>Rol</th><th>Debitor hesabı</th><th>Kreditor hesabı</th><th>Müqavilə</th></tr>',row:r=>`<tr data-reference-id="${r.id}" tabindex="0"><td><b class="cell-clip">${esc(r.name)}</b></td><td class="mono">${esc(r.voen)}</td><td>${esc(r.type)}</td><td><span class="account-pill">${esc(r.receivable_account_code)}</span></td><td><span class="account-pill">${esc(r.payable_account_code)}</span></td><td>${r.contract_count||0}</td></tr>`},
+    contracts:{title:'Müqavilələr',hint:'Kontragentlərə bağlı müqavilələr',widths:[30,18,12,12,8,20],head:'<tr><th>Kontragent</th><th>Müqavilə №</th><th>Tarix</th><th>Son tarix</th><th>Valyuta</th><th>Qeyd</th></tr>',row:r=>`<tr data-reference-id="${r.id}" tabindex="0"><td><b class="cell-clip">${esc(r.counterparty_name)}</b><span class="table-sub">${esc(r.voen)}</span></td><td class="mono">${esc(r.contract_no)}</td><td>${esc(r.contract_date||'—')}</td><td>${esc(r.end_date||'—')}</td><td>${esc(r.currency)}</td><td>${esc(r.note||'')}</td></tr>`},
+    banks:{title:'Banklar və hesablar',hint:'Bank hesablarının 223 hesabları ilə əlaqəsi',widths:[22,18,25,8,12,15],head:'<tr><th>Bank</th><th>Hesab adı</th><th>IBAN / hesab №</th><th>Valyuta</th><th>Uçot hesabı</th><th>İnteqrasiya</th></tr>',row:r=>`<tr data-reference-id="${r.id}" tabindex="0"><td><b class="cell-clip">${esc(r.bank_name)}</b></td><td>${esc(r.account_name||'—')}</td><td class="mono" title="${esc(r.iban||r.account_no||'')}"><span class="cell-clip">${esc(r.iban||r.account_no||'—')}</span></td><td>${esc(r.currency)}</td><td><span class="account-pill">${esc(r.ledger_account_code)}</span></td><td>${esc(r.integration_status||'—')}</td></tr>`},
+    accounts:{title:'Hesablar planı',hint:'Qrup hesabları və yazılış aparılan hesablar',widths:[12,38,10,15,10,15],head:'<tr><th>Hesab</th><th>Ad</th><th>Növ</th><th>Tip</th><th>Baş hesab</th><th>Subkonto sayı</th></tr>',row:r=>`<tr data-reference-code="${esc(r.code)}" tabindex="0"><td><b class="dbc-account-code kind-${esc(r.kind)}">${esc(r.code)}</b></td><td title="${esc(r.name)}"><span class="cell-clip">${esc(r.name)}</span></td><td>${esc(r.kind)}</td><td>${Number(r.is_postable)===0?'<span class="badge blue">Qrup hesabı</span>':'<span class="badge green">Yazılış hesabı</span>'}</td><td>${esc(r.parent_code||'—')}</td><td>${r.subkonto_count||0}</td></tr>`},
+    subcontos:{title:'Subkontolar',hint:'Hesab daxilində seçilən analitik maddələr',widths:[18,18,42,22],head:'<tr><th>Hesab</th><th>Subkonto kodu</th><th>Subkonto adı</th><th>Analitika növü</th></tr>',row:r=>`<tr data-reference-id="${r.id}" tabindex="0"><td><span class="account-pill">${esc(r.account_code)}</span><span class="table-sub">${esc(r.account_name)}</span></td><td class="mono"><b>${esc(r.code)}</b></td><td>${esc(r.name)}</td><td>${esc(r.dimension)}</td></tr>`},
+    warehouses:{title:'Anbarlar',hint:'Hər anbar üçün ayrıca FIFO və ya orta maya üsulu',widths:[10,22,13,12,12,10,13,8],head:'<tr><th>Kod</th><th>Anbar</th><th>Qiymətləndirmə</th><th>Ehtiyat hesabı</th><th>Maya hesabı</th><th>Mal sayı</th><th>Mənfi qalıq</th><th>Əsas</th></tr>',row:r=>`<tr data-reference-id="${r.id}" tabindex="0"><td class="mono"><b>${esc(r.code)}</b></td><td>${esc(r.name)}</td><td>${r.valuation_method==='FIFO'?'FIFO':'Orta maya'}</td><td><span class="account-pill">${esc(r.inventory_account_code)}</span></td><td><span class="account-pill">${esc(r.cogs_account_code)}</span></td><td>${r.item_count||0}</td><td>${r.allow_negative_stock?'İcazəli':'Bloklanır'}</td><td>${r.is_default?'Bəli':'—'}</td></tr>`},
+    catalog:{title:'Mal və xidmətlər',hint:'Qaimə sətirlərinin növ və hesab xəritəsi',widths:[12,32,10,8,13,13,12],head:'<tr><th>Kod</th><th>Ad</th><th>Növ</th><th>Vahid</th><th>Alış hesabı</th><th>Satış hesabı</th><th>Standart maya</th></tr>',row:r=>`<tr data-reference-id="${r.id}" tabindex="0"><td class="mono"><b>${esc(r.code)}</b></td><td>${esc(r.name)}</td><td>${esc(r.item_type)}</td><td>${esc(r.unit)}</td><td><span class="account-pill">${esc(r.purchase_account_code)}</span></td><td><span class="account-pill">${esc(r.sales_account_code)}</span></td><td class="amount">${fmt(r.standard_cost)}</td></tr>`},
+    rules:{title:'Avtomatik uçot qaydaları',hint:'Kontragent və mətnə görə hesab/subkonto seçimi',widths:[7,20,9,9,20,22,13],head:'<tr><th>Prioritet</th><th>Qayda</th><th>İstiqamət</th><th>Növ</th><th>Şərt</th><th>Hesab / subkonto</th><th>Anbar</th></tr>',row:r=>`<tr data-reference-id="${r.id}" tabindex="0"><td>${r.priority}</td><td><b class="cell-clip">${esc(r.name)}</b></td><td>${esc(r.direction||'Hamısı')}</td><td>${esc(r.item_type||'Hamısı')}</td><td>${esc(r.match_field)}: ${esc(r.match_value||'—')}</td><td><span class="account-pill">${esc(r.account_code)}</span><span class="table-sub">${esc(r.subkonto_name||'')}</span></td><td>${esc(r.warehouse_name||'—')}</td></tr>`}
+  }[activeReferenceTab];
+  $('#referenceTitle').textContent=config.title;
+  $('#referenceHint').textContent=config.hint;
+  $('#referenceColumns').innerHTML=config.widths.map(width=>`<col style="width:${width}%">`).join('');
+  $('#referenceHead').innerHTML=config.head;
+  $('#referenceBody').innerHTML=rows.length?rows.map(config.row).join(''):`<tr><td colspan="${config.widths.length}" class="empty">Məlumat tapılmadı.</td></tr>`;
+  $('#referenceCount').textContent=`${rows.length} qeyd`;
+  $$('#referenceBody td').forEach(cell=>{if(!cell.title)cell.title=cell.innerText.trim()});
+}
+async function loadReference(){const [references,bank]=await Promise.all([api.reference.list(),api.bank.status()]);referenceCache={...references,banks:bank.accounts||[]};renderReference()}
+function openReferenceModal(type,item=null){
+  const postableAccounts=referenceCache.accounts.filter(account=>Number(account.is_postable)!==0);
+  const optionsForAccounts=(roles=[])=>referenceOptions(postableAccounts.filter(account=>!roles.length||roles.includes(String(account.role||''))),'code',account=>`${account.code} — ${account.name}`);
+  const accountOptions=optionsForAccounts(),receivableOptions=optionsForAccounts(['RECEIVABLE']),payableOptions=optionsForAccounts(['PAYABLE']),inventoryOptions=optionsForAccounts(['INVENTORY']),cogsOptions=optionsForAccounts(['COGS']);
+  const counterpartyOptions=referenceOptions(referenceCache.counterparties,'id',c=>`${c.name} · ${c.voen}`),warehouseOptions='<option value="">—</option>'+referenceOptions(referenceCache.warehouses,'id',w=>w.name),subkontoOptions='<option value="">—</option>'+referenceOptions(referenceCache.subcontos,'id',s=>`${s.account_code} / ${s.name}`);
+  const forms={
+    accounts:`<label>Kod<input id="refCode" value="${esc(item?.code||'')}" placeholder="721 və ya 721.01"></label><label class="span2">Hesabın adı<input id="refName" value="${esc(item?.name||'')}"></label><label>Növ<select id="refKind"><option value="asset">Aktiv</option><option value="liability">Öhdəlik</option><option value="equity">Kapital</option><option value="income">Gəlir</option><option value="expense">Xərc</option></select></label><label>Semantik rol<select id="refRole"><option value="">Xüsusi rol yoxdur</option><option value="RECEIVABLE">Debitor</option><option value="PAYABLE">Kreditor</option><option value="BANK">Bank</option><option value="INVENTORY">Anbar ehtiyatı</option><option value="INPUT_VAT">Əvəzləşdirilən ƏDV</option><option value="OUTPUT_VAT">Ödəniləcək ƏDV</option><option value="SALES_GOODS">Mal satış gəliri</option><option value="SALES_SERVICE">Xidmət satış gəliri</option><option value="COGS">Satışın maya dəyəri</option><option value="EXPENSE">Xərc</option><option value="SUSPENSE_EXPENSE">Gözləmə xərci</option></select></label><label><input id="refPostable" type="checkbox" ${item?Number(item.is_postable)!==0:'checked'}> Müxabirləşmədə yazılış aparılsın</label>`,
+    subcontos:`<label>Hesab<select id="refAccount">${accountOptions}</select></label><label>Kod<input id="refCode" value="${esc(item?.code||'')}"></label><label class="span2">Subkonto adı<input id="refName" value="${esc(item?.name||'')}"></label><label>Analitika növü<input id="refDimension" value="${esc(item?.dimension||'Xərc maddəsi')}"></label>`,
+    counterparties:`<label class="span2">Kontragent adı<input id="refName" value="${esc(item?.name||'')}"></label><label>VÖEN<input id="refVoen" maxlength="10" value="${esc(item?.voen||'')}"></label><label><input id="refCustomer" type="checkbox" ${item?.is_customer?'checked':''}> Debitor</label><label><input id="refSupplier" type="checkbox" ${item?.is_supplier?'checked':''}> Kreditor</label><label>Debitor hesabı<select id="refReceivable">${receivableOptions}</select></label><label>Kreditor hesabı<select id="refPayable">${payableOptions}</select></label><label>Telefon<input id="refPhone" value="${esc(item?.phone||'')}"></label><label>E-poçt<input id="refEmail" value="${esc(item?.email||'')}"></label><label class="span2">Ünvan<input id="refAddress" value="${esc(item?.address||'')}"></label>`,
+    contracts:`<label class="span2">Kontragent<select id="refCounterparty">${counterpartyOptions}</select></label><label>Müqavilə №<input id="refContractNo" value="${esc(item?.contract_no||'')}"></label><label>Valyuta<select id="refCurrency"><option>AZN</option><option>USD</option><option>EUR</option></select></label><label>Tarix<input id="refDate" type="date" value="${esc(item?.contract_date||'')}"></label><label>Son tarix<input id="refEnd" type="date" value="${esc(item?.end_date||'')}"></label><label class="span2">Qeyd<input id="refNote" value="${esc(item?.note||'')}"></label>`,
+    warehouses:`<label>Kod<input id="refCode" value="${esc(item?.code||'')}"></label><label class="span2">Anbarın adı<input id="refName" value="${esc(item?.name||'')}"></label><label>Üsul<select id="refMethod"><option value="AVERAGE">Orta maya</option><option value="FIFO">FIFO</option></select></label><label>Ehtiyat hesabı<select id="refInventory">${inventoryOptions}</select></label><label>Maya hesabı<select id="refCogs">${cogsOptions}</select></label><label><input id="refDefault" type="checkbox" ${item?.is_default?'checked':''}> Əsas anbar</label><label title="Aktiv olduqda qalıqdan artıq çıxış bloklanmır, sənəd isə yoxlama üçün işarələnir"><input id="refAllowNegative" type="checkbox" ${item?.allow_negative_stock?'checked':''}> Mənfi qalığa icazə</label>`,
+    catalog:`<label>Kod<input id="refCode" value="${esc(item?.code||'')}"></label><label class="span2">Ad<input id="refName" value="${esc(item?.name||'')}"></label><label>Növ<select id="refItemType"><option>Mal</option><option>Xidmət</option></select></label><label>Vahid<input id="refUnit" value="${esc(item?.unit||'ədəd')}"></label><label>Alış hesabı<select id="refPurchase">${accountOptions}</select></label><label>Satış hesabı<select id="refSales">${accountOptions}</select></label><label>Standart maya<input id="refCost" type="number" step="0.01" value="${Number(item?.standard_cost||0)}"></label>`,
+    rules:`<label class="span2">Qayda adı<input id="refName" value="${esc(item?.name||'')}"></label><label>Prioritet<input id="refPriority" type="number" value="${Number(item?.priority||100)}"></label><label>İstiqamət<select id="refDirection"><option value="">Hamısı</option><option>Gələn</option><option>Gedən</option></select></label><label>Növ<select id="refItemType"><option value="">Hamısı</option><option>Mal</option><option>Xidmət</option></select></label><label>Şərt sahəsi<select id="refField"><option value="all">Bütün mətn</option><option value="counterparty">Kontragent</option><option value="description">Təsvir</option><option value="item_code">Mal kodu</option></select></label><label>Şərt mətni<input id="refValue" value="${esc(item?.match_value||'')}"></label><label>Hesab<select id="refAccount">${accountOptions}</select></label><label>Subkonto<select id="refSubkonto">${subkontoOptions}</select></label><label>Anbar<select id="refWarehouse">${warehouseOptions}</select></label>`
+  };
+  const root=$('#modalRoot');root.innerHTML=`<div class="modal"><div class="backdrop" data-close></div><div class="modalcard"><div class="modalhead"><div><span class="eyebrow">MƏLUMAT KİTABÇASI</span><h2>${item?'Qeydi dəyiş':'Yeni qeyd'}</h2><p>Dəyişiklik uçot qaydalarında dərhal istifadə olunur.</p></div><button class="close" data-close><i class="fa-solid fa-xmark"></i></button></div><div class="modalbody"><div class="grid">${forms[type]}</div></div><div class="modalfoot"><button class="btn" data-close>İmtina</button><button class="btn primary" id="referenceSave">Yadda saxla</button></div></div></div>`;
+  $$('[data-close]',root).forEach(x=>x.addEventListener('click',closeModal));
+  const setValue=(selector,value)=>{const el=$(selector,root);if(el&&value!==undefined&&value!==null)el.value=String(value)};
+  setValue('#refKind',item?.kind);setValue('#refRole',item?.role);setValue('#refAccount',item?.account_code);setValue('#refReceivable',item?.receivable_account_code||'211.01');setValue('#refPayable',item?.payable_account_code||'531.01');setValue('#refCounterparty',item?.counterparty_id);setValue('#refCurrency',item?.currency);setValue('#refMethod',item?.valuation_method);setValue('#refInventory',item?.inventory_account_code||'205.01');setValue('#refCogs',item?.cogs_account_code||'701.01');setValue('#refItemType',item?.item_type);setValue('#refPurchase',item?.purchase_account_code);setValue('#refSales',item?.sales_account_code);setValue('#refDirection',item?.direction);setValue('#refField',item?.match_field);setValue('#refSubkonto',item?.subkonto_id);setValue('#refWarehouse',item?.warehouse_id);
+  if(type==='rules')$('#refAccount')?.addEventListener('change',()=>{const selected=Number($('#refSubkonto')?.value)||null;$('#refSubkonto').innerHTML='<option value="">—</option>'+referenceCache.subcontos.filter(subkonto=>subkonto.account_code===$('#refAccount').value).map(subkonto=>`<option value="${subkonto.id}" ${Number(subkonto.id)===selected?'selected':''}>${esc(subkonto.name)} · ${esc(subkonto.code)}</option>`).join('')});
+  $('#referenceSave').addEventListener('click',async()=>{try{
+    const common={id:item?.id};let payload;
+    if(type==='accounts')payload={code:$('#refCode').value,name:$('#refName').value,kind:$('#refKind').value,role:$('#refRole').value,is_postable:$('#refPostable').checked};
+    if(type==='subcontos')payload={...common,account_code:$('#refAccount').value,code:$('#refCode').value,name:$('#refName').value,dimension:$('#refDimension').value};
+    if(type==='counterparties')payload={...common,name:$('#refName').value,voen:$('#refVoen').value,is_customer:$('#refCustomer').checked,is_supplier:$('#refSupplier').checked,receivable_account_code:$('#refReceivable').value,payable_account_code:$('#refPayable').value,phone:$('#refPhone').value,email:$('#refEmail').value,address:$('#refAddress').value};
+    if(type==='contracts')payload={...common,counterparty_id:Number($('#refCounterparty').value),contract_no:$('#refContractNo').value,contract_date:$('#refDate').value,end_date:$('#refEnd').value,currency:$('#refCurrency').value,note:$('#refNote').value};
+    if(type==='warehouses')payload={...common,code:$('#refCode').value,name:$('#refName').value,valuation_method:$('#refMethod').value,inventory_account_code:$('#refInventory').value,cogs_account_code:$('#refCogs').value,is_default:$('#refDefault').checked,allow_negative_stock:$('#refAllowNegative').checked};
+    if(type==='catalog')payload={...common,code:$('#refCode').value,name:$('#refName').value,item_type:$('#refItemType').value,unit:$('#refUnit').value,purchase_account_code:$('#refPurchase').value,sales_account_code:$('#refSales').value,standard_cost:Number($('#refCost').value)||0};
+    if(type==='rules')payload={...common,name:$('#refName').value,priority:Number($('#refPriority').value)||100,direction:$('#refDirection').value,item_type:$('#refItemType').value,match_field:$('#refField').value,match_value:$('#refValue').value,account_code:$('#refAccount').value,subkonto_id:Number($('#refSubkonto').value)||null,warehouse_id:Number($('#refWarehouse').value)||null};
+    const method={accounts:'saveAccount',subcontos:'saveSubkonto',counterparties:'saveCounterparty',contracts:'saveContract',warehouses:'saveWarehouse',catalog:'saveCatalog',rules:'saveRule'}[type];await api.reference[method](payload);closeModal();accountCache=[];catalogCache=[];counterpartyCache=[];await loadReference();toast('Məlumat yadda saxlanıldı.','success');
+  }catch(error){toast(error.message||'Məlumat saxlanmadı.','error')}});
+}
+
+let bankAccounts=[];let bankSelectedAccountId=undefined,bankPage=1,bankPageSize=200,bankTotalRows=0,bankSearchTimer=null;
+function showModule(module){
+  const dashboard=module==='dashboard',invoice=module==='invoice',bank=module==='bank',tax=module==='tax',vat=module==='vat',reference=module==='reference';
+  $('#dashboardWorkspace').classList.toggle('hidden',!dashboard);$('#invoiceWorkspace').classList.toggle('hidden',!invoice);$('#invoiceToolbar').classList.add('hidden');$('#invoiceToolbar').hidden=true;$('#bankWorkspace').classList.toggle('hidden',!bank);$('#taxWorkspace').classList.toggle('hidden',!tax);$('#vatWorkspace').classList.toggle('hidden',!vat);$('#referenceWorkspace').classList.toggle('hidden',!reference);
+  $$('[data-direction-window]').forEach(b=>b.classList.toggle('active',invoice&&b.dataset.directionWindow===launchDirection));
+  $('#navDashboard')?.classList.toggle('active',dashboard);$('#navBank')?.classList.toggle('active',bank);$('#navDvx')?.classList.toggle('active',tax);$('#navVat')?.classList.toggle('active',vat);$('#navReference')?.classList.toggle('active',reference);$('#navAccounting')?.classList.toggle('active',false);
+  ensureWorkTab(module,dashboard?'Əsas səhifə':invoice?`${launchDirection} qaimələr`:bank?(bankActiveDirection==='Ödəniş'?'Çıxan ödənişlər':'Daxil olan ödənişlər'):tax?'DVX':vat?'Aylıq ƏDV':'Məlumat kitabçaları');
+}
+$('#navDashboard')?.addEventListener('click',async()=>{showModule('dashboard');await loadDashboard()});
+$('#navVat')?.addEventListener('click',openVatModule);
+$('#navReference')?.addEventListener('click',async()=>{showModule('reference');await loadReference()});
+$('#referenceSearch').addEventListener('input',renderReference);
+$$('.reference-tab').forEach(tab=>tab.addEventListener('click',()=>{activeReferenceTab=tab.dataset.reference;$$('.reference-tab').forEach(item=>item.classList.toggle('active',item===tab));renderReference()}));
+$('#referenceAdd').addEventListener('click',()=>activeReferenceTab==='banks'?openBankAccountModal():openReferenceModal(activeReferenceTab));
+$('#referenceBody').addEventListener('click',event=>{
+  const row=event.target.closest('tr[data-reference-id],tr[data-reference-code]');
+  if(!row)return;
+  $$('#referenceBody tr').forEach(item=>item.classList.toggle('reference-selected',item===row));
+});
+$('#referenceBody').addEventListener('dblclick',event=>{const row=event.target.closest('tr');if(!row)return;const item=activeReferenceTab==='accounts'?referenceCache.accounts.find(value=>value.code===row.dataset.referenceCode):(referenceCache[activeReferenceTab]||[]).find(value=>Number(value.id)===Number(row.dataset.referenceId));if(item){if(activeReferenceTab==='banks')openBankAccountModal(item);else openReferenceModal(activeReferenceTab,item)}});
+$('#referenceBody').addEventListener('keydown',event=>{
+  if(event.key!=='Enter')return;
+  const row=event.target.closest('tr[data-reference-id],tr[data-reference-code]');
+  if(!row)return;
+  event.preventDefault();
+  const item=activeReferenceTab==='accounts'?referenceCache.accounts.find(value=>value.code===row.dataset.referenceCode):(referenceCache[activeReferenceTab]||[]).find(value=>Number(value.id)===Number(row.dataset.referenceId));
+  if(item){if(activeReferenceTab==='banks')openBankAccountModal(item);else openReferenceModal(activeReferenceTab,item)}
+});
+$('#workTabs').addEventListener('click',async event=>{
+  const close=event.target.closest('[data-close-work]');
+  if(close){
+    event.stopPropagation();
+    const tab=close.closest('.work-tab'),wasActive=tab?.classList.contains('active');
+    tab?.remove();
+    if(wasActive){if($('#modalRoot').firstChild)closeModal();showModule('dashboard');await loadDashboard()}
+    return;
+  }
+  const tab=event.target.closest('[data-work-module]');if(!tab)return;
+  const key=tab.dataset.workModule;
+  if($('#modalRoot').firstChild)closeModal();
+  if(key==='accounting'){ensureWorkTab('accounting','Dövriyyə-balans');await openAccounting();return}
+  if(key==='vat'){await openVatModule();return}
+  if(key==='invoice-incoming'||key==='invoice-outgoing'){
+    launchDirection=key==='invoice-outgoing'?'Gedən':'Gələn';activeType='current';invoicePage=1;$('#filterRegistry').value='current';updateDirectionUI();showModule('invoice');await updateCounts();await load();return;
+  }
+  if(key==='bank-incoming'||key==='bank-outgoing'){
+    bankActiveDirection=key==='bank-outgoing'?'Ödəniş':'Daxilolma';bankPage=1;showModule('bank');syncBankDirectionUI();await loadBank();await loadBankTransactions();return;
+  }
+  showModule(key);
+  if(key==='dashboard')await loadDashboard();if(key==='tax')await loadDvxModule();if(key==='reference')await loadReference();
+});
+$('#dashboardRefresh')?.addEventListener('click',loadDashboard);
+function openBankAccountModal(existing=null){
+  const root=$('#modalRoot');
+  root.innerHTML=`<div class="modal"><div class="backdrop" data-close></div><div class="modalcard"><div class="modalhead"><div><span class="eyebrow">BANK / HESAB</span><h2>${existing?'Bank hesabını dəyiş':'Yeni bank hesabı'}</h2><p>Bank hesabını mühasibat hesabı ilə əlaqələndirin.</p></div><button class="close" data-close><i class="fa-solid fa-xmark"></i></button></div><div class="modalbody"><div class="bank-form"><label class="field">Bank adı<input id="bBankName" value="${esc(existing?.bank_name||'PASHA Bank')}" placeholder="PASHA Bank"></label><label class="field">Hesab adı<input id="bAccountName" value="${esc(existing?.account_name||'')}" placeholder="AZN hesabı"></label><label class="field">Hesab nömrəsi<input id="bAccountNo" value="${esc(existing?.account_no||'')}"></label><label class="field">IBAN<input id="bIban" value="${esc(existing?.iban||'')}" placeholder="AZ..." class="mono"></label><label class="field">Valyuta<select id="bCurrency"><option ${existing?.currency==='AZN'||!existing?'selected':''}>AZN</option><option ${existing?.currency==='USD'?'selected':''}>USD</option><option ${existing?.currency==='EUR'?'selected':''}>EUR</option></select></label><label class="field">Mühasibat hesabı<select id="bLedger">${accountCache.filter(a=>String(a.role||'')==='BANK'&&Number(a.is_postable)!==0).map(a=>`<option value="${esc(a.code)}" ${a.code===(existing?.ledger_account_code||'223.01')?'selected':''}>${esc(a.code)} — ${esc(a.name)}</option>`).join('')}</select></label><label class="field full">Mühit<select id="bEnv"><option value="sandbox" ${existing?.api_environment!=='production'?'selected':''}>Sandbox — test üçün</option><option value="production" ${existing?.api_environment==='production'?'selected':''}>Production — təsdiqdən sonra</option></select></label></div><div class="bank-integration"><b>API:</b> PASHA Bank OpenBanking · <b>status:</b> Təsdiq gözləyir. Bu ekrandan real bank serverinə qoşulma edilmir.</div></div><div class="modalfoot"><button class="btn" data-close>Bağla</button><button class="btn primary" id="saveBankAccount"><i class="fa-solid fa-floppy-disk"></i> Yadda saxla</button></div></div></div>`;
+  $$('[data-close]',root).forEach(x=>x.addEventListener('click',closeModal));
+  $('#saveBankAccount').addEventListener('click',async()=>{try{const r=await api.bank.saveAccount({id:existing?.id,bank_name:$('#bBankName').value,account_name:$('#bAccountName').value,account_no:$('#bAccountNo').value,iban:$('#bIban').value,currency:$('#bCurrency').value,ledger_account_code:$('#bLedger').value,api_environment:$('#bEnv').value});closeModal();bankSelectedAccountId=r.id;toast('Bank hesabı yadda saxlanıldı.','success');await loadBank();await loadBankTransactions();if(!$('#referenceWorkspace').classList.contains('hidden'))await loadReference()}catch(e){toast(e.message||'Bank hesabı saxlanmadı.','error')}});
+}
+async function openBankTransaction(id){
+  try{
+    const tx=await api.bank.get(id); if(!tx){toast('Bank əməliyyatı tapılmadı.','error');return;}
+    const suggestions=await api.bank.suggestions(id); const root=$('#modalRoot');
+    root.innerHTML=`<div class="modal"><div class="backdrop" data-close></div><div class="modalcard" style="width:min(1120px,calc(100vw - 30px))"><div class="modalhead"><div><span class="eyebrow">BANK / UYĞUNLAŞDIRMA</span><h2>${esc(tx.counterparty_name||'Bank əməliyyatı')}</h2><p>${esc(tx.transaction_date)} · ${esc(tx.direction)} · ${fmtCurrency(tx.amount,tx.currency)}</p></div><button class="close" data-close><i class="fa-solid fa-xmark"></i></button></div><div class="modalbody"><div class="detailgrid"><div class="detailstat"><span>İstiqamət</span><strong>${esc(tx.direction)}</strong></div><div class="detailstat"><span>Məbləğ</span><strong>${fmtCurrency(tx.amount,tx.currency)}</strong></div><div class="detailstat"><span>Referans</span><strong>${esc(tx.reference||'—')}</strong></div><div class="detailstat"><span>VÖEN</span><strong>${esc(tx.counterparty_voen||'—')}</strong></div></div><div class="detailsection"><h4>Uçota alınmış qaimələr üzrə uyğunlaşdırma təklifləri</h4><div class="body"><div class="tablewrap"><table style="min-width:960px"><thead><tr><th>Qaimə</th><th>Tarix</th><th>Kontragent</th><th>VÖEN</th><th>Yekun</th><th>Ödənilib</th><th>Açıq qalıq</th><th>Uyğunluq</th><th>Məbləğ</th><th></th></tr></thead><tbody id="bankSuggestionsBody">${suggestions.length?suggestions.map(x=>{const outstanding=Math.max(0,Number(x.total_amount)-Number(x.paid_amount));return `<tr><td><b>${esc(x.invoice_no)}</b></td><td>${esc(x.invoice_date)}</td><td>${esc(x.counterparty_name)}</td><td class="mono">${esc(x.voen)}</td><td class="amount">${fmtCurrency(x.total_amount,x.currency)}</td><td class="amount">${fmtCurrency(x.paid_amount,x.currency)}</td><td class="amount">${fmtCurrency(outstanding,x.currency)}</td><td><span class="badge ${Number(x.score)>=100?'green':Number(x.score)>=60?'blue':'orange'}">${Math.round(Number(x.score))} bal</span></td><td class="amount"><b>${fmtCurrency(tx.amount,tx.currency)}</b></td><td><button class="btn primary bank-match" data-invoice="${x.id}">Uyğunlaşdır</button></td></tr>`}).join(''):`<tr><td colspan="10" class="empty">İstiqamət, valyuta və açıq qalıq üzrə uyğun uçota alınmış qaimə tapılmadı.</td></tr>`}</tbody></table></div></div></div><div class="bank-integration"><b>Təyinat:</b> ${esc(tx.description||'—')} · <b>Bank hesabı:</b> ${esc(tx.account_name||tx.iban||'—')} · Bank əməliyyatının tam məbləği seçilən qaimənin açıq qalığına yazılacaq.</div></div><div class="modalfoot"><button class="btn" data-close>Bağla</button></div></div></div>`;
+    $$('.bank-match',root).forEach(button=>{const suggestion=suggestions.find(row=>Number(row.id)===Number(button.dataset.invoice)),row=button.closest('tr'),outstanding=Math.max(0,Number(suggestion?.total_amount)-Number(suggestion?.paid_amount));row.children[8].innerHTML=`<input class="bank-allocation" type="number" min="0.01" max="${outstanding}" step="0.01" value="${Math.min(outstanding,Number(tx.amount)).toFixed(2)}" style="width:105px;text-align:right">`;row.children[9].innerHTML=`<input class="bank-allocation-check" type="checkbox" data-invoice="${button.dataset.invoice}" aria-label="Qaiməni bölgüyə əlavə et">`;});
+    const footer=$('.modalfoot',root);if(suggestions.length)footer.insertAdjacentHTML('beforeend',`${tx.currency==='AZN'?'':`<label class="field" style="width:145px">AZN məzənnəsi<input id="bankExchangeRate" type="number" min="0.000001" step="0.000001"></label>`}<span class="muted" id="bankAllocationTotal">Bölgü: 0,00 / ${fmtCurrency(tx.amount,tx.currency)}</span><button class="btn primary" id="bankAllocateSelected">Seçilənləri uyğunlaşdır</button>`);
+    $$('[data-close]',root).forEach(x=>x.addEventListener('click',closeModal));
+    const refreshAllocationTotal=()=>{const total=$$('.bank-allocation-check:checked',root).reduce((sum,check)=>sum+Number(check.closest('tr').querySelector('.bank-allocation').value||0),0);$('#bankAllocationTotal',root).textContent=`Bölgü: ${fmtCurrency(total,tx.currency)} / ${fmtCurrency(tx.amount,tx.currency)}`;};$$('.bank-allocation-check,.bank-allocation',root).forEach(input=>input.addEventListener('input',refreshAllocationTotal));
+    $('#bankAllocateSelected',root)?.addEventListener('click',async()=>{try{const allocations=$$('.bank-allocation-check:checked',root).map(check=>({invoiceId:Number(check.dataset.invoice),amount:Number(check.closest('tr').querySelector('.bank-allocation').value)}));if(!allocations.length)return toast('Ən azı bir qaimə seçin.','warn');await api.bank.reconcile({transactionId:id,allocations,exchangeRate:Number($('#bankExchangeRate',root)?.value||1)});closeModal();toast('Bank əməliyyatı qaimələr üzrə bölündü və uçota alındı.','success');await loadBank();await loadBankTransactions();}catch(e){toast(e.message||'Uyğunlaşdırma alınmadı.','error')}});
+  }catch(e){toast(e.message||'Bank əməliyyatı açıla bilmədi.','error')}
+}
+async function loadBank(){
+  try{
+    const st=await api.bank.status(); bankAccounts=st.accounts||[];
+    $('#bankTxCount').textContent=st.txCount||0; $('#bankReconciled').textContent=st.reconciled||0; $('#bankOpenCount').textContent=Math.max(0,(st.txCount||0)-(st.reconciled||0));
+    const select=$('#bankAccountFilter');if(bankSelectedAccountId===undefined&&bankAccounts[0])bankSelectedAccountId=bankAccounts[0].id;select.innerHTML='<option value="">Bütün hesablar</option>'+bankAccounts.map(a=>`<option value="${a.id}">${esc(a.bank_name)} · ${esc(a.iban||a.account_no||a.account_name||'Hesab')} · ${esc(a.currency)}</option>`).join('');select.value=bankSelectedAccountId==null?'':String(bankSelectedAccountId);
+    $('#bankSelectedAccount').textContent=bankSelectedAccountId==null?'Hamısı':bankAccounts.find(a=>a.id===Number(bankSelectedAccountId))?.currency||'—';
+    $('#bankAccountsList').innerHTML=bankAccounts.length?bankAccounts.map(a=>`<div class="bank-account-row ${Number(a.id)===Number(bankSelectedAccountId)?'active':''}" data-bank-account="${a.id}"><strong>${esc(a.bank_name)} · ${esc(a.account_name||'Hesab')}</strong><small>${esc(a.iban||a.account_no||'IBAN daxil edilməyib')}</small><div class="bank-account-meta"><span>${esc(a.currency)} · ${esc(a.ledger_account_code)}</span><span>${esc(a.integration_status)}</span></div><button class="rowbtn bank-account-edit" data-bank-edit="${a.id}" title="Hesabı redaktə et" aria-label="Bank hesabını redaktə et"><i class="fa-solid fa-pen-to-square"></i></button></div>`).join(''):`<div class="bank-empty"><i class="fa-solid fa-building-columns"></i>Bank hesabı əlavə edilməyib.</div>`;
+    $$('.bank-account-row').forEach(x=>x.addEventListener('click',async e=>{if(e.target.closest('[data-bank-edit]'))return;bankSelectedAccountId=Number(x.dataset.bankAccount);bankPage=1;$('#bankAccountFilter').value=String(bankSelectedAccountId);await loadBank();await loadBankTransactions()}));
+    $$('[data-bank-edit]').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();openBankAccountModal(bankAccounts.find(a=>a.id===Number(btn.dataset.bankEdit)))}));
+  }catch(e){toast(e.message||'Bank modulu yüklənmədi.','error')}
+}
+async function loadBankTransactions(){
+  try{const query={accountId:$('#bankAccountFilter').value||'',status:$('#bankStatusFilter').value,search:$('#bankSearch').value.trim(),direction:bankActiveDirection};const [rows,total]=await Promise.all([api.bank.transactions({...query,limit:bankPageSize,offset:(bankPage-1)*bankPageSize}),api.bank.count(query)]);bankTotalRows=Number(total||0);const lastPage=Math.max(1,Math.ceil(bankTotalRows/bankPageSize));if(bankPage>lastPage){bankPage=lastPage;return loadBankTransactions()}const first=bankTotalRows?(bankPage-1)*bankPageSize+1:0,last=bankTotalRows?Math.min(bankTotalRows,first+rows.length-1):0;$('#bankRowCount').textContent=bankTotalRows?`${first}–${last} / ${bankTotalRows}`:'0 əməliyyat';$('#bankPageInfo').textContent=`${bankPage} / ${lastPage}`;$('#bankPagePrev').disabled=bankPage<=1;$('#bankPageNext').disabled=bankPage>=lastPage;
+    $('#bankTxBody').innerHTML=rows.length?rows.map(r=>`<tr data-bank-tx="${r.id}"><td>${esc(r.transaction_date)}</td><td class="${r.direction==='Daxilolma'?'bank-dir-in':'bank-dir-out'}">${r.direction==='Daxilolma'?'<i class="fa-solid fa-arrow-down"></i>':'<i class="fa-solid fa-arrow-up"></i>'} ${esc(r.direction)}</td><td><b>${esc(r.counterparty_name||'—')}</b><span class="table-sub">${esc(r.account_name||r.iban||'')}</span></td><td class="mono">${esc(r.counterparty_voen||'—')}</td><td><span class="bank-ref">${esc(r.reference||'—')}</span><span class="table-sub">${esc(r.description||'')}</span></td><td class="amount">${fmtCurrency(r.amount,r.currency)}</td><td>${esc(r.currency)}</td><td>${badge(r.reconciliation_status)}</td><td>${r.reconciliation_status==='Uyğunlaşdırılmayıb'?'<button class="btn primary bank-open-tx" data-id="'+r.id+'">Uyğunlaşdır</button>':r.reconciliation_status==='Uyğunlaşdırılıb'?'<button class="btn bank-unmatch" data-id="'+r.id+'">Geri qaytar</button>':'<button class="btn" disabled title="Bağlantını Aylıq ƏDV modulunda idarə edin">ƏDV modulu</button>'}</td></tr>`).join(''):`<tr><td colspan="9" class="bank-empty">Bank əməliyyatı tapılmadı.</td></tr>`;
+    $$('.bank-open-tx').forEach(b=>b.addEventListener('click',()=>openBankTransaction(Number(b.dataset.id))));
+    $$('.bank-unmatch').forEach(b=>b.addEventListener('click',async()=>{if(!confirm('Bank uyğunlaşdırması storno edilərək geri qaytarılsın?'))return;try{await api.bank.unreconcile(Number(b.dataset.id));toast('Uyğunlaşdırma storno edildi.','success');await loadBank();await loadBankTransactions();}catch(e){toast(e.message||'Geri qaytarma alınmadı.','error')}}));
+  }catch(e){toast(e.message||'Bank çıxarışı yüklənmədi.','error')}
+}
+function syncBankDirectionUI(){
+  $$('[data-bank-direction]').forEach(button=>button.classList.toggle('active',button.dataset.bankDirection===bankActiveDirection));
+  const heading=$('#bankWorkspace .pagehead h1');if(heading)heading.textContent=bankActiveDirection==='Ödəniş'?'Bank — çıxan ödənişlər':'Bank — daxil olan ödənişlər';
+}
+async function setBankDirection(direction){bankActiveDirection=direction==='Ödəniş'?'Ödəniş':'Daxilolma';bankPage=1;syncBankDirectionUI();showModule('bank');await loadBank();await loadBankTransactions()}
+$$('[data-bank-direction]').forEach(button=>button.addEventListener('click',()=>setBankDirection(button.dataset.bankDirection)));
+async function openBankModule(){bankPage=1;syncBankDirectionUI();showModule('bank');await loadBank();await loadBankTransactions()}
+$('#navBank')?.addEventListener('click',openBankModule);
+async function loadDvxModule(){
+  try{
+    showModule('tax');
+    const status=await api.dvx.status();
+    const chip=$('#dvxStatusChip'); if(chip) chip.innerHTML=`<i class="fa-solid fa-circle-check"></i> ${esc(status.status||'Hazır')}`;
+    const out=await api.invoice.list({type:'Gedən',search:'',status:'all',payment:'all',from:'',to:''});
+    const packs=await api.dvx.packages(); $('#dvxPackageCount').textContent=`${packs.length} paket`;
+    $('#dvxPackageBody').innerHTML=packs.length?packs.map(p=>`<tr><td>${esc(String(p.created_at||'').slice(0,10))}</td><td><b>${esc(p.invoice_no||'—')}</b></td><td>${esc(p.counterparty_name||'—')}</td><td class="mono">${esc(p.voen||'—')}</td><td class="file">${esc(p.file_name)}</td><td>${badge(p.status)}</td></tr>`).join(''):'<tr><td colspan="6" class="tax-empty">Hazırlanmış paket yoxdur.</td></tr>';
+  }catch(e){toast(e.message||'DVX modulu yüklənmədi.','error')}
+}
+$('#navDvx')?.addEventListener('click',loadDvxModule);
+$('#dvxRefresh')?.addEventListener('click',loadDvxModule);
+$('#dvxOpenPortal')?.addEventListener('click',async()=>{try{await api.dvx.openPortal('Gedən');toast('DVX portalı açıldı. Giriş və elektron imzalama portal daxilində aparılır.','success')}catch(e){toast(e.message||'DVX portalı açıla bilmədi.','error')}});
+$('#dvxLiveIncoming')?.addEventListener('click',async()=>{try{await api.dvx.openPortal('Gələn');toast('Gələn qaimələr üçün DVX portalı açıldı. Portalda daxil olduqdan sonra “Meyar ERP-ə gətir” funksiyasını istifadə edin.','success')}catch(e){toast(e.message||'DVX portalı açıla bilmədi.','error')}});
+$('#dvxLiveOutgoing')?.addEventListener('click',async()=>{try{await api.dvx.openPortal('Gedən');toast('Gedən qaimələr üçün DVX portalı açıldı.','success')}catch(e){toast(e.message||'DVX portalı açıla bilmədi.','error')}});
+$('#dvxPrepare')?.addEventListener('click',async()=>{const id=Number($('#dvxInvoiceSelect').value||0);if(!id){toast('Əvvəlcə gedən qaimə seçin.','warn');return}try{const r=await api.dvx.preparePackage(id);if(r?.cancelled)return;$('#dvxPackageInfo').innerHTML=`<b>${esc(r.invoiceNo)}</b> üçün daxili arxiv paketi hazırlandı.<br><span class="mono">${esc(r.filePath)}</span><br>SHA-256: <span class="mono">${esc(r.checksum)}</span>`;toast('XML/ZIP arxiv paketi hazırlandı. Rəsmi imzalama və göndəriş DVX portalında tamamlanır.','success');await loadDvxModule()}catch(e){toast(e.message||'Arxiv paketi hazırlana bilmədi.','error')}});
+$('#dvxOpenFolder')?.addEventListener('click',()=>api.openDataFolder().catch(e=>toast(e.message,'error')));
+
+$('#bankAddAccount')?.addEventListener('click',()=>openBankAccountModal());
+$('#bankRefresh')?.addEventListener('click',async()=>{
+  const refreshButton=$('#bankRefresh');
+  const originalContent=refreshButton?.innerHTML||'';
+  if(refreshButton){refreshButton.disabled=true;refreshButton.innerHTML='<i class="fa-solid fa-rotate"></i> Yoxlanılır';}
+  try{
+    let result=null;
+    if(bankSelectedAccountId) result=await api.bank.sync(bankSelectedAccountId);
+    bankPage=1;
+    await loadBank();
+    await loadBankTransactions();
+    if(!bankSelectedAccountId)return toast('Bank hesabı seçilməyib; lokal siyahı yeniləndi.','info');
+    if(!result?.sourceAvailable)return toast(result?.message||'Bu hesab üçün əvvəlki çıxarış mənbəyi yoxdur. Lokal siyahı yeniləndi.','info');
+    toast(`Bank: ${result.created||0} yeni əməliyyat əlavə edildi · ${result.skippedExisting??result.duplicates??0} mövcud ödənişə toxunulmadı · ${result.failed||0} xəta.`,result.failed?'warn':'success');
+  }catch(error){
+    await loadBank();await loadBankTransactions();
+    toast(error.message||'Bank sinxronizasiyası tamamlanmadı.','error');
+  }finally{
+    if(refreshButton){refreshButton.disabled=false;refreshButton.innerHTML=originalContent;}
+  }
+});
+$('#bankPagePrev')?.addEventListener('click',()=>{if(bankPage>1){bankPage--;loadBankTransactions()}});$('#bankPageNext')?.addEventListener('click',()=>{const lastPage=Math.max(1,Math.ceil(bankTotalRows/bankPageSize));if(bankPage<lastPage){bankPage++;loadBankTransactions()}});
+$('#bankSearch')?.addEventListener('input',()=>{clearTimeout(bankSearchTimer);bankSearchTimer=setTimeout(()=>{bankPage=1;loadBankTransactions()},180)});
+$('#bankStatusFilter')?.addEventListener('change',()=>{bankPage=1;loadBankTransactions()});
+$('#bankAccountFilter')?.addEventListener('change',async()=>{bankSelectedAccountId=Number($('#bankAccountFilter').value)||null;bankPage=1;await loadBank();await loadBankTransactions()});
+$('#bankImport')?.addEventListener('click',async()=>{if(!bankSelectedAccountId){toast('Əvvəlcə bank hesabı seçin.','warn');return;}try{const r=await api.bank.importFile(bankSelectedAccountId);if(r?.cancelled)return;toast(`Bank çıxarışı: ${r.created} yeni · ${r.skippedExisting??r.duplicates??0} bazada mövcud · ${r.failed} xəta.`,r.failed?'warn':'success');await loadBank();await loadBankTransactions()}catch(e){toast(e.message||'Bank çıxarışı idxal edilmədi.','error')}});
+
+async function openAccounting(){try{ensureWorkTab('accounting','Dövriyyə-balans');const st=await api.accounting.status();if(!st.accounting_enabled)return openAccountingSetupModal(true);return openDBCV182()}catch(e){toast(e.message||'Uçot statusu oxunmadı.','error')}}
+$('#openDBC')?.addEventListener('click',openAccounting);
+$('#navAccounting')?.addEventListener('click',openAccounting);
+$$('.disabled').forEach(b=>b.addEventListener('click',()=>toast('Bu modul növbəti mərhələdə aktiv ediləcək.','info')));
+$('#helpBtn')?.addEventListener('click',()=>{const root=$('#modalRoot');root.innerHTML=`<div class="modal"><div class="backdrop" data-close></div><div class="modalcard" style="width:min(760px,calc(100vw - 32px))"><div class="modalhead"><div><span class="eyebrow">MEYAR ERP / KÖMƏK</span><h2>İş axını üzrə qısa bələdçi</h2><p>v${APP_VERSION}</p></div><button class="close" data-close><i class="fa-solid fa-xmark"></i></button></div><div class="modalbody"><div class="detailsection"><h4>E-Qaimələr</h4><div class="body">Gələn və Gedən reyestrlərini yuxarı modul panelindən seçin. Qaiməni əl ilə yaradın, fayldan idxal edin və ya DVX canlı pəncərəsindən gətirin. Eyni qaimə nömrəsi VÖEN və istiqamət üzrə yoxlanır.</div></div><div class="detailsection"><h4>Uçot və DBC</h4><div class="body">Qaimə saxlanan anda avtomatik uçota alınır. AZN və məzənnəsi göstərilmiş xarici valyutalı qaimələr, həmçinin uyğunlaşdırılmış bank ödənişləri DBC-də əks olunur.</div></div><div class="detailsection"><h4>Bank</h4><div class="body">Bank hesabını BANK rolu olan hesaba bağlayın, çıxarışı idxal edin və uyğun istiqamətli qaimə ilə üzləşdirin. “Kredit/Mədaxil” daxilolma, “Debet/Məxaric” ödəniş kimi tanınır.</div></div></div><div class="modalfoot"><span class="muted">Məlumatlar seçilmiş şirkətin lokal bazasında saxlanılır.</span><button class="btn primary" data-close>Bağla</button></div></div></div>`;$$('[data-close]',root).forEach(x=>x.addEventListener('click',closeModal))});
+$('#invoiceBody').addEventListener('click',async event=>{
+  const detailButton=event.target.closest('[data-detail]');
+  if(detailButton){detail(Number(detailButton.dataset.detail));return;}
+  const deleteButton=event.target.closest('[data-delete]');
+  if(deleteButton){
+    const invoiceId=Number(deleteButton.dataset.delete);
+    const invoice=rows.find(row=>row.id===invoiceId);
+    if(!invoice)return;
+    if(!confirm(`Qaimə ${invoice.invoice_no} — ${invoice.counterparty_name} storno edilərək arxivlənsin?`))return;
+    try{await api.invoice.archive(invoiceId);toast(`Qaimə ${invoice.invoice_no} arxivləndi.`,'success');await updateCounts();await load();}
+    catch(error){toast(error.message||'Qaimə arxivlənmədi.','error');}
+    return;
+  }
+  if(event.target.closest('button,input,select,a'))return;
+  const row=event.target.closest('tr[data-id]');
+  const checkbox=row?.querySelector('.row-select');
+  if(checkbox){checkbox.checked=!checkbox.checked;updateSelectionUI();}
+});
+$('#invoiceBody').addEventListener('dblclick',event=>{
+  if(event.target.closest('button,input,select,a'))return;
+  const row=event.target.closest('tr[data-id]');
+  if(row)detail(Number(row.dataset.id));
+});
+$('#invoiceBody').addEventListener('keydown',event=>{
+  const row=event.target.closest('tr[data-id]');
+  if(!row)return;
+  if(event.key==='Enter'){event.preventDefault();detail(Number(row.dataset.id));}
+  if(event.key===' '){event.preventDefault();const checkbox=row.querySelector('.row-select');if(checkbox){checkbox.checked=!checkbox.checked;updateSelectionUI();}}
+});
+$('#invoiceBody').addEventListener('change',e=>{if(e.target.matches('.row-select'))updateSelectionUI()});
+$('#selectAll').addEventListener('change',e=>{$$('.row-select').forEach(x=>x.checked=e.target.checked);updateSelectionUI()});
+$('#deleteSelected').addEventListener('click',async()=>{const ids=$$('.row-select:checked').map(x=>Number(x.dataset.selectId));if(!ids.length)return;if(!confirm(`${ids.length} qaimə storno edilərək arxivlənsin?`))return;let ok=0,failed=0,errors=[];for(const id of ids){try{await api.invoice.archive(id);ok++}catch(err){failed++;if(errors.length<3)errors.push(err.message||'Xəta')}}toast(`${ok} qaimə arxivləndi${failed?` · ${failed} arxivlənmədi`:''}.${errors[0]?' '+errors[0]:''}`,failed?'warn':'success');await updateCounts();await load()});
+function updateSelectionUI(){const checks=$$('.row-select');const selected=checks.filter(x=>x.checked);const btn=$('#deleteSelected');const count=$('#selectedCount');const all=$('#selectAll');if(count)count.textContent=selected.length;if(btn)btn.classList.toggle('hidden',selected.length===0);if(all){all.checked=checks.length>0&&selected.length===checks.length;all.indeterminate=selected.length>0&&selected.length<checks.length}}
+$('#invoicePagePrev').addEventListener('click',()=>{if(invoicePage>1){invoicePage--;load()}});$('#invoicePageNext').addEventListener('click',()=>{const lastPage=Math.max(1,Math.ceil(invoiceTotalRows/invoicePageSize));if(invoicePage<lastPage){invoicePage++;load()}});
+$('#filterSearch').addEventListener('input',()=>{clearTimeout(filterTimer);filterTimer=setTimeout(firstInvoicePageAndLoad,180)});['#filterRegistry','#filterPayment','#filterFrom','#filterTo'].forEach(s=>$(s).addEventListener('change',firstInvoicePageAndLoad));$('#resetFilters').addEventListener('click',reset);
+$('#filterReviewOnly').addEventListener('click',()=>{reviewOnlyFilter=!reviewOnlyFilter;$('#filterReviewOnly').classList.toggle('primary',reviewOnlyFilter);firstInvoicePageAndLoad()});
+document.addEventListener('keydown',event=>{
+  if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k'){
+    event.preventDefault();
+    const visibleSearch=!$('#referenceWorkspace').classList.contains('hidden')?$('#referenceSearch'):!$('#bankWorkspace').classList.contains('hidden')?$('#bankSearch'):$('#filterSearch');
+    visibleSearch?.focus();
+  }
+  if(event.key==='Escape'&&$('#modalRoot').firstChild)closeModal();
+});
+updateDirectionUI();
+api?.onRefresh?.((payload={})=>{
+  updateCounts();
+  if(!$('#invoiceWorkspace').classList.contains('hidden'))load();
+  if(!$('#dashboardWorkspace').classList.contains('hidden'))loadDashboard();
+  if(payload.resource==='bank'&&!$('#bankWorkspace').classList.contains('hidden')){loadBank();loadBankTransactions();}
+  if(payload.resource==='vat'&&!$('#vatWorkspace').classList.contains('hidden'))getVatUi().load();
+});
+function renderUpdateStatus(status={}){
+  const button=$('#updateStatus');if(!button)return;
+  const visible=['available','downloading','ready'].includes(status.phase);
+  button.classList.toggle('hidden',!visible);
+  button.classList.toggle('ready',status.phase==='ready');
+  button.disabled=status.phase==='available'||status.phase==='downloading';
+  const label=status.phase==='ready'?'Yenidən başlat':status.message||'Yeniləmə';
+  button.querySelector('span').textContent=label;
+  button.title=status.message||'Proqram yeniləməsi';
+}
+api?.updates?.onStatus?.(status=>{renderUpdateStatus(status);if(status.phase==='ready')toast(status.message,'success')});
+api?.updates?.status?.().then(renderUpdateStatus).catch(()=>{});
+$('#updateStatus')?.addEventListener('click',async()=>{try{const status=await api.updates.status();if(status.phase==='ready')await api.updates.install();else await api.updates.check();}catch(error){toast(error.message||'Yeniləmə əməliyyatı alınmadı.','error')}});
+function tick(){$('#clock').textContent=new Date().toLocaleTimeString('az-AZ',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}setInterval(tick,1000);tick();
+window.addEventListener('error',e=>{const h=$('#dataHealth');if(h)h.textContent='UI xətası: '+(e?.error?.message||e?.message||'naməlum xəta')});
+window.addEventListener('unhandledrejection',e=>{const h=$('#dataHealth');if(h)h.textContent='Əməliyyat xətası: '+(e?.reason?.message||e?.reason||'naməlum xəta')});
+
+function authError(msg){const el=$('#authError');el.textContent=msg||'Naməlum xəta';el.style.display='block'}
+let authStep='login';
+function showAuth(step){authStep=step;$('#setupStep').classList.toggle('active',step==='setup');$('#loginStep').classList.toggle('active',step==='login');$('#createCompanyStep').classList.toggle('active',step==='create');$('#authScreen').style.display='flex';$('#app').style.display='none';$('#authError').style.display='none'}
+async function loadLoginCompanies(selected=''){
+  const select=$('#loginCompany'); if(!select)return;
+  try{const companies=await api.auth.companies(); select.innerHTML=companies.length?companies.map(c=>`<option value="${c.id}">${esc(c.name)} · VÖEN ${esc(c.voen)}</option>`).join(''):'<option value="">Şirkət bazası yoxdur</option>'; if(selected)select.value=String(selected);}catch(e){authError(e.message||'Şirkətlər yüklənmədi.')}
+}
+function showApp(session){
+  $('#authScreen').style.display='none'; $('#app').style.display='flex';
+  const c=session.company||{}; const u=session.user||{};
+  currentUser=u;
+  $('#sessionCompanySide').textContent=c.name||'Şirkət bazası';
+  $('#sessionUserSide').textContent=u.username?`@${u.username}`:'İstifadəçi';
+  const initials=String(u.full_name||u.username||'ME').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'ME';
+  $('#sessionAvatar').textContent=initials;
+  document.title=`Meyar ERP — ${c.name||'ERP'} · v${APP_VERSION}`;
+}
+async function boot(){
+  const state=await api.auth.status();
+  if(state.needsSetup){showAuth('setup');return;}
+  showAuth('login'); await loadLoginCompanies();
+}
+$('#setupForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  try{const r=await api.auth.setup({companyName:$('#setupCompany').value,voen:$('#setupVoen').value});showApp(r);await loadAfterAuth();}
+  catch(err){authError(err.message||'Baza yaradıla bilmədi.')}
+});
+$('#loginForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  try{const r=await api.auth.access({companyId:Number($('#loginCompany').value)});showApp(r);await loadAfterAuth();}
+  catch(err){authError(err.message||'Giriş mümkün olmadı.')}
+});
+$('#backToLoginBtn').addEventListener('click',async()=>{showAuth('login');await loadLoginCompanies();});
+$('#createCompanyForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  try{const r=await api.auth.createCompany({companyName:$('#newCompanyName').value,voen:$('#newCompanyVoen').value});authError('');showApp(r);await loadAfterAuth();toast('Yeni şirkət bazası yaradıldı və ayrıca baza kimi açıldı.','success');}
+  catch(err){authError(err.message||'Şirkət bazası yaradıla bilmədi.')}
+});
+$('#adminCreateCompanyBtn').addEventListener('click',()=>{showAuth('create');});
+$('#companySwitch').addEventListener('click',async()=>{try{await api.auth.logout();location.reload()}catch(e){toast(e.message||'Sessiyadan çıxmaq mümkün olmadı.','error')}});
+async function loadAfterAuth(){
+  try{
+    const info=await api.info();
+    await Promise.all([
+      api.invoice.counterparties().then(x=>counterpartyCache=x),
+      api.invoice.catalog().then(x=>catalogCache=x),
+      api.invoice.accounts().then(x=>accountCache=x)
+    ]);
+    // İstifadəçi daxil olduqda ilk görünən iş sahəsi həmişə ümumi idarəetmə panelidir.
+    // Qaimə reyestri yalnız üst moduldan və ya aşağı iş tabından seçildikdə açılır.
+    showModule('dashboard');
+    await updateCounts(); await loadDashboard();
+    $('#dataHealth').textContent=`SQLite · ${info.dataPath||'şirkət bazası'} · Sessiya: aktiv`;
+    const accounting=await api.accounting.status();
+    if(!accounting.accounting_enabled) toast('Dövriyyə-Balans uçotu aktiv deyil. Yuxarı modul panelində “Dövriyyə-Balans” bölməsindən uçotu aktivləşdirin.','warn');
+    try{const stats=await api.invoice.stats();if(Number(stats.accountingReview||0)>0) toast(`${stats.accountingReview} sənədin mal/xidmət təsnifatı gözləmə hesabına (721.99) düşüb — "Nəzərdən keçirilməli" filtri ilə yoxlayın.`,'warn');}catch(_){}
+  }catch(e){toast(e.message||'ERP modulu yüklənmədi.','error');}
+}
+boot().catch(e=>authError(e.message||'Sistem başlanmadı.'));
+})();
+</script>
+</body>
+</html>

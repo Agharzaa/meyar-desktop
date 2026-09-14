@@ -1,0 +1,74 @@
+{
+  "name": "meyar-erp-desktop",
+  "version": "1.16.0",
+  "author": "Ağarza Ağalarov",
+  "copyright": "Copyright © 2026 Ağarza Ağalarov",
+  "description": "Meyar ERP Desktop — automatic double-entry accounting, inventory, DVX e-invoices, monthly VAT reconciliation and safe in-app updates",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "check": "node --check main.js && node --check preload.js && node --check live-preload.js && node --check lib/app-updater.js && node --check src/dbc-v182.js && node --check src/vat-v1150.js",
+    "test-import-format": "node tests/xlsx-format-test.js",
+    "test-dvx-two-direction": "node tests/dvx-two-direction-test.js",
+    "test-renderer": "node tests/renderer-syntax.js",
+    "test-direction": "node tests/direction-regression.js",
+    "test": "npm run check && npm run test-renderer && node tests/ui-structure-v160-test.js && node tests/ui-density-v1141-test.js && node tests/import-direction-v170-test.js && npm run test-live-preload && npm run test-live-data && npm run test-direction && node tests/dvx-direction-deep-regression.js && node tests/live-import-handler-regression.js && npm run test-preload-contract && npm run test-company && npm run test-import-format && node tests/core-v160-regression.js && node tests/accounting-engine-v180-test.js && node tests/v180-system-regression.js && node tests/ui-isolation-v181-test.js && node tests/dbc-ui-v182-test.js && node tests/accounting-core-v112-test.js && node tests/fx-reconciliation-test.js && node tests/user-management-test.js && node tests/dbc-opening-balance-attribution-test.js && node tests/accounting-professional-v113-test.js && node tests/idempotent-sync-v1142-test.js && node tests/code-integrity-v1143-test.js && node tests/vat-reconciliation-v1150-test.js && node tests/auto-update-v1160-test.js",
+    "test-company": "node tests/company-isolation-test.js && node tests/auth-ui-test.js",
+    "test-live-preload": "node tests/live-preload-regression.js",
+    "test-preload-contract": "node tests/preload-contract-test.js",
+    "test-live-data": "node tests/live-data-regression.js",
+    "dist": "electron-builder --win nsis --x64 --publish never",
+    "release:win": "electron-builder --win nsis --x64 --publish always"
+  },
+  "devDependencies": {
+    "electron": "44.0.0",
+    "electron-builder": "25.1.8"
+  },
+  "dependencies": {
+    "electron-updater": "6.8.9",
+    "xlsx": "npm:@e965/xlsx@0.20.3"
+  },
+  "build": {
+    "appId": "az.meyarerp.desktop",
+    "productName": "Meyar ERP",
+    "asar": true,
+    "artifactName": "MEYAR-ERP-Setup-${version}.${ext}",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Agharzaa",
+        "repo": "meyar-desktop"
+      }
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "live-preload.js",
+      "lib/**/*",
+      "src/**/*",
+      "package.json",
+      "!node_modules/**/{test,tests,*.test.js,*.md}"
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        { "target": "nsis", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "deleteAppDataOnUninstall": false,
+      "runAfterFinish": true
+    }
+  }
+}

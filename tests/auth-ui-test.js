@@ -1,0 +1,11 @@
+'use strict';
+const fs=require('node:fs'); const assert=require('node:assert/strict');
+const s=fs.readFileSync('src/index.html','utf8');
+assert.match(s,/id="loginCompany"/);
+assert.match(s,/id="adminCreateCompanyBtn"/);
+assert.match(s,/id="createCompanyStep"/);
+assert.match(s,/api\.auth\.access\(\{companyId:Number\(\$\('#loginCompany'\)\.value\)/);
+assert.match(s,/api\.auth\.createCompany\(/);
+assert.doesNotMatch(s,/id="loginPassword"/);
+assert.doesNotMatch(s,/id="setupPassword"/);
+console.log('auth UI company separation: OK');

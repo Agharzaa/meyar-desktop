@@ -1,0 +1,15 @@
+'use strict';
+const fs=require('fs');
+const vm=require('vm');
+const s=fs.readFileSync('main.js','utf8');
+const start=s.indexOf('function detectLiveTaxDirection');
+const end=s.indexOf('function openLiveTaxPortal',start);
+if(start<0||end<0) throw new Error('direction function not found');
+const code=s.slice(start,end)+';globalThis.detectLiveTaxDirection=detectLiveTaxDirection;globalThis.normalizeDirectionValue=(v,f)=>String(v||f||\'\');';
+const ctx={console, normalizeDirectionValue:(v,f)=>String(v||f||'')}; ctx.globalThis=ctx; vm.createContext(ctx); vm.runInContext(code,ctx);
+const detect=ctx.globalThis.detectLiveTaxDirection;
+const both='Sol menyuda Gələnlər Göndərilənlər Göndərdiklərim';
+if(detect({title:'DVX',bodyText:both,activeTab:'Gələnlər'},'Gedən')!=='Gələn') throw new Error('Active incoming tab must beat outgoing sidebar text');
+if(detect({title:'DVX',bodyText:both,activeTab:'Göndərilənlər'},'Gələn')!=='Gedən') throw new Error('Active outgoing tab must beat incoming sidebar text');
+if(detect({title:'DVX',bodyText:both},'Gələn')!=='Gələn') throw new Error('Ambiguous body must fall back to preferred direction');
+console.log('dvx direction deep regression: PASS');

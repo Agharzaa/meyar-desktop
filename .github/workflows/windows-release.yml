@@ -1,0 +1,61 @@
+name: Windows installer and release
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish this version to GitHub Releases for automatic updates
+        required: true
+        type: boolean
+        default: false
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    name: Test and build Windows x64
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24.x"
+
+      - name: Install locked project dependencies
+        shell: pwsh
+        run: npm ci --no-audit --no-fund
+
+      - name: Run full regression suite
+        shell: pwsh
+        run: npm test
+
+      - name: Build Windows installer
+        if: ${{ !startsWith(github.ref, 'refs/tags/v') && inputs.publish != true }}
+        shell: pwsh
+        run: npm run dist
+
+      - name: Build and publish automatic update
+        if: ${{ startsWith(github.ref, 'refs/tags/v') || inputs.publish == true }}
+        shell: pwsh
+        run: npm run release:win
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Setup.exe and update metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: meyar-erp-windows-${{ github.run_number }}
+          path: |
+            release/*.exe
+            release/*.blockmap
+            release/latest.yml
+          if-no-files-found: error
+          retention-days: 30

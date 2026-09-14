@@ -1,0 +1,231 @@
+/* Meyar ERP v1.13 — professional table-first UI.
+   This is the final visual contract. Earlier style sheets remain only for
+   backward-compatible component defaults. */
+:root{
+  --erp-green-950:#043b2b;
+  --erp-green-900:#07513a;
+  --erp-green-800:#086744;
+  --erp-green-700:#0b7a50;
+  --erp-green-100:#dff1e7;
+  --erp-green-050:#f3faf6;
+  --erp-canvas:#f7fbf8;
+  --erp-line:#d2e2d8;
+  --erp-line-strong:#a9c2b3;
+  --erp-text:#14261c;
+  --erp-muted:#5d7265;
+  --erp-zebra:#f3f8f5;
+  --erp-hover:#e7f4ec;
+  --erp-selected:#d2ecdd;
+  --erp-focus:#12905e;
+  --erp-shadow:0 12px 34px rgba(4,59,43,.16);
+}
+
+html,body,#app,.app{min-width:0;background:#fff!important}
+body{color:var(--erp-text)!important;font-family:"Segoe UI",Inter,Arial,sans-serif!important}
+.shell{min-width:0!important;background:#fff!important}
+.main{min-width:0!important;background:var(--erp-canvas)!important}
+
+/* Horizontal module bar; no left sidebar. */
+.sidebar{
+  width:100%!important;height:52px!important;flex:0 0 52px!important;
+  display:flex!important;flex-direction:row!important;align-items:stretch!important;
+  background:#fff!important;border:0!important;border-bottom:1px solid var(--erp-line)!important;
+  box-shadow:0 1px 4px rgba(4,59,43,.04)!important;overflow:hidden!important
+}
+.brand{width:164px!important;height:52px!important;flex:0 0 164px!important;padding:6px 12px!important;border:0!important;border-right:1px solid var(--erp-line)!important}
+.brandlogo{width:34px!important;height:34px!important;border-radius:9px!important;background:linear-gradient(145deg,var(--erp-green-700),var(--erp-green-950))!important;color:#fff!important}
+.brandname{color:var(--erp-green-900)!important;font-size:16px!important}.brandsub{color:#71897b!important}
+.switch{width:190px!important;flex:0 0 190px!important;margin:6px 7px!important;padding:4px 7px!important;border-color:var(--erp-line)!important;border-radius:7px!important;background:var(--erp-green-050)!important}
+.switchtext strong{color:var(--erp-text)!important}.switchtext small{color:var(--erp-muted)!important}
+.nav{display:flex!important;flex:1 1 auto!important;min-width:0!important;align-items:stretch!important;padding:0!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:thin}
+.nav .section,.nav>div[style],.navitem.disabled{display:none!important}
+.navitem{width:auto!important;min-width:max-content!important;height:52px!important;margin:0!important;padding:0 14px!important;border:0!important;border-radius:0!important;background:#fff!important;color:#3f5a4b!important;font-size:11px!important;font-weight:650!important}
+.navitem i{color:#71897b!important}.navitem:hover{background:var(--erp-green-050)!important;color:var(--erp-green-900)!important}
+.navitem.active{padding-left:14px!important;background:#edf7f1!important;color:var(--erp-green-900)!important;box-shadow:inset 0 -3px 0 var(--erp-green-700)!important}
+.navitem.active i{color:var(--erp-green-700)!important}.sidefoot{width:126px!important;flex:0 0 126px!important;padding:5px 8px!important;border:0!important;border-left:1px solid var(--erp-line)!important}.sidefoot .help{display:none!important}
+
+/* Compact global frame. */
+.top{flex:0 0 auto!important;border-bottom:1px solid var(--erp-line)!important}
+.toprow{height:44px!important;padding:0 13px!important;grid-template-columns:minmax(150px,210px) minmax(260px,1fr) minmax(205px,250px)!important;gap:13px!important}
+.search{height:31px!important;border-color:var(--erp-line-strong)!important;border-radius:6px!important;background:#fbfdfc!important}
+.search input{font-size:11px!important}.profile .pavatar{width:30px!important;height:30px!important;background:var(--erp-green-800)!important}
+.toolbar{height:34px!important;min-height:34px!important;padding:2px 9px!important;background:#fff!important;border-bottom:1px solid var(--erp-line)!important}
+.toolbar .actions{gap:4px!important;overflow-x:auto!important;overflow-y:hidden!important}.toolbar .btn{height:28px!important;padding:0 9px!important;border-radius:5px!important;font-size:10px!important}
+.direction-switch{padding:1px!important;border-radius:6px!important}.direction-switch .btn{min-width:64px!important}
+#invoiceToolbar{display:none!important}
+
+.workspace{min-width:0!important;padding:5px 8px 4px!important;background:var(--erp-canvas)!important}
+#invoiceWorkspace,#bankWorkspace,#referenceWorkspace{overflow:hidden!important}
+#invoiceWorkspace>.pagehead,#bankWorkspace>.pagehead{display:none!important}
+
+/* Filter strip: deliberately small; the data grid receives the workspace. */
+#invoiceWorkspace>.filters{
+  flex:0 0 38px!important;min-height:38px!important;margin:0 0 4px!important;padding:2px 4px!important;
+  grid-template-columns:minmax(210px,1fr) 104px 138px 118px 118px 30px auto!important;gap:4px!important;
+  align-items:end!important;border:1px solid var(--erp-line)!important;border-radius:5px!important;background:#fff!important
+}
+#invoiceWorkspace>.filters>.field{gap:1px!important;font-size:8px!important;color:var(--erp-muted)!important}
+#invoiceWorkspace>.filters input,#invoiceWorkspace>.filters select,#invoiceWorkspace>.filters>.btn,#invoiceWorkspace>.filters .btn{height:27px!important;min-height:27px!important;border-radius:4px!important;font-size:10px!important}
+#invoiceWorkspace>.compact-summary{display:none!important}
+#filterReviewOnly{width:30px!important;padding:0!important;font-size:0!important;overflow:hidden!important}#filterReviewOnly i{font-size:11px!important}
+.invoice-filter-actions{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:3px!important;min-width:max-content!important}
+.invoice-filter-actions .btn{padding:0 8px!important;white-space:nowrap!important}.invoice-filter-actions .filter-icon-button{width:30px!important;padding:0!important}
+#invoiceWorkspace>.registry-panel{min-height:0!important;border-color:var(--erp-line)!important;border-radius:5px!important;box-shadow:none!important}
+#invoiceWorkspace>.registry-panel>.tablehead{flex:0 0 31px!important;min-height:31px!important;padding:3px 7px!important}
+#invoiceWorkspace>.registry-panel>.tablehead h3{font-size:11px!important}#invoiceWorkspace>.registry-panel>.tablehead small{display:none!important}
+#invoiceWorkspace .table-tools{gap:5px!important}.invoice-pager{display:flex!important;align-items:center!important;gap:3px!important;height:27px!important;padding:1px 3px!important;border:1px solid var(--erp-line)!important;border-radius:5px!important;background:#f8fbf9!important}.invoice-pager .rowbtn{width:24px!important;min-width:24px!important;height:23px!important;border:0!important;background:transparent!important}.invoice-pager .rowbtn:hover:not(:disabled){background:var(--erp-hover)!important}.invoice-pager .rowbtn:disabled{opacity:.35!important;cursor:default!important}.invoice-pager span{min-width:45px!important;text-align:center!important;color:var(--erp-green-900)!important;font-size:9.5px!important;font-weight:750!important;font-variant-numeric:tabular-nums!important}
+#invoiceWorkspace>.registry-panel>.data-health{flex:0 0 21px!important;min-height:21px!important;height:21px!important;padding:2px 7px!important;font-size:9px!important}
+#invoiceWorkspace>.registry-panel>.tablewrap{flex:1 1 auto!important;min-height:0!important}
+
+/* Bank work windows use the same 90/10 table-first contract. Account setup
+   remains available from the compact toolbar and the master-data module. */
+#bankWorkspace:not(.hidden){display:flex!important;flex-direction:column!important}
+#bankWorkspace>.bank-note,#bankWorkspace>.bank-grid,#bankWorkspace>.bank-summary{display:none!important}
+#bankWorkspace>.bank-toolbar{flex:0 0 38px!important;min-height:38px!important;margin:0 0 4px!important;padding:3px 4px!important;flex-wrap:nowrap!important;gap:4px!important;overflow-x:auto!important;overflow-y:hidden!important;border:1px solid var(--erp-line)!important;border-radius:5px!important;background:#fff!important}
+#bankWorkspace>.bank-toolbar .field{flex:0 0 155px!important;gap:1px!important;font-size:8px!important}#bankWorkspace>.bank-toolbar .field:first-of-type{flex:1 0 240px!important;min-width:240px!important}#bankWorkspace>.bank-toolbar input,#bankWorkspace>.bank-toolbar select,#bankWorkspace>.bank-toolbar .btn{height:27px!important;min-height:27px!important;font-size:10px!important;border-radius:4px!important}.bank-direction-switch{display:flex!important;flex:0 0 auto!important;gap:2px!important}.bank-direction-switch .btn.active{background:var(--erp-green-800)!important;border-color:var(--erp-green-800)!important;color:#fff!important}
+#bankWorkspace>.bank-registry-card{display:flex!important;flex:1 1 auto!important;min-height:0!important;flex-direction:column!important;border-color:var(--erp-line)!important;border-radius:5px!important;box-shadow:none!important}#bankWorkspace>.bank-registry-card>.bank-card-head{flex:0 0 32px!important;min-height:32px!important;padding:3px 7px!important}#bankWorkspace>.bank-registry-card>.bank-card-head h3{font-size:11px!important}#bankWorkspace>.bank-registry-card>.bank-card-head small{display:none!important}#bankWorkspace>.bank-registry-card>.tablewrap{flex:1 1 auto!important;min-height:0!important}
+.bank-table{min-width:1180px!important}.bank-table th:nth-child(1){width:100px!important}.bank-table th:nth-child(2){width:115px!important}.bank-table th:nth-child(3){width:230px!important}.bank-table th:nth-child(4){width:110px!important}.bank-table th:nth-child(5){width:31%!important}.bank-table th:nth-child(6){width:135px!important}.bank-table th:nth-child(7){width:62px!important}.bank-table th:nth-child(8){width:135px!important}.bank-table th:nth-child(9){width:125px!important}
+
+/* Unified, readable table system. Content is clipped inside its own cell. */
+.tablewrap{width:100%!important;max-width:100%!important;min-width:0!important;overflow:auto!important;scrollbar-gutter:stable;overscroll-behavior:contain}
+.registry-table,.bank-table,.dashboard-table,.reference-table,.tax-table,.opening-table{
+  width:100%!important;max-width:none!important;table-layout:fixed!important;border-collapse:separate!important;border-spacing:0!important
+}
+.registry-table{min-width:1240px!important;font-size:11.5px!important}
+.registry-table .col-select{width:38px!important}.registry-table .col-date{width:98px!important}.registry-table .col-no{width:155px!important}.registry-table .col-cp{width:24%!important}.registry-table .col-type{width:92px!important}.registry-table .col-money{width:155px!important}.registry-table .col-payment{width:165px!important}.registry-table .col-account{width:98px!important}.registry-table .col-status{width:135px!important}.registry-table .col-actions{width:72px!important}
+.registry-table th,.bank-table th,.dashboard-table th,.reference-table th,.tax-table th,.opening-table th{
+  position:sticky!important;top:0!important;z-index:3!important;height:32px!important;padding:5px 8px!important;
+  overflow:hidden!important;white-space:nowrap!important;text-overflow:ellipsis!important;
+  background:var(--erp-green-800)!important;color:#fff!important;border:0!important;border-right:1px solid rgba(255,255,255,.15)!important;border-bottom:1px solid var(--erp-green-950)!important;
+  font-size:9.5px!important;font-weight:700!important;letter-spacing:.01em!important;text-transform:none!important
+}
+.registry-table td,.bank-table td,.dashboard-table td,.reference-table td,.tax-table td,.opening-table td{
+  height:43px!important;padding:5px 8px!important;box-sizing:border-box!important;min-width:0!important;max-width:0!important;
+  overflow:hidden!important;white-space:nowrap!important;text-overflow:ellipsis!important;vertical-align:middle!important;
+  color:var(--erp-text)!important;background:#fff!important;border:0!important;border-right:1px solid #e4ede7!important;border-bottom:1px solid #dbe8e0!important;font-size:11px!important
+}
+.registry-table tbody tr{cursor:default!important}.registry-table tbody tr:focus-visible{outline:2px solid var(--erp-focus)!important;outline-offset:-2px!important}
+.registry-table tbody tr:nth-child(even)>td,.bank-table tbody tr:nth-child(even)>td,.dashboard-table tbody tr:nth-child(even)>td,.reference-table tbody tr:nth-child(even)>td,.tax-table tbody tr:nth-child(even)>td{background:var(--erp-zebra)!important}
+.registry-table tbody tr:hover>td,.bank-table tbody tr:hover>td,.dashboard-table tbody tr:hover>td,.reference-table tbody tr:hover>td,.tax-table tbody tr:hover>td{background:var(--erp-hover)!important}
+.registry-table tbody tr:has(.row-select:checked)>td{background:var(--erp-selected)!important;box-shadow:inset 0 1px #9bc8ae,inset 0 -1px #9bc8ae!important}
+.registry-table tbody tr:has(.row-select:checked)>td:first-child{box-shadow:inset 4px 0 var(--erp-green-700),inset 0 1px #9bc8ae,inset 0 -1px #9bc8ae!important}
+.cell-main,.cell-meta,.money-main,.money-meta,.payment-main,.table-sub,.cell-clip{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;overflow:hidden!important;white-space:nowrap!important;text-overflow:ellipsis!important}
+.registry-cp .cell-main{font-size:11.5px!important;font-weight:700!important}.cell-meta,.money-meta,.table-sub{margin-top:2px!important;color:#708579!important;font-size:9px!important}.money-main,.payment-main{font-size:10.5px!important;font-variant-numeric:tabular-nums!important}.account-pill{max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;background:#ecf6f0!important;border-color:#c3dacf!important;color:#225b40!important}
+.rowbtn{width:28px!important;min-width:28px!important;height:28px!important;border-radius:5px!important}.row-select,#selectAll{width:15px!important;height:15px!important;accent-color:var(--erp-green-700)!important}
+
+/* Full internal document window; only its body scrolls. */
+.invoice-v10,.invoice-detail-v113{
+  width:calc(100vw - 14px)!important;height:calc(100vh - 14px)!important;max-width:none!important;max-height:none!important;
+  display:flex!important;flex-direction:column!important;overflow:hidden!important;border:1px solid #759b86!important;border-radius:7px!important;box-shadow:var(--erp-shadow)!important
+}
+.invoice-v10>.modalhead,.invoice-detail-v113>.modalhead{flex:0 0 auto!important;min-height:48px!important;padding:7px 12px!important;background:var(--erp-green-900)!important;border-bottom:2px solid #41aa78!important}
+.invoice-v10>.modalhead h2,.invoice-detail-v113>.modalhead h2{font-size:16px!important}.invoice-v10>.modalhead p,.invoice-detail-v113>.modalhead p{max-width:calc(100vw - 100px)!important;overflow:hidden!important;white-space:nowrap!important;text-overflow:ellipsis!important}
+.invoice-v10>.modalbody,.invoice-detail-v113>.modalbody{flex:1 1 auto!important;min-height:0!important;overflow:auto!important;padding:7px!important;background:#f3f8f5!important}
+.invoice-v10>.modalfoot,.invoice-detail-v113>.modalfoot{flex:0 0 42px!important;min-height:42px!important;padding:5px 9px!important;background:#fff!important}
+.invoice-v10>.modalfoot .btn,.invoice-detail-v113>.modalfoot .btn{height:30px!important}
+.form-section-v08,.detailsection{margin:0 0 6px!important;padding:6px!important;border-color:var(--erp-line)!important;border-radius:5px!important;background:#fff!important;overflow:hidden!important}
+.section-title-v08,.detailsection h4{min-height:27px!important;margin:-6px -6px 6px!important;padding:4px 7px!important;background:#e8f3ec!important;border-bottom:1px solid var(--erp-line)!important;color:var(--erp-green-950)!important}
+.compact-fields-v10{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(135px,1fr))!important;gap:5px!important;align-items:end!important}
+.compact-fields-v10 label,.grid-v10 label{min-width:0!important;font-size:9px!important}.compact-fields-v10 input,.compact-fields-v10 select,.grid-v10 input,.grid-v10 select{width:100%!important;min-width:0!important;height:29px!important;min-height:29px!important;margin-top:2px!important;padding:0 6px!important;font-size:10.5px!important;border-radius:4px!important}
+.note-label-v10{margin-top:5px!important;font-size:9px!important}.note-label-v10 textarea{min-height:38px!important;max-height:90px!important;margin-top:2px!important;padding:5px!important;font-size:10px!important;resize:vertical!important}
+.invoice-lines-section{padding:0!important}.invoice-lines-section>.section-title-v08{margin:0!important;padding:4px 7px!important}.line-table-scroll{width:100%!important;max-width:100%!important;overflow:auto!important;background:#fff!important}
+.linegrid.v10{
+  width:100%!important;min-width:1540px!important;grid-template-columns:100px 84px minmax(255px,1fr) 78px 78px 108px 78px 68px 195px 185px 175px 118px 34px!important;
+  gap:4px!important;padding:4px 5px!important;align-items:center!important;background:#fff!important;border-bottom:1px solid var(--erp-line)!important
+}
+.line-table-scroll>.linegrid.v10{position:sticky!important;top:0!important;z-index:2!important;background:var(--erp-green-800)!important}
+.line-table-scroll>.linegrid.v10 .head{min-width:0!important;padding:0 4px!important;color:#fff!important;font-size:9px!important;font-weight:700!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+#lineRows .line:nth-child(even) .linegrid.v10{background:var(--erp-zebra)!important}#lineRows .line:hover .linegrid.v10{background:var(--erp-hover)!important}
+.linegrid.v10 input,.linegrid.v10 select,.line-total-v08{width:100%!important;min-width:0!important;height:29px!important;min-height:29px!important;margin:0!important;padding:0 5px!important;border:1px solid var(--erp-line-strong)!important;border-radius:4px!important;background:#fff!important;font-size:10px!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.linegrid.v10 .li-account-input{color:var(--erp-green-900)!important;font-weight:800!important}.linegrid.v10 .li-subkonto{color:#6e4515!important;font-weight:650!important}.linegrid.v10 select:disabled{color:#84958c!important;background:#edf2ef!important}.line-total-v08{display:flex!important;align-items:center!important;justify-content:flex-end!important;font-variant-numeric:tabular-nums!important;font-weight:750!important;white-space:nowrap!important}
+.totals{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important;margin-top:6px!important}.totalbox{min-width:0!important;padding:7px 8px!important;border-color:var(--erp-line)!important;border-radius:5px!important}.totalbox strong{display:block!important;overflow:hidden!important;white-space:nowrap!important;text-overflow:ellipsis!important;font-size:12px!important}.totalbox.highlight{background:#e9f6ef!important}
+.grid-v10{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))!important;gap:5px!important}
+.invoice-detail-lines{width:100%!important;min-width:1180px!important;table-layout:fixed!important;border-collapse:separate!important;border-spacing:0!important}
+.invoice-detail-lines th:nth-child(1){width:105px}.invoice-detail-lines th:nth-child(2){width:75px}.invoice-detail-lines th:nth-child(3){width:28%}.invoice-detail-lines th:nth-child(4){width:120px}.invoice-detail-lines th:nth-child(5),.invoice-detail-lines th:nth-child(6),.invoice-detail-lines th:nth-child(9){width:125px}.invoice-detail-lines th:nth-child(7){width:105px}.invoice-detail-lines th:nth-child(8){width:19%}
+.invoice-detail-lines th{height:31px!important;padding:5px 7px!important;background:var(--erp-green-800)!important;color:#fff!important;border-right:1px solid rgba(255,255,255,.15)!important;font-size:9.5px!important;text-transform:none!important}
+.invoice-detail-lines td{height:41px!important;max-width:0!important;padding:5px 7px!important;overflow:hidden!important;white-space:nowrap!important;text-overflow:ellipsis!important;border-right:1px solid #e4ede7!important;border-bottom:1px solid #dbe8e0!important;font-size:10.5px!important}.invoice-detail-lines tbody tr:nth-child(even)>td{background:var(--erp-zebra)!important}
+
+/* Dashboard and master-data screens. */
+#dashboardWorkspace{padding:10px 12px!important}.dashboard-grid{gap:8px!important;margin-bottom:8px!important}.dashboard-card{padding:12px!important;border-color:var(--erp-line)!important;border-radius:7px!important;box-shadow:none!important}.dashboard-card strong{font-size:18px!important}.dashboard-columns{gap:8px!important}.dashboard-table{min-width:620px!important}.dashboard-bank-table{min-width:0!important}.dashboard-bank-table th:first-child{width:70%!important}.dashboard-bank-table th:last-child{width:30%!important;text-align:right!important}.dashboard-bank-table td:last-child{text-align:right!important;font-weight:750!important;font-variant-numeric:tabular-nums!important}.reference-table{min-width:960px!important}.reference-tabs{margin-bottom:5px!important;overflow-x:auto!important;overflow-y:hidden!important}.reference-tab{height:30px!important;white-space:nowrap!important}
+
+/* DBC remains 1C-like while matching the application palette. */
+.dbc-v182-card{width:calc(100vw - 12px)!important;height:calc(100vh - 12px)!important;max-width:none!important;max-height:none!important;border-color:#739483!important;box-shadow:var(--erp-shadow)!important}
+.dbc-v182-titlebar{min-height:44px!important;background:linear-gradient(#f9fcfa,#dcece3)!important}.dbc-v182-body{gap:4px!important;padding:4px!important}.dbc-v182-toolbar{min-height:39px!important;padding:3px 5px!important}.dbc-v182-toolbar input,.dbc-v182-toolbar select,.dbc-v182-toolbar .btn{height:27px!important;font-size:10.5px!important}.dbc-v182-table{min-width:1000px!important;font-size:11px!important}.dbc-v182-table th,.dbc-v182-table td{height:28px!important;padding:3px 7px!important}.dbc-v182-table thead th{font-size:10.5px!important}.dbc-v182-table tbody tr:nth-child(even)>td{background:var(--erp-zebra)!important}.dbc-v182-table tbody tr:hover>td{background:var(--erp-hover)!important}.dbc-v182-code{min-width:66px!important;font-size:10px!important;font-weight:800!important}.dbc-v182-row-name{display:inline-block!important;max-width:calc(100% - 98px)!important;overflow:hidden!important;white-space:nowrap!important;text-overflow:ellipsis!important}.dbc-v182-parent td:first-child small{display:block!important;margin:1px 0 0 91px!important;color:var(--erp-muted)!important;font-size:8.5px!important}.dbc-v182-detail table{min-width:900px!important;font-size:10px!important}.dbc-v182-detail th,.dbc-v182-detail td{height:25px!important;max-width:none!important}
+
+.work-tabs{height:28px!important;flex:0 0 28px!important;padding:2px 6px 0!important;background:#e7f1eb!important;border-top:1px solid var(--erp-line-strong)!important}.work-tab{height:26px!important;max-width:205px!important;padding:0 8px!important;border-color:var(--erp-line-strong)!important;border-radius:4px 4px 0 0!important;font-size:9.5px!important}.work-tab.active{color:var(--erp-green-900)!important;box-shadow:inset 0 2px var(--erp-green-700)!important}
+
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--erp-focus)!important;outline-offset:1px!important}
+
+@media(max-width:1100px){
+  .brand{width:124px!important;flex-basis:124px!important}.brandsub{display:none!important}.switch{display:none!important}.navitem{padding:0 11px!important}
+  .sidefoot{display:none!important}.toprow{grid-template-columns:minmax(120px,180px) minmax(220px,1fr) auto!important}
+  #invoiceWorkspace>.filters{grid-template-columns:minmax(190px,1fr) 102px 128px 112px 112px auto!important}#filterReviewOnly{display:none!important}
+}
+
+@media(max-width:760px){
+  .sidebar{height:48px!important;flex-basis:48px!important}.brand{width:92px!important;height:48px!important;flex-basis:92px!important;padding:6px 8px!important}.brandlogo{width:32px!important;height:32px!important}.brandname{font-size:13px!important}.brand>div:last-child .brandsub{display:none!important}
+  .navitem{height:48px!important;padding:0 9px!important;font-size:10px!important}.navitem i{display:none!important}
+  .toprow{height:40px!important;grid-template-columns:minmax(0,1fr) auto!important;padding:0 8px!important}.breadcrumb{display:none!important}.profile>div:not(.pavatar){display:none!important}.search{height:29px!important}
+  #invoiceWorkspace>.filters{display:flex!important;flex:0 0 38px!important;overflow-x:auto!important;overflow-y:hidden!important;align-items:end!important}
+  #invoiceWorkspace>.filters>.field{flex:0 0 118px!important}#invoiceWorkspace>.filters>.field:first-child{flex-basis:220px!important}#filterReviewOnly{display:none!important}.invoice-filter-actions{flex:0 0 auto!important}
+  .registry-table{min-width:1180px!important}.invoice-v10,.invoice-detail-v113{width:calc(100vw - 6px)!important;height:calc(100vh - 6px)!important}
+  .compact-fields-v10{grid-template-columns:repeat(2,minmax(130px,1fr))!important}.totals{grid-template-columns:repeat(2,minmax(0,1fr))!important}.modalfoot>.muted{display:none!important}.modalfoot .actions{overflow-x:auto!important;flex-wrap:nowrap!important}
+  .dbc-v182-title-copy p{display:none!important}.dbc-v182-toolbar{overflow-x:auto!important;align-items:end!important}.dbc-v182-toolbar label{flex:0 0 132px!important}.dbc-v182-toolbar .dbc-v182-account-filter{flex-basis:300px!important}
+}
+
+/* v1.14.1 screen-density and column-allocation correction.
+   These rules explicitly neutralize legacy layout decisions that were still
+   affecting the current desktop workspace. */
+.titlebar,.top{display:none!important}
+.sidebar{height:48px!important;flex-basis:48px!important}
+.brand{height:48px!important;flex-basis:150px!important;width:150px!important;padding:5px 10px!important}
+.brandlogo{height:32px!important;width:32px!important}.brandname{font-size:15px!important}.brandsub{font-size:7px!important}
+.switch{height:38px!important;margin:5px 6px!important}.navitem{height:48px!important;padding:0 12px!important}.sidefoot{height:48px!important;padding:4px 7px!important}
+.workspace{padding:4px 6px!important}
+
+/* One compact, non-wrapping invoice command strip. */
+#invoiceWorkspace>.filters{
+  display:flex!important;flex:0 0 36px!important;min-height:36px!important;align-items:flex-end!important;
+  gap:4px!important;margin:0 0 4px!important;padding:2px 3px!important;overflow-x:auto!important;overflow-y:hidden!important
+}
+#invoiceWorkspace>.filters>.field{display:flex!important;flex:0 0 auto!important;min-width:0!important}
+#invoiceWorkspace>.filters>.field:first-child{flex:1 1 340px!important;min-width:220px!important}
+#invoiceWorkspace>.filters>.field:nth-child(2){display:flex!important;flex-basis:112px!important}
+#invoiceWorkspace>.filters>.field:nth-child(3){flex-basis:140px!important}
+#invoiceWorkspace>.filters>.field:nth-child(4),#invoiceWorkspace>.filters>.field:nth-child(5){flex-basis:125px!important}
+#invoiceWorkspace>.filters input,#invoiceWorkspace>.filters select,#invoiceWorkspace>.filters .btn{height:25px!important;min-height:25px!important}
+#filterReviewOnly{display:inline-flex!important;flex:0 0 28px!important;width:28px!important}
+.invoice-filter-actions{flex:0 0 auto!important}.invoice-filter-actions .btn{height:25px!important;min-height:25px!important}
+
+/* The panel grows only while records require the space. A short register no
+   longer draws a large empty bordered rectangle to the bottom of the screen. */
+#invoiceWorkspace:not(.hidden){display:flex!important;flex-direction:column!important}
+#invoiceWorkspace>.registry-panel{display:flex!important;flex:0 1 auto!important;flex-direction:column!important;max-height:calc(100% - 40px)!important}
+#invoiceWorkspace>.registry-panel>.tablewrap{flex:0 1 auto!important;max-height:calc(100vh - 178px)!important;background:var(--erp-canvas)!important}
+
+/* Every invoice column owns an explicit part of the grid. */
+.registry-table{width:100%!important;min-width:1180px!important;table-layout:fixed!important}
+.registry-table .col-select{width:2.2%!important}.registry-table .col-date{width:7%!important}.registry-table .col-no{width:11%!important}.registry-table .col-cp{width:24.8%!important}.registry-table .col-type{width:7%!important}.registry-table .col-money{width:12%!important}.registry-table .col-payment{width:13.5%!important}.registry-table .col-account{width:8%!important}.registry-table .col-status{width:9%!important}.registry-table .col-actions{width:5.5%!important}
+.registry-table .action-cell{display:table-cell!important;width:auto!important;padding:3px!important;text-align:center!important;white-space:nowrap!important}
+.registry-table .action-cell .rowbtn{display:inline-flex!important;align-items:center!important;justify-content:center!important;margin:0 1px!important}
+
+/* Master-data pages use deterministic colgroups supplied by the renderer. */
+#referenceWorkspace:not(.hidden){display:flex!important;flex-direction:column!important;overflow:hidden!important}
+#referenceWorkspace>.pagehead{flex:0 0 48px!important;min-height:48px!important;margin:0!important;padding:2px 3px!important;align-items:center!important}
+#referenceWorkspace>.pagehead .eyebrow{display:none!important}#referenceWorkspace>.pagehead h1{font-size:17px!important}#referenceWorkspace>.pagehead p{font-size:9.5px!important;margin-top:1px!important}
+#referenceWorkspace>.reference-tabs{flex:0 0 31px!important;min-height:31px!important;margin:0 0 4px!important}
+#referenceWorkspace>.registry-panel{display:flex!important;flex:1 1 auto!important;min-height:0!important;flex-direction:column!important}
+#referenceWorkspace>.registry-panel>.tablewrap{flex:1 1 auto!important;min-height:0!important;background:var(--erp-canvas)!important}
+.reference-table{width:100%!important;min-width:900px!important;table-layout:fixed!important}
+.reference-table tr[data-reference-id],.reference-table tr[data-reference-code]{cursor:default!important}
+.reference-table tr.reference-selected>td,.reference-table tr:focus>td{background:var(--erp-selected)!important;box-shadow:inset 0 1px #9bc8ae,inset 0 -1px #9bc8ae!important}
+.reference-table tr.reference-selected>td:first-child,.reference-table tr:focus>td:first-child{box-shadow:inset 4px 0 var(--erp-green-700),inset 0 1px #9bc8ae,inset 0 -1px #9bc8ae!important}
+
+@media(max-width:1100px){
+  .brand{width:108px!important;flex-basis:108px!important}.brand>div:last-child .brandsub{display:none!important}.switch{display:none!important}.sidefoot{display:none!important}
+  #invoiceWorkspace>.filters{overflow-x:auto!important}#invoiceWorkspace>.filters>.field:first-child{flex:1 0 220px!important}
+}
+@media(max-width:760px){
+  .sidebar{height:44px!important;flex-basis:44px!important}.brand{height:44px!important}.navitem{height:44px!important}
+  #invoiceWorkspace>.filters{flex-basis:36px!important;min-height:36px!important}
+}

@@ -1,0 +1,4 @@
+/* Meyar ERP v1.16.0 — unobtrusive update state */
+.update-status{width:100%;min-height:34px;margin:0 0 8px;border:1px solid #bbdccb;border-radius:7px;background:#effaf4;color:#16613e;font:700 11px var(--sans);display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer}
+.update-status:hover{background:#e4f6ec;border-color:#7fc19e}.update-status:disabled{cursor:wait;opacity:.82}.update-status.ready{background:#087a49;border-color:#087a49;color:#fff}.update-status.ready:hover{background:#06643c}.update-status.hidden{display:none!important}
+@media(max-width:900px){.update-status span{display:none}.update-status{width:36px;margin:0 auto 8px}}

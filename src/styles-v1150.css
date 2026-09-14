@@ -1,0 +1,77 @@
+/* Meyar ERP v1.15.0 — monthly VAT reconciliation workspace */
+#vatWorkspace{
+  --vat-green:#087a4b;
+  --vat-green-dark:#075c3b;
+  --vat-green-soft:#eaf6f0;
+  --vat-mint:#f5faf7;
+  --vat-border:#cbded3;
+  --vat-text:#10271d;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  min-height:0;
+  overflow:hidden;
+  padding:10px 12px 8px;
+  background:#f3f8f5;
+}
+#vatWorkspace.hidden{display:none!important}
+.vat-commandbar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:48px;padding:0 2px}
+.vat-heading{min-width:0}.vat-heading .eyebrow{margin-bottom:2px;color:var(--vat-green)}
+.vat-heading h1{margin:0;color:var(--vat-text);font:700 20px var(--serif);line-height:1.08}
+.vat-heading p{margin:2px 0 0;color:#65766d;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vat-actions{display:flex;align-items:flex-end;justify-content:flex-end;gap:5px;flex-wrap:wrap}
+.vat-actions .field{width:132px}.vat-actions .field input{height:30px;border-color:#9fbbae;background:#fff}
+.vat-actions .btn{height:30px;border-color:#9fbbae}.vat-actions .btn.primary{background:var(--vat-green);border-color:var(--vat-green-dark)}
+.vat-actions .btn.primary:hover{background:var(--vat-green-dark)}
+.vat-summary{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.vat-summary-card{position:relative;min-width:0;height:55px;padding:8px 10px 7px;background:#fff;border:1px solid var(--vat-border);border-radius:6px;overflow:hidden}
+.vat-summary-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#9aaca2}
+.vat-summary-card.input::before,.vat-summary-card.carry::before{background:#0b8a55}
+.vat-summary-card.output::before,.vat-summary-card.payable::before{background:#c2622c}
+.vat-summary-card.offset::before{background:#26799c}
+.vat-summary-card span{display:block;color:#6b7d73;font-size:8px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vat-summary-card strong{display:block;margin-top:5px;color:var(--vat-text);font:750 13px var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vat-summary-card.payable{background:#fffaf6}.vat-summary-card.carry{background:#f5fbf8}
+.vat-register{display:flex;flex:1;flex-direction:column;min-height:0;border-color:var(--vat-border);border-radius:7px;box-shadow:0 2px 10px rgba(20,70,47,.06)}
+.vat-register-top{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:35px;padding:3px 8px;background:#fff;border-bottom:1px solid var(--vat-border)}
+.vat-tabs{display:flex;align-items:center;gap:2px;min-width:0;overflow-x:auto}
+.vat-tabs button{height:27px;padding:0 10px;border:0;border-radius:4px;background:transparent;color:#607169;font-size:9px;font-weight:800;white-space:nowrap}
+.vat-tabs button:hover{background:var(--vat-mint);color:var(--vat-green-dark)}
+.vat-tabs button.active{background:var(--vat-green-soft);color:var(--vat-green-dark);box-shadow:inset 0 -2px var(--vat-green)}
+.vat-tabs b{display:inline-grid;min-width:18px;height:17px;margin-left:4px;padding:0 4px;place-items:center;border-radius:9px;background:#dcebe3;color:#466255;font:700 8px var(--mono)}
+.vat-header-right{display:flex;align-items:center;gap:12px;flex:0 0 auto}.vat-pager{display:flex;align-items:center;gap:5px;color:#687a70;font:700 8px var(--mono)}.vat-pager .rowbtn{height:23px;min-width:25px;padding:0 5px}.vat-pager .rowbtn:disabled{cursor:default;opacity:.4}
+.vat-period-state{display:flex;align-items:center;gap:6px;flex:0 0 auto;color:#4c6759;font-size:9px;font-weight:800}
+.vat-period-state span{width:7px;height:7px;border-radius:50%;background:#17a568;box-shadow:0 0 0 3px #e2f4eb}
+.vat-period-state.closed{color:#8a5d12}.vat-period-state.closed span{background:#d59a2f;box-shadow:0 0 0 3px #fff2d7}
+.vat-health{min-height:24px;padding:5px 9px;background:var(--vat-mint);border-bottom:1px solid var(--vat-border);color:#5d7066;font-size:8.5px}
+.vat-health.error{color:#a62a2a;background:#fff4f4}.vat-health.ok{color:#176642}
+.vat-tablewrap{flex:1;min-height:0;overflow:auto;background:#fff}
+.vat-table{width:100%!important;min-width:1120px!important;table-layout:fixed!important;border-collapse:separate!important;border-spacing:0!important;font-size:10px}
+.vat-table th{position:sticky;top:0;z-index:2;height:31px;padding:6px 8px;background:var(--vat-green-dark);border:0;border-right:1px solid rgba(255,255,255,.16);color:#fff;font-size:7.5px;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap}
+.vat-table td{height:39px;padding:5px 8px;border:0;border-right:1px solid #dfebe4;border-bottom:1px solid #d6e5dc;color:#183027;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vat-table tbody tr:nth-child(odd) td{background:#fff}.vat-table tbody tr:nth-child(even) td{background:#f4f9f6}
+.vat-table tbody tr:hover td{background:#e7f4ed}.vat-table tbody tr.vat-selected td{background:#d9eee3;box-shadow:inset 0 1px #a8cfba,inset 0 -1px #a8cfba}
+.vat-table .vat-main{display:block;overflow:hidden;text-overflow:ellipsis;font-weight:750;color:#10271d}
+.vat-table .vat-sub{display:block;margin-top:2px;overflow:hidden;text-overflow:ellipsis;color:#6a7c72;font-size:8px}
+.vat-table .vat-money{text-align:right;font:700 9px var(--mono);font-variant-numeric:tabular-nums}
+.vat-table .vat-money.positive{color:#087a4b}.vat-table .vat-money.warning{color:#a94f1d}
+.vat-table .vat-status{display:inline-flex;max-width:100%;padding:3px 6px;border:1px solid #b7d6c5;border-radius:10px;background:#edf8f2;color:#096941;font-size:8px;font-weight:800;overflow:hidden;text-overflow:ellipsis}
+.vat-table .vat-status.waiting{border-color:#efca98;background:#fff6e8;color:#99500e}
+.vat-table .vat-status.blocked{border-color:#d5d9dc;background:#f3f4f5;color:#5d6570}
+.vat-table .vat-row-action{height:25px;padding:0 7px;border:1px solid #9fbbae;border-radius:4px;background:#fff;color:#176642;font-size:8px;font-weight:800}
+.vat-table .vat-row-action:hover{border-color:var(--vat-green);background:var(--vat-green-soft)}
+.vat-empty{padding:42px 16px!important;text-align:center!important;color:#6b7d73!important;background:#fff!important}
+.vat-modalcard{width:min(940px,calc(100vw - 32px))}
+.vat-modalcard .modalhead{background:var(--vat-green-dark);border-bottom-color:#76b795}
+.vat-modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.vat-modal-grid .full{grid-column:1/-1}
+.vat-modal-grid label{font-size:9px;font-weight:750;color:#445c50}.vat-modal-grid input,.vat-modal-grid select,.vat-modal-grid textarea{width:100%;min-height:34px;margin-top:5px;padding:6px 8px;border:1px solid #a9bfb3;border-radius:4px;background:#fff;font-size:10px}
+.vat-modal-grid textarea{min-height:58px;resize:vertical}.vat-payment-list{margin-top:10px;border:1px solid var(--vat-border);border-radius:5px;background:#fff;overflow:hidden}
+.vat-payment-row{display:grid;grid-template-columns:88px minmax(180px,1fr) 100px 94px auto;gap:8px;align-items:center;padding:7px 9px;border-bottom:1px solid #dfeae4;font-size:9px}.vat-payment-row:last-child{border-bottom:0}
+.vat-payment-row strong,.vat-payment-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vat-payment-row .amount{font-size:9px}
+.vat-candidate-list{max-height:230px;overflow:auto;border:1px solid var(--vat-border);border-radius:5px;background:#fff}
+.vat-candidate{display:grid;grid-template-columns:18px 82px minmax(180px,1fr) 110px;gap:8px;align-items:center;padding:7px 9px;border-bottom:1px solid #dfeae4;font-size:9px}.vat-candidate:last-child{border-bottom:0}.vat-candidate:hover{background:var(--vat-mint)}
+.vat-candidate span,.vat-candidate strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vat-candidate .amount{text-align:right;font-size:9px}
+.vat-form-note{padding:8px 10px;border:1px solid #cbded3;border-radius:4px;background:#f5faf7;color:#4c6759;font-size:9px;line-height:1.5}
+.vat-danger{color:#a62a2a!important;border-color:#e0b2b2!important}
+@media(max-width:1180px){.vat-commandbar{align-items:flex-start}.vat-heading p{display:none}.vat-summary{grid-template-columns:repeat(3,1fr)}.vat-summary-card{height:50px}}
+@media(max-width:850px){#vatWorkspace{padding:8px}.vat-commandbar{display:block}.vat-actions{justify-content:flex-start;margin-top:7px}.vat-summary{grid-template-columns:repeat(2,1fr)}.vat-modal-grid{grid-template-columns:1fr}.vat-modal-grid .full{grid-column:auto}.vat-payment-row{grid-template-columns:80px 1fr 90px}.vat-payment-row>*:nth-child(4){display:none}}

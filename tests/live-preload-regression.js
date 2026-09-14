@@ -1,0 +1,10 @@
+'use strict';
+const fs=require('fs');
+const path=require('path');
+const s=fs.readFileSync(path.join(__dirname,'..','live-preload.js'),'utf8');
+if(!s.includes("const invoke = (channel, ...args) => ipcRenderer.invoke(channel, ...args);")) throw new Error('IPC invoke wrapper missing.');
+if(!s.includes("invoke('invoice:live:navigate', 'AUTO')")) throw new Error('Live navigation button no longer invokes IPC directly.');
+if(!s.includes("invoke('invoice:live:import')")) throw new Error('Live import button no longer invokes IPC directly.');
+if(/window\.meyarLiveTax\.(goToInvoices|importNow)/.test(s)) throw new Error('Buttons still depend on the page main-world bridge.');
+if(!s.includes('contextBridge.exposeInMainWorld')) throw new Error('Compatibility bridge missing.');
+console.log('live-preload-regression: PASS');
