@@ -2,6 +2,7 @@
 
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const { removeTemporaryDirectory } = require('./test-filesystem');
 const os = require('node:os');
 const path = require('node:path');
 const packageJson = require('../package.json');
@@ -51,5 +52,5 @@ try {
   assert.match(workflow, /npm test/);
   console.log('safe Windows installer and auto-update v1.16.0: OK');
 } finally {
-  fs.rmSync(root, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
+  removeTemporaryDirectory(root);
 }

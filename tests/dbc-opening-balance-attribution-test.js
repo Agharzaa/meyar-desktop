@@ -23,6 +23,7 @@
 
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const { removeTemporaryDirectory } = require('./test-filesystem');
 const os = require('node:os');
 const path = require('node:path');
 const vm = require('node:vm');
@@ -111,5 +112,5 @@ try{
 
   console.log('dbc opening balance attribution: OK');
 } finally {
-  fs.rmSync(tempRoot,{recursive:true,force:true,maxRetries:10,retryDelay:100});
+  removeTemporaryDirectory(tempRoot);
 }

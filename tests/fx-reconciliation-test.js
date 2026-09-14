@@ -7,6 +7,7 @@
 // nets to zero once a foreign-currency invoice is fully paid.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const { removeTemporaryDirectory } = require('./test-filesystem');
 const os = require('node:os');
 const path = require('node:path');
 const vm = require('node:vm');
@@ -71,5 +72,5 @@ assert.equal(fxLossLine.debit, 100, 'FX loss must equal amount*(paymentRate-invo
 const bankLine = lines.find(l => l.account_code === '223.01');
 assert.equal(bankLine.credit, 1800, 'Bank line must reflect the actual cash paid at the payment rate (1.80)');
 
-fs.rmSync(tempRoot, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
+removeTemporaryDirectory(tempRoot);
 console.log('FX reconciliation regression: OK');

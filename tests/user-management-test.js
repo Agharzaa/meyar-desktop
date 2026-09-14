@@ -9,6 +9,7 @@
 // and the last active admin of a company cannot be deactivated.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const { removeTemporaryDirectory } = require('./test-filesystem');
 const os = require('node:os');
 const path = require('node:path');
 const vm = require('node:vm');
@@ -91,7 +92,7 @@ async function run() {
   await call('users:setActive', { id: staffId, active: false });
   await assert.rejects(() => call('auth:login', { companyId, username: 'aysel.mammadova', password: 'staffpass123' }), /yanlışdır/);
 
-  fs.rmSync(tempRoot, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
+  removeTemporaryDirectory(tempRoot);
   console.log('user management regression: OK');
 }
 
