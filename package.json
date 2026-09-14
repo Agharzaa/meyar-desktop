@@ -1,6 +1,6 @@
 {
   "name": "meyar-erp-desktop",
-  "version": "1.16.0",
+  "version": "1.17.0",
   "author": "Ağarza Ağalarov",
   "copyright": "Copyright © 2026 Ağarza Ağalarov",
   "description": "Meyar ERP Desktop — automatic double-entry accounting, inventory, DVX e-invoices, monthly VAT reconciliation and safe in-app updates",
@@ -14,7 +14,7 @@
     "test-dvx-two-direction": "node tests/dvx-two-direction-test.js",
     "test-renderer": "node tests/renderer-syntax.js",
     "test-direction": "node tests/direction-regression.js",
-    "test": "npm run check && npm run test-renderer && node tests/ui-structure-v160-test.js && node tests/ui-density-v1141-test.js && node tests/import-direction-v170-test.js && npm run test-live-preload && npm run test-live-data && npm run test-direction && node tests/dvx-direction-deep-regression.js && node tests/live-import-handler-regression.js && npm run test-preload-contract && npm run test-company && npm run test-import-format && node tests/core-v160-regression.js && node tests/accounting-engine-v180-test.js && node tests/v180-system-regression.js && node tests/ui-isolation-v181-test.js && node tests/dbc-ui-v182-test.js && node tests/accounting-core-v112-test.js && node tests/fx-reconciliation-test.js && node tests/user-management-test.js && node tests/dbc-opening-balance-attribution-test.js && node tests/accounting-professional-v113-test.js && node tests/idempotent-sync-v1142-test.js && node tests/code-integrity-v1143-test.js && node tests/vat-reconciliation-v1150-test.js && node tests/auto-update-v1160-test.js",
+    "test": "npm run check && npm run test-renderer && node tests/ui-structure-v160-test.js && node tests/ui-density-v1141-test.js && node tests/ui-professional-v1170-test.js && node tests/import-direction-v170-test.js && npm run test-live-preload && npm run test-live-data && npm run test-direction && node tests/dvx-direction-deep-regression.js && node tests/live-import-handler-regression.js && npm run test-preload-contract && npm run test-company && npm run test-import-format && node tests/core-v160-regression.js && node tests/accounting-engine-v180-test.js && node tests/v180-system-regression.js && node tests/ui-isolation-v181-test.js && node tests/dbc-ui-v182-test.js && node tests/accounting-core-v112-test.js && node tests/fx-reconciliation-test.js && node tests/user-management-test.js && node tests/dbc-opening-balance-attribution-test.js && node tests/accounting-professional-v113-test.js && node tests/idempotent-sync-v1142-test.js && node tests/code-integrity-v1143-test.js && node tests/vat-reconciliation-v1150-test.js && node tests/auto-update-v1160-test.js",
     "test-company": "node tests/company-isolation-test.js && node tests/auth-ui-test.js",
     "test-live-preload": "node tests/live-preload-regression.js",
     "test-preload-contract": "node tests/preload-contract-test.js",

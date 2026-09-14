@@ -25,7 +25,7 @@ try {
   const result = snapshotSqliteData({
     sourceRoot: dataRoot,
     backupRoot,
-    targetVersion: '1.16.0',
+    targetVersion: '1.17.0',
     checkpoint: () => { checkpointed = true; },
     keepBackups: 5
   });
@@ -41,7 +41,7 @@ try {
   const preload = fs.readFileSync(path.join(__dirname, '..', 'preload.js'), 'utf8');
   const html = fs.readFileSync(path.join(__dirname, '..', 'src', 'index.html'), 'utf8');
   const workflow = fs.readFileSync(path.join(__dirname, '..', '.github', 'workflows', 'windows-release.yml'), 'utf8');
-  assert.equal(packageJson.version, '1.16.0');
+  assert.equal(packageJson.version, '1.17.0');
   assert.equal(packageJson.dependencies['electron-updater'], '6.8.9');
   assert.equal(packageJson.build.nsis.deleteAppDataOnUninstall, false);
   assert.match(main, /createPreUpdateBackup/);
@@ -50,7 +50,7 @@ try {
   assert.match(html, /id="updateStatus"/);
   assert.match(workflow, /runs-on: windows-latest/);
   assert.match(workflow, /npm test/);
-  console.log('safe Windows installer and auto-update v1.16.0: OK');
+  console.log('safe Windows installer and auto-update v1.17.0: OK');
 } finally {
   removeTemporaryDirectory(root);
 }

@@ -15,7 +15,7 @@ const preloadSource=fs.readFileSync(path.join(projectRoot,'preload.js'),'utf8');
 
 assert.match(rendererSource,/id="vatWorkspace"/,'Aylıq ƏDV üçün ayrıca daxili iş sahəsi olmalıdır');
 assert.match(rendererSource,/id="navVat"/,'Aylıq ƏDV modul keçidi olmalıdır');
-assert.match(rendererSource,/APP_VERSION='1\.16\.0'/);
+assert.match(rendererSource,/APP_VERSION='1\.17\.0'/);
 assert.match(vatUiSource,/pageSize=200/,'Böyük aylıq registr DOM-da səhifələnməlidir');
 assert.match(preloadSource,/vat:\s*\{/,'ƏDV IPC körpüsü ayrıca namespace olmalıdır');
 for(const channel of ['vat:report','vat:refresh','vat:candidates','vat:allocate','vat:unallocate','vat:setTreatment','vat:addAdjustment','vat:deleteAdjustment','vat:close','vat:reopen','vat:integrity','vat:export']){

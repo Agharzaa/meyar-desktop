@@ -1,8 +1,8 @@
-# MEYAR ERP Desktop — v1.16.0 Installed Windows Application
+# MEYAR ERP Desktop — v1.17.0 Installed Windows Application
 
-## v1.16.0 quraşdırma və avtomatik yeniləmə
+## v1.17.0 quraşdırma və avtomatik yeniləmə
 
-- `MEYAR-ERP-Setup-1.16.0.exe` Windows x64-də proqramı Start menyusuna və masaüstünə quraşdırır.
+- `MEYAR-ERP-Setup-1.17.0.exe` Windows x64-də proqramı Start menyusuna və masaüstünə quraşdırır.
 - Quraşdırılmış proqram yeni versiyanı avtomatik yoxlayır, arxa planda endirir və çıxış zamanı tətbiq edir.
 - Yenilənmədən əvvəl açıq SQLite bazalarında WAL checkpoint icra olunur və bütün şirkət bazaları ayrıca ehtiyatlanır.
 - Ehtiyat faylları SHA-256 ilə doğrulanır; backup uğursuzdursa update quraşdırılmır.
