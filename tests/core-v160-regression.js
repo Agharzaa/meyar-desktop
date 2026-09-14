@@ -174,7 +174,14 @@ const migratedSecondVoen = invoice('Gedən', 'LEG-1', '6666666666');
 assert.ok(migratedSecondVoen.id, 'Miqrasiyadan sonra fərqli VÖEN eyni nömrəni istifadə edə bilməlidir');
 
 api.closeDatabasesForExit();
-fs.rmSync(tempRoot, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
+try {
+  fs.rmSync(tempRoot, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
+} catch (error) {
+  const windowsRunnerLock = process.platform === 'win32'
+    && ['EPERM', 'EBUSY', 'ENOTEMPTY'].includes(error.code);
+  if (!windowsRunnerLock) throw error;
+  console.warn(`Windows test runner müvəqqəti qovluğu kilidli saxladı: ${tempRoot}`);
+}
 console.log('core v1.7.0 regression: OK');
 }
 
