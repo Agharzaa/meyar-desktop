@@ -11,6 +11,13 @@ const {
   resolvePosting,
   valueInventoryMovements
 } = require('./lib/accounting-engine');
+const {
+  copyVerifiedFile,
+  initializeAppUpdater,
+  markUpdateHealthy,
+  recoverPendingUpdateData,
+  snapshotSqliteData
+} = require('./lib/app-updater');
 
 let db = null;
 let masterDb = null;
@@ -21,7 +28,6 @@ let liveTaxWindow = null;
 let liveTaxDirection = 'Gələn';
 
 const DB_SCHEMA_VERSION = 211;
-const APP_RELEASE = '1.16.0';
 const MAX_IMPORT_FILE_BYTES = 100 * 1024 * 1024;
 
 const nowIso = () => new Date().toISOString();
@@ -48,6 +54,10 @@ function dataRoot() {
   const dir = path.join(app.getPath('userData'), 'data');
   fs.mkdirSync(dir, { recursive: true });
   return dir;
+}
+
+function updateStateFile() {
+  return path.join(app.getPath('userData'), 'update-state.json');
 }
 
 function masterDatabaseFile() { return path.join(dataRoot(), 'system', 'registry.sqlite'); }
@@ -191,7 +201,6 @@ function checkpointAccountingDatabases() {
 }
 
 function createPreUpdateBackup(targetVersion) {
-  const { snapshotSqliteData } = require('./lib/app-updater');
   return snapshotSqliteData({
     sourceRoot: dataRoot(),
     backupRoot: path.join(app.getPath('userData'), 'update-backups'),
@@ -201,37 +210,61 @@ function createPreUpdateBackup(targetVersion) {
   });
 }
 
-function closeDatabasesForExit() {
+function closeDatabasesForExit(event) {
+  if (event?.defaultPrevented) return;
   if (db) { try { db.close(); } catch (_) {} db = null; }
   if (masterDb) { try { masterDb.close(); } catch (_) {} masterDb = null; }
   activeCompany = null;
   activeUser = null;
 }
 
+function restoreMigrationBackup(databasePath, backupPath) {
+  const token = `${Date.now()}-${process.pid}`;
+  const temporaryPath = `${databasePath}.restore-${token}.tmp`;
+  const failedPath = `${databasePath}.migration-failed-${token}`;
+  copyVerifiedFile(backupPath, temporaryPath);
+  for (const suffix of ['-wal', '-shm']) {
+    try { fs.rmSync(`${databasePath}${suffix}`, { force: true }); } catch (_) {}
+  }
+  if (fs.existsSync(databasePath)) fs.renameSync(databasePath, failedPath);
+  try {
+    fs.renameSync(temporaryPath, databasePath);
+    return failedPath;
+  } catch (error) {
+    try { fs.rmSync(temporaryPath, { force: true }); } catch (_) {}
+    if (fs.existsSync(failedPath) && !fs.existsSync(databasePath)) fs.renameSync(failedPath, databasePath);
+    throw error;
+  }
+}
+
 function initDb(dbPath = databaseFile(), options = {}) {
   let currentSchemaVersion = 0;
+  let migrationBackupPath = '';
   if (fs.existsSync(dbPath)) {
     try {
       const probe = new DatabaseSync(dbPath);
       currentSchemaVersion = Number(probe.prepare(`PRAGMA user_version`).get()?.user_version || 0);
+      probe.exec('PRAGMA wal_checkpoint(FULL)');
       probe.close();
     } catch (_) {}
   }
   if (fs.existsSync(dbPath) && options.backupExisting && currentSchemaVersion < DB_SCHEMA_VERSION) {
-    try {
-      const stat = fs.statSync(dbPath);
-      if (stat.size > 0) {
-        const backupDir = path.join(path.dirname(dbPath), 'backups');
-        fs.mkdirSync(backupDir, { recursive: true });
-        const stamp = new Date().toISOString().replace(/[:.]/g,'-');
-        fs.copyFileSync(dbPath, path.join(backupDir, `meyar-erp-pre-migration-${stamp}.sqlite`));
+    const stat = fs.statSync(dbPath);
+    if (stat.size > 0) {
+      const backupDir = path.join(path.dirname(dbPath), 'backups');
+      fs.mkdirSync(backupDir, { recursive: true });
+      const stamp = new Date().toISOString().replace(/[:.]/g,'-');
+      migrationBackupPath = path.join(backupDir, `meyar-erp-pre-migration-${stamp}.sqlite`);
+      try {
+        copyVerifiedFile(dbPath, migrationBackupPath);
+      } catch (backupError) {
+        throw new Error(`Baza migrasiyası dayandırıldı: təhlükəsiz ehtiyat yaradıla bilmədi. ${backupError.message}`);
       }
-    } catch (backupError) {
-      console.warn('MEYAR DB backup skipped:', backupError.message);
     }
   }
-  db = new DatabaseSync(dbPath);
-  db.exec(`
+  try {
+    db = new DatabaseSync(dbPath);
+    db.exec(`
     PRAGMA foreign_keys = ON;
     PRAGMA journal_mode = WAL;
     PRAGMA synchronous = NORMAL;
@@ -1091,9 +1124,21 @@ function initDb(dbPath = databaseFile(), options = {}) {
     console.warn('MEYAR: aktiv qaimə jurnalı unikallığı yaradıla bilmədi:', indexError.message);
   }
 
-  db.exec(`PRAGMA user_version=${DB_SCHEMA_VERSION}`);
+    db.exec(`PRAGMA user_version=${DB_SCHEMA_VERSION}`);
 
-  // New company bases start clean: no demo counterparties or fake invoices are inserted.
+    // New company bases start clean: no demo counterparties or fake invoices are inserted.
+  } catch (migrationError) {
+    if (db) { try { db.close(); } catch (_) {} db = null; }
+    if (migrationBackupPath) {
+      try {
+        restoreMigrationBackup(dbPath, migrationBackupPath);
+      } catch (restoreError) {
+        throw new Error(`Baza migrasiyası və avtomatik bərpa alınmadı: ${migrationError.message}. Bərpa xətası: ${restoreError.message}`);
+      }
+      throw new Error(`Baza migrasiyası alınmadı və əvvəlki baza avtomatik bərpa edildi: ${migrationError.message}`);
+    }
+    throw migrationError;
+  }
 }
 
 function seedInvoice(x) {
@@ -4307,7 +4352,7 @@ async function dvxPreparePackage(invoiceId) {
   const itemXml=invoice.items.map((item,index)=>`    <Item line="${index+1}"><Code>${xmlEscape(item.item_code)}</Code><Description>${xmlEscape(item.description)}</Description><Quantity>${Number(item.qty||0).toFixed(4)}</Quantity><Unit>${xmlEscape(item.unit)}</Unit><UnitPrice>${Number(item.unit_price||0).toFixed(2)}</UnitPrice><BaseAmount>${Number(item.base_amount||0).toFixed(2)}</BaseAmount><VatRate>${Number(item.vat_rate||0).toFixed(2)}</VatRate><VatAmount>${Number(item.vat_amount||0).toFixed(2)}</VatAmount><TotalAmount>${Number(item.total_amount||0).toFixed(2)}</TotalAmount></Item>`).join('\n');
   const xml=`<?xml version="1.0" encoding="UTF-8"?>\n<MeyarEInvoice version="1.0">\n  <Header><InvoiceNumber>${xmlEscape(invoice.invoice_no)}</InvoiceNumber><InvoiceDate>${xmlEscape(invoice.invoice_date)}</InvoiceDate><Direction>Gedən</Direction><Currency>${xmlEscape(invoice.currency)}</Currency></Header>\n  <Counterparty><Name>${xmlEscape(invoice.counterparty_name)}</Name><Voen>${xmlEscape(invoice.voen)}</Voen></Counterparty>\n  <Amounts><Base>${Number(invoice.base_amount||0).toFixed(2)}</Base><Vat>${Number(invoice.vat_amount||0).toFixed(2)}</Vat><Total>${Number(invoice.total_amount||0).toFixed(2)}</Total></Amounts>\n  <Items>\n${itemXml}\n  </Items>\n  <Note>${xmlEscape(invoice.note||'')}</Note>\n</MeyarEInvoice>\n`;
   const xmlBytes=Buffer.concat([Buffer.from([0xef,0xbb,0xbf]),Buffer.from(xml,'utf8')]),xmlHash=crypto.createHash('sha256').update(xmlBytes).digest('hex');
-  const manifest=`Manifest-Version: 1.0\nCreated-By: Meyar ERP ${APP_RELEASE}\nInvoice-No: ${invoice.invoice_no}\nInvoice-SHA256: ${xmlHash}\n`;
+  const manifest=`Manifest-Version: 1.0\nCreated-By: Meyar ERP ${app.getVersion()}\nInvoice-No: ${invoice.invoice_no}\nInvoice-SHA256: ${xmlHash}\n`;
   const zip=zipBuffer([{name:'invoice.xml',data:xmlBytes},{name:'vhf-inf/vhf.mf',data:manifest}]);
   const safeNo=String(invoice.invoice_no).replace(/[^A-Za-z0-9ƏÖÜĞÇŞİəöüğçşı._-]+/g,'_').slice(0,80)||`invoice-${invoice.id}`;
   const packageDir=path.join(path.dirname(databaseFile()),'dvx-packages');fs.mkdirSync(packageDir,{recursive:true});
@@ -4647,7 +4692,11 @@ function createWindow() {
   mainWindow.webContents.setWindowOpenHandler(()=>({action:'deny'}));
   mainWindow.webContents.on('will-navigate',(event,url)=>{if(!String(url).startsWith('file:'))event.preventDefault();});
   mainWindow.once('ready-to-show',()=>mainWindow.show());
-  mainWindow.webContents.on('did-finish-load',()=>{ if(!mainWindow.isDestroyed()) mainWindow.webContents.send('invoice:refresh',{resource:'all'}); });
+  mainWindow.webContents.on('did-finish-load',()=>{
+    if(!mainWindow.isDestroyed()) mainWindow.webContents.send('invoice:refresh',{resource:'all'});
+    try { markUpdateHealthy(updateStateFile(), app.getVersion()); }
+    catch (error) { console.warn('MEYAR update journal could not be finalized:', error.message); }
+  });
   mainWindow.on('closed',()=>{mainWindow=null;});
   mainWindow.loadFile(path.join(__dirname,'src','index.html'),{query:{invoiceDirection:'Gələn'}});
   return mainWindow;
@@ -4659,17 +4708,34 @@ app.whenReady().then(()=>{
     registerAuthIpc();
     registerIpc();
     createWindow();
-    const { initializeAppUpdater } = require('./lib/app-updater');
     initializeAppUpdater({
       app,
       ipcMain,
       getWindow: () => mainWindow,
-      createBackup: createPreUpdateBackup
+      createBackup: createPreUpdateBackup,
+      stateFile: updateStateFile(),
+      logFile: path.join(app.getPath('userData'), 'logs', 'updater.log'),
+      onInstallBlocked: message => {
+        if (!mainWindow || mainWindow.isDestroyed()) createWindow();
+        dialog.showErrorBox('Yenilənmə təhlükəsizlik səbəbi ilə dayandırıldı', String(message || 'Baza ehtiyatı yaradıla bilmədi.'));
+      }
     });
     app.on('activate',()=>{if(BrowserWindow.getAllWindows().length===0)createWindow();});
   } catch (err) {
     console.error('MEYAR ERP startup error:', err);
-    dialog.showErrorBox('MEYAR ERP açıla bilmədi', String(err?.message || err));
+    closeDatabasesForExit();
+    let recoveryMessage = '';
+    try {
+      const recovery = recoverPendingUpdateData({
+        stateFile: updateStateFile(),
+        currentVersion: app.getVersion(),
+        destinationRoot: dataRoot()
+      });
+      if (recovery.recovered) recoveryMessage = '\n\nYenilənmədən əvvəlki məlumat bazaları avtomatik bərpa edildi.';
+    } catch (recoveryError) {
+      recoveryMessage = `\n\nAvtomatik məlumat bərpası da alınmadı: ${recoveryError.message}`;
+    }
+    dialog.showErrorBox('MEYAR ERP açıla bilmədi', `${String(err?.message || err)}${recoveryMessage}`);
     app.quit();
   }
 });

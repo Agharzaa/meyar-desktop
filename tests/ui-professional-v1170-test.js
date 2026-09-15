@@ -42,4 +42,4 @@ assert.match(css, /@media \(max-width: 1280px\)/);
 assert.match(css, /@media \(max-width: 900px\)/);
 assert.match(css, /@media \(max-width: 640px\)/);
 
-console.log('professional UI v1.17.0: OK');
+console.log('professional UI v1.17.1: OK');

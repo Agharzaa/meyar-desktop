@@ -31,6 +31,13 @@ jobs:
         with:
           node-version: "24.x"
 
+      - name: Validate monotonic release version
+        shell: pwsh
+        run: npm run validate-release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MEYAR_VALIDATE_AGAINST_LATEST: ${{ github.ref == 'refs/heads/main' || inputs.publish == true }}
+
       - name: Install locked project dependencies
         shell: pwsh
         run: npm ci --no-audit --no-fund
@@ -50,6 +57,8 @@ jobs:
         run: npm run release:win
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CSC_LINK: ${{ secrets.WINDOWS_CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_CSC_KEY_PASSWORD }}
 
       - name: Upload Setup.exe and update metadata
         uses: actions/upload-artifact@v4

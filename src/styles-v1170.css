@@ -1,5 +1,5 @@
 /*
- * MEYAR ERP v1.17.0
+ * MEYAR ERP v1.17.1
  * Authoritative professional UI contract.
  *
  * This file is loaded last. It replaces the historical density patches with
@@ -314,6 +314,26 @@ textarea:focus-visible,
 
 .update-status span {
   display: none !important;
+}
+
+.update-status.error {
+  color: #9f2d20 !important;
+  background: #fff4f2 !important;
+  border-color: #e8a59d !important;
+}
+
+.update-status.error:hover {
+  color: #7f1d1d !important;
+  background: #fee2e2 !important;
+  border-color: #d9776a !important;
+}
+
+.update-status.busy i {
+  animation: update-status-spin .9s linear infinite !important;
+}
+
+@keyframes update-status-spin {
+  to { transform: rotate(360deg); }
 }
 
 .main {
@@ -1854,8 +1874,19 @@ textarea:focus-visible,
 }
 
 @media (max-width: 1280px) {
-  .switch,
+  .switch {
+    display: none !important;
+  }
+
   .sidefoot {
+    display: flex !important;
+    width: 44px !important;
+    flex-basis: 44px !important;
+    padding-right: 6px !important;
+    padding-left: 6px !important;
+  }
+
+  .sidefoot .sync {
     display: none !important;
   }
 

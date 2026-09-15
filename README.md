@@ -1,13 +1,16 @@
-# MEYAR ERP Desktop — v1.17.0 Installed Windows Application
+# MEYAR ERP Desktop — v1.17.1 Installed Windows Application
 
-## v1.17.0 quraşdırma və avtomatik yeniləmə
+## v1.17.1 quraşdırma və avtomatik yeniləmə
 
-- `MEYAR-ERP-Setup-1.17.0.exe` Windows x64-də proqramı Start menyusuna və masaüstünə quraşdırır.
+- `MEYAR-ERP-Setup-1.17.1.exe` Windows x64-də proqramı Start menyusuna və masaüstünə quraşdırır.
 - Quraşdırılmış proqram yeni versiyanı avtomatik yoxlayır, arxa planda endirir və çıxış zamanı tətbiq edir.
-- Yenilənmədən əvvəl açıq SQLite bazalarında WAL checkpoint icra olunur və bütün şirkət bazaları ayrıca ehtiyatlanır.
-- Ehtiyat faylları SHA-256 ilə doğrulanır; backup uğursuzdursa update quraşdırılmır.
+- Yenilənmə endiriləndə deyil, proqramın faktiki bağlanma anında SQLite WAL checkpoint icra olunur və bütün şirkət bazalarının ən son vəziyyəti ayrıca ehtiyatlanır.
+- Ehtiyat faylları hissə-hissə SHA-256 ilə doğrulanır, disk sahəsi əvvəlcədən yoxlanılır və natamam backup atomik şəkildə təmizlənir; backup uğursuzdursa proqram bağlanmır və update quraşdırılmır.
+- Yenilənmə jurnalı saxlanılır; yeni versiya başlanğıcda açıla bilməzsə, yoxlanılmış update snapshot-u əsasında şirkət bazaları avtomatik bərpa edilir.
+- Schema migrasiyası yalnız ayrıca checksum-lu baza backup-u uğurla yaradıldıqdan sonra işləyir və migration xətasında əvvəlki baza avtomatik qaytarılır.
 - Məlumat bazası tətbiqdən ayrı `userData/data` qovluğundadır və update/uninstall zamanı silinmir.
 - GitHub Windows build-i yalnız bütün regresiya testləri keçəndən sonra installer və update metadata yaradır.
+- `WINDOWS_CSC_LINK` və `WINDOWS_CSC_KEY_PASSWORD` repository secrets təqdim ediləndə eyni pipeline installer-i avtomatik rəqəmsal imzalayır; sertifikat olmadıqda build prosesi dayanmayaraq imzasız paket yaradır.
 
 Developer rejimi:
 

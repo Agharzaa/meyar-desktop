@@ -11,7 +11,7 @@ const css = fs.readFileSync(path.join(root, 'src', 'styles-v182.css'), 'utf8');
 
 assert.match(html, /styles-v182\.css/);
 assert.match(html, /dbc-v182\.js/);
-assert.match(html, /APP_VERSION='1\.17\.0'/);
+assert.match(html, /APP_VERSION='1\.17\.1'/);
 assert.match(script, /Dövrün əvvəlinə qalıq/);
 assert.match(script, /Dövr ərzində dövriyyə/);
 assert.match(script, /Dövrün sonuna qalıq/);

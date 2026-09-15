@@ -23,4 +23,4 @@ assert.match(css,/#invoiceWorkspace > \.registry-panel,[\s\S]*flex: 1 1 auto !im
 assert.match(css,/\.reference-table,[\s\S]*width: 100% !important[\s\S]*table-layout: fixed !important/,'Master-data colgroups require fixed table layout');
 assert.match(css,/\.reference-table tbody tr\.reference-selected > td/,'Master-data row selection must be visible');
 
-console.log('UI density v1.17.0: OK');
+console.log('UI density v1.17.1: OK');
