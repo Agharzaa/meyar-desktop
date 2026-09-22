@@ -9,7 +9,7 @@ const html=fs.readFileSync(path.join(root,'src','index.html'),'utf8');
 const css=fs.readFileSync(path.join(root,'src','styles-v1170.css'),'utf8');
 const main=fs.readFileSync(path.join(root,'main.js'),'utf8');
 
-assert.match(html,/APP_VERSION='1\.17\.1'/);
+assert.match(html,/APP_VERSION='1\.17\.2'/);
 assert.doesNotMatch(html,/href="\.\/styles-v170\.css"/,'Legacy v1.7 stylesheet must not be loaded with the new UI');
 assert.doesNotMatch(html,/href="\.\/styles-v181\.css"/,'Historical UI patch must not compete with the authoritative stylesheet');
 assert.match(html,/href="\.\/styles-v1170\.css"/);

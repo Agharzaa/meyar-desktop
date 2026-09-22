@@ -20,7 +20,7 @@ assert.equal(compareVersions('1.17.1', '1.17.0'), 1);
 assert.equal(compareVersions('1.17.1', '1.17.1'), 0);
 assert.equal(compareVersions('1.16.9', '1.17.0'), -1);
 assert.throws(() => parseStableVersion('1.17'), /formatı düzgün deyil/);
-assert.equal(validateLocalVersion(projectRoot), '1.17.1');
+assert.equal(validateLocalVersion(projectRoot), require('../package.json').version);
 
 assert.match(workflow, /Validate monotonic release version/);
 assert.match(workflow, /MEYAR_VALIDATE_AGAINST_LATEST/);

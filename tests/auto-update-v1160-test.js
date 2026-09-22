@@ -72,7 +72,7 @@ try {
   const preload = fs.readFileSync(path.join(__dirname, '..', 'preload.js'), 'utf8');
   const html = fs.readFileSync(path.join(__dirname, '..', 'src', 'index.html'), 'utf8');
   const workflow = fs.readFileSync(path.join(__dirname, '..', '.github', 'workflows', 'windows-release.yml'), 'utf8');
-  assert.equal(packageJson.version, '1.17.1');
+  assert.match(packageJson.version, /^\d+\.\d+\.\d+$/);
   assert.equal(packageJson.dependencies['electron-updater'], '6.8.9');
   assert.equal(packageJson.build.nsis.deleteAppDataOnUninstall, false);
   assert.match(main, /createPreUpdateBackup/);

@@ -14,7 +14,7 @@ assert.doesNotMatch(html, /<(?:link|script)[^>]+https?:\/\//i, 'Əsas UI xarici 
 for (const id of ['dashboardWorkspace','invoiceWorkspace','bankWorkspace','taxWorkspace','referenceWorkspace','navDashboard','navReference','helpBtn','modalRoot','toastRoot','workTabs']) {
   assert.match(html, new RegExp(`id=["']${id}["']`), `${id} UI elementi mövcud olmalıdır`);
 }
-assert.match(html, /const APP_VERSION='1\.17\.1'/);
+assert.match(html, /const APP_VERSION='1\.17\.2'/);
 assert.doesNotMatch(html, /href="\.\/styles-v170\.css"/);
 assert.match(html, /styles-v180\.css/);
 assert.doesNotMatch(html, /href="\.\/styles-v181\.css"/);

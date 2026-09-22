@@ -1,4 +1,12 @@
-# MEYAR ERP Desktop — v1.17.1 Installed Windows Application
+# MEYAR ERP Desktop — v1.17.2 Installed Windows Application
+
+## v1.17.2 bank çıxarışı idxalı
+
+- Bank bölməsində hesab seçimi, **Çıxarış əlavə et** və **Hesab əlavə et** düymələri filtrlərdən ayrı, görünən paneldədir.
+- Bank hesabı yoxdursa, çıxarış əlavə etmək düyməsi hesab yaratma pəncərəsini açır. Çıxarışdakı IBAN və valyutanı daxil edib hesabı saxlayın, sonra çıxarışı seçin.
+- PAŞA Bank XLSX çıxarışlarının başlıqdan əvvəlki boş və məlumat sətirləri düzgün oxunur. İcra tarixi, ödəyən/benefisiar və istinad nömrəsi saxlanılır.
+- Açılış/son qalıqları və dövriyyə yekunları əməliyyat kimi idxal edilmir. Fayldakı IBAN seçilmiş hesabla yoxlanılır.
+- Hər faylı ayrıca seçin. Təkrar idxal və **Yenilə** artıq mövcud əməliyyatları təkrarlamır; mədaxil və məxaric uyğun bölmələrdə görünür.
 
 ## v1.17.1 quraşdırma və avtomatik yeniləmə
 
