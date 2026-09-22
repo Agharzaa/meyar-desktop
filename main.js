@@ -3649,7 +3649,7 @@ function detectLiveTaxDirection(meta={}, preferred='') {
 }
 
 function normalizeImportText(v='') {
-  return String(v||'').toLowerCase().replace(/ə/g,'e').replace(/ı/g,'i')
+  return String(v||'').toLowerCase().replace(/\u0307/g,'').replace(/ə/g,'e').replace(/ı/g,'i')
     .replace(/ö/g,'o').replace(/ü/g,'u').replace(/ğ/g,'g')
     .replace(/ç/g,'c').replace(/ş/g,'s').replace(/[^a-z0-9]+/g,' ').trim();
 }
@@ -4011,6 +4011,16 @@ function findImportHeaderRow(matrix=[]) {
   return -1;
 }
 
+function findBankHeaderRow(matrix=[]) {
+  for(let index=0;index<Math.min(matrix.length,60);index++){
+    const cells=(matrix[index]||[]).map(normalizeImportText);
+    const hasDate=cells.some(x=>['transaction date','emeliyyat tarixi','tarix','date','operation date'].includes(x));
+    const hasMoney=cells.some(x=>['amount','mebleg','debit','debet','mexaric','credit','kredit','medaxil'].includes(x));
+    if(hasDate&&hasMoney)return index;
+  }
+  return -1;
+}
+
 function resolveImportDirectionEvidence({fileName='',sheetName='',titleText='',records=[]}={}) {
   const stats={incoming:0,outgoing:0,unknown:0};
   for (const row of records) {
@@ -4103,7 +4113,8 @@ function recordsFromDelimitedMatrix(matrix,headerRow) {
   }).filter(record=>Object.values(record).some(value=>String(value).trim()!==''));
 }
 
-function readImportRecords(filePath) {
+function readImportRecords(filePath,{kind='invoice'}={}) {
+  const findHeader=kind==='bank'?findBankHeaderRow:findImportHeaderRow;
   const fileStat=fs.statSync(filePath);
   if(!fileStat.isFile())throw new Error('İdxal mənbəyi adi fayl deyil.');
   if(fileStat.size>MAX_IMPORT_FILE_BYTES)throw new Error('İdxal faylı 100 MB limitini keçir. Faylı hissələrə bölün.');
@@ -4127,11 +4138,11 @@ function readImportRecords(filePath) {
     const text=fs.readFileSync(filePath,'utf8');
     const separator=detectDelimitedSeparator(text,ext);
     const matrix=parseDelimitedMatrix(text,separator);
-    const headerRow=findImportHeaderRow(matrix);
+    const headerRow=findHeader(matrix);
     const titleLimit=headerRow>=0?headerRow:Math.min(matrix.length,15);
     const titleText=matrix.slice(0,titleLimit).flat().map(value=>String(value||'').trim()).filter(Boolean).join(' ');
     const records=recordsFromDelimitedMatrix(matrix,headerRow);
-    return {records,meta:resolveImportDirectionEvidence({fileName,titleText,records})};
+    return {records,meta:{...resolveImportDirectionEvidence({fileName,titleText,records}),titleText}};
   }
   let XLSX;
   try { XLSX=require('xlsx'); } catch (_) { throw new Error('XLSX oxuma modulu quraşdırılmayıb. Layihə qovluğunda npm install icra edin.'); }
@@ -4139,13 +4150,13 @@ function readImportRecords(filePath) {
   const sheetName=workbook.SheetNames[0];
   if(!sheetName) return {records:[],meta:resolveImportDirectionEvidence({fileName})};
   const sheet=workbook.Sheets[sheetName];
-  const matrix=XLSX.utils.sheet_to_json(sheet,{header:1,defval:'',raw:false,dateNF:'yyyy-mm-dd'});
-  const headerRow=findImportHeaderRow(matrix);
+  const matrix=XLSX.utils.sheet_to_json(sheet,{header:1,range:0,defval:'',raw:false,dateNF:'yyyy-mm-dd'});
+  const headerRow=findHeader(matrix);
   const titleLimit=headerRow>=0?headerRow:Math.min(matrix.length,15);
   const titleText=matrix.slice(0,titleLimit).flat().map(v=>String(v||'').trim()).filter(Boolean).join(' ');
   const records=XLSX.utils.sheet_to_json(sheet,{range:headerRow>=0?headerRow:0,defval:'',raw:false,dateNF:'yyyy-mm-dd'})
     .filter(row=>Object.values(row).some(value=>String(value??'').trim()!==''));
-  return {records,meta:resolveImportDirectionEvidence({fileName,sheetName,titleText,records})};
+  return {records,meta:{...resolveImportDirectionEvidence({fileName,sheetName,titleText,records}),titleText}};
 }
 
 async function chooseAndImportInvoiceFile(direction='Gələn') {
@@ -4242,20 +4253,46 @@ function bankRecordFromRaw(raw,fileName='') {
   const value=(keys)=>pick(raw,keys);
   return {
     date:normalizeDateValue(value(['transaction_date','Əməliyyat tarixi','Tarix','Date','Operation date'])),
-    value_date:normalizeDateValue(value(['value_date','Valyuta tarixi','Dəyər tarixi','Value date'])),
+    value_date:normalizeDateValue(value(['value_date','İcra tarixi','Valyuta tarixi','Dəyər tarixi','Value date'])),
     direction:value(['direction','İstiqamət','Əməliyyat növü','Type']),
     amount:value(['amount','Məbləğ','Amount']),
     debit:value(['debit','Debet','Məxaric','Çıxış']),
     credit:value(['credit','Kredit','Mədaxil','Daxilolma']),
     currency:value(['currency','Valyuta','Currency']),
-    counterparty_name:value(['counterparty_name','Kontragent','Qarşı tərəf','Benefisiar','Ödəyici','Ad']),
+    counterparty_name:value(['counterparty_name','Ödəyən/Benefisiar','Kontragent','Qarşı tərəf','Benefisiar','Ödəyici','Ad']),
     counterparty_voen:value(['counterparty_voen','VÖEN','VOEN','TIN']),
     description:value(['description','Təyinat','Ödənişin təyinatı','Açıqlama','Purpose']),
-    reference:value(['reference','Referans','Sənəd №','Document no','Tranzaksiya №']),
+    reference:value(['reference','İstinad No','Referans','Sənəd №','Document no','Tranzaksiya №']),
     external_id:value(['external_id','Əməliyyat ID','Transaction ID','Tranzaksiya ID']),
     balance_after:value(['balance_after','Son qalıq','Balans','Balance']),
     source:`bank-file:${fileName}`
   };
+}
+
+function readBankImportRecords(filePath,accountId){
+  const account=db.prepare('SELECT iban FROM bank_accounts WHERE id=? AND active=1').get(Number(accountId));
+  if(!account)throw new Error('Əvvəlcə aktiv bank hesabı seçin.');
+  const parsed=readImportRecords(filePath,{kind:'bank'});
+  const statementIban=String(parsed.meta.titleText||'').match(/\bAZ\d{2}[A-Z0-9]{24}\b/i)?.[0]?.toUpperCase();
+  const selectedIban=String(account.iban||'').replace(/\s/g,'').toUpperCase();
+  if(statementIban&&statementIban!==selectedIban){
+    throw new Error('Çıxarışın IBAN-ı seçilmiş bank hesabına uyğun deyil. Çıxarışa uyğun hesabı seçin və ya əlavə edin.');
+  }
+  const records=[];
+  for(const raw of parsed.records){
+    // PAŞA statements include opening/closing balances and a bank footer.
+    // Closing debit/credit figures are totals, never transactions.
+    const label=normalizeImportText(pick(raw,['Ödəyən/Benefisiar']));
+    const hasReference=String(pick(raw,['İstinad No'])).trim();
+    const hasPurpose=String(pick(raw,['Təyinat'])).trim();
+    if(!hasReference&&!hasPurpose){
+      if(/^dovrun sonuna balans(?: |$)/.test(label))break;
+      if(/^(dovrun evveline balans|movcud balans)(?: |$)/.test(label))continue;
+    }
+    records.push(bankRecordFromRaw(raw,path.basename(filePath)));
+  }
+  if(!records.length)throw new Error('Seçilmiş bank çıxarışında əməliyyat sətri tapılmadı.');
+  return records;
 }
 
 async function chooseAndImportBankFile(accountId) {
@@ -4265,9 +4302,8 @@ async function chooseAndImportBankFile(accountId) {
     {name:'Bütün fayllar',extensions:['*']}
   ]});
   if(picked.canceled||!picked.filePaths[0]) return {cancelled:true};
-  const filePath=picked.filePaths[0],fileName=path.basename(filePath),rawRows=readImportRecords(filePath).records;
-  if(!rawRows.length) throw new Error('Seçilmiş bank çıxarışında məlumat sətri tapılmadı.');
-  const records=rawRows.map(row=>bankRecordFromRaw(row,fileName));
+  const filePath=picked.filePaths[0],fileName=path.basename(filePath);
+  const records=readBankImportRecords(filePath,accountId);
   const result=bankImportRecords(records,Number(accountId));
   saveIntegrationSyncSource('bank',String(Number(accountId)),'file',filePath,result);
   recordIntegrationSyncRun('bank',String(Number(accountId)),'file',records.length,result);
@@ -4285,10 +4321,7 @@ function refreshBankFromConfiguredSource(accountId) {
     return {sourceAvailable:false,sourceKind:'file',accountId:normalizedAccountId,created:0,duplicates:0,skippedExisting:0,failed:0,message:'Əvvəlki bank çıxarışı faylı artıq həmin ünvanda deyil.'};
   }
   const sourceFilePath=configuredSource.source_path;
-  const sourceFileName=path.basename(sourceFilePath);
-  const rawRecords=readImportRecords(sourceFilePath).records;
-  if(!rawRecords.length) throw new Error('Sinxronizasiya mənbəyində bank əməliyyatı tapılmadı.');
-  const normalizedRecords=rawRecords.map(record=>bankRecordFromRaw(record,sourceFileName));
+  const normalizedRecords=readBankImportRecords(sourceFilePath,normalizedAccountId);
   const result=bankImportRecords(normalizedRecords,normalizedAccountId);
   saveIntegrationSyncSource('bank',String(normalizedAccountId),'file',sourceFilePath,result);
   recordIntegrationSyncRun('bank',String(normalizedAccountId),'file',normalizedRecords.length,result);

@@ -497,6 +497,27 @@ textarea:focus-visible,
   opacity: 1 !important;
 }
 
+/* Keep import and account setup visible independently of registry filters. */
+#bankWorkspace > .bank-actions {
+  display: flex !important;
+  flex: 0 0 auto !important;
+  flex-wrap: wrap !important;
+  align-items: flex-end !important;
+  gap: 7px !important;
+  padding: 7px !important;
+  margin-bottom: 6px !important;
+  background: var(--ui-surface) !important;
+  border: 1px solid var(--ui-border) !important;
+  border-radius: 6px !important;
+}
+#bankActions > .bank-account-selector {
+  display: flex !important;
+  flex: 1 1 240px !important;
+  min-width: 180px !important;
+}
+#bankActions select { width: 100% !important; min-width: 0 !important; }
+#bankActions > .btn { flex: 0 0 auto !important; white-space: nowrap !important; }
+
 /* Compact command strips: controls stay on one line and scroll on small screens. */
 #invoiceWorkspace > .filters,
 #bankWorkspace > .bank-toolbar {
